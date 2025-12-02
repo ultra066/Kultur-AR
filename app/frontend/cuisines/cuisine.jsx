@@ -53,7 +53,7 @@ export default function CuisinesScreen() {
     <TouchableOpacity 
       style={styles.card} 
       // You can add navigation to a "Details" page later
-      onPress={() => console.log("Clicked:", item.name)} 
+      onPress={() => router.push(`/frontend/cuisines/${item.id}`)} 
     >
       <Image 
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
