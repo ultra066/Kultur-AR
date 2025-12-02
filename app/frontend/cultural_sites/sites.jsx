@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
-// 1. Import Supabase Client (Adjust path if needed)
+// 1. Import Supabase Client (Ensure path is correct)
 import { supabase } from '../../../lib/database/supabase';
 // 2. Import Styles
 import { styles } from './sites_styles';
@@ -30,11 +30,10 @@ export default function CulturalSitesScreen() {
   const fetchSites = async () => {
     try {
       setLoading(true);
-      // 'sites' MUST match your actual table name in Supabase
       const { data, error } = await supabase
         .from('sites') 
         .select('*')
-        .order('name', { ascending: true }); // Sort Alphabetically
+        .order('name', { ascending: true });
 
       if (error) throw error;
       
@@ -52,8 +51,9 @@ export default function CulturalSitesScreen() {
   const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.card} 
-      // You can add navigation to a "Details" page later
-      onPress={() => console.log("Clicked:", item.name)} 
+      // === UPDATED NAVIGATION LOGIC ===
+      // This sends the user to app/frontend/cultural_sites/[id].jsx
+      onPress={() => router.push(`/frontend/cultural_sites/${item.id}`)} 
     >
       <Image 
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
@@ -64,7 +64,6 @@ export default function CulturalSitesScreen() {
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
         <View style={styles.locationContainer}>
           <Ionicons name="location-sharp" size={12} color="#6DA047" />
-          {/* Display City if available, otherwise Province */}
           <Text style={styles.cardLocation} numberOfLines={1}>
             {item.city || item.province}
           </Text>
@@ -96,11 +95,10 @@ export default function CulturalSitesScreen() {
           data={sites}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          numColumns={2} // Creates the Grid Layout
-          columnWrapperStyle={{ justifyContent: 'space-between' }} // Spacing between columns
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
-          // Empty State (If database is empty)
           ListEmptyComponent={
             <Text style={{textAlign:'center', marginTop: 50, color:'#888'}}>
               No sites found in the database.
