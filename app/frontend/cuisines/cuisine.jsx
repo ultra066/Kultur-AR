@@ -66,7 +66,7 @@ export default function CuisinesScreen() {
           <Ionicons name="location-sharp" size={12} color="#6DA047" />
           {/* Display City if available, otherwise Province */}
           <Text style={styles.cardLocation} numberOfLines={1}>
-            {item.city || item.province}
+            {item.city_origin || item.province}
           </Text>
         </View>
       </View>
