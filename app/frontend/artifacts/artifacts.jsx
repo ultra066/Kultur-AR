@@ -52,8 +52,7 @@ export default function ArtifactsScreen() {
   const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.card} 
-      // You can add navigation to a "Details" page later
-      onPress={() => console.log("Clicked:", item.name)} 
+      onPress={() => router.push(`/frontend/artifacts/${item.id}`)} 
     >
       <Image 
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
@@ -62,6 +61,12 @@ export default function ArtifactsScreen() {
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
+        <View style={styles.locationContainer}>
+          <Ionicons name="location-sharp" size={12} color="#6DA047" />
+          <Text style={styles.cardLocation} numberOfLines={1}>
+            {item.current_location}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

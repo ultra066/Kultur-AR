@@ -53,7 +53,7 @@ export default function CuisinesScreen() {
     <TouchableOpacity 
       style={styles.card} 
       // You can add navigation to a "Details" page later
-      onPress={() => console.log("Clicked:", item.name)} 
+      onPress={() => router.push(`/frontend/cuisines/${item.id}`)} 
     >
       <Image 
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
@@ -66,7 +66,7 @@ export default function CuisinesScreen() {
           <Ionicons name="location-sharp" size={12} color="#6DA047" />
           {/* Display City if available, otherwise Province */}
           <Text style={styles.cardLocation} numberOfLines={1}>
-            {item.city || item.province}
+            {item.city_origin || item.province}
           </Text>
         </View>
       </View>
