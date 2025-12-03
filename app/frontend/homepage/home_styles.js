@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: 20,
     marginTop: Platform.OS === 'ios' ? 0 : 20,
-    marginBottom: 20,
   },
   greetingSub: {
     fontSize: 16,
@@ -36,12 +35,12 @@ export const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff', // Dark gray
+    backgroundColor: '#fff',
     borderRadius: 12,
     paddingHorizontal: 15,
     paddingVertical: 8,
     marginHorizontal: 20,
-    marginBottom: 25,
+    marginTop: 20,
   },
   searchIcon: {
     marginRight: 10,
@@ -49,7 +48,10 @@ export const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#000', // White text
+    color: '#000',
+  },
+  clearIcon: {
+    marginLeft: 10,
   },
 
   // === MAP GUIDE BANNER ===
@@ -60,6 +62,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
     marginBottom: 30,
+    marginTop: 25,
   },
   mapImage: {
     width: '100%',
@@ -177,6 +180,32 @@ export const styles = StyleSheet.create({
   trailSub: {
     fontSize: 12,
     color: '#888',
+  },
+  // === SEARCH RESULTS ===
+  searchResultsContainer: {
+    paddingHorizontal: 20,
+  },
+  searchResultItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  searchResultTitle: {
+    fontSize: 16,
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  searchResultType: {
+    fontSize: 14,
+    color: '#888',
+  },
+  searchResultCity: {
+    fontSize: 12,
+    color: '#888',
+    marginTop: 4,
   },
 });
 
