@@ -8,33 +8,68 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
-import { useRouter } from 'expo-router';
-import RegionProvinceSelector from '../components/RegionProvinceSelector';
-import CountrySelector from '../components/CountrySelector';
+import { useRouter, useLocalSearchParams } from 'expo-router'; // Updated imports
 import { Ionicons } from '@expo/vector-icons'; 
 
+// 1. Import Supabase
+import { supabase } from '../../../lib/database/supabase';
+import RegionProvinceSelector from '../components/RegionProvinceSelector';
+import CountrySelector from '../components/CountrySelector';
 import { styles } from './signup_location_styles';
 
 export default function SignupLocationScreen() {
   const router = useRouter();
   
+  // 2. Get params passed from previous screens (Name)
+  const params = useLocalSearchParams();
+  const { firstName, lastName } = params;
+
   // State for selection: 'filipino' | 'foreigner' | null
   const [userOrigin, setUserOrigin] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
 
-  // Handlers for "Mock" Dropdowns (Since you asked for selection input, not type)
-  const handleSelectCountry = () => Alert.alert("Selection", "Country list would appear here");
-
-  const handleFinish = () => {
+  // These states would ideally be lifted up from the child components
+  // For now, we assume simple selection just for the profile 'type'
+  
+  // --- 3. HANDLE FINISH (Save Profile) ---
+  const handleFinish = async () => {
     if (!userOrigin) return;
-    
-    if (userOrigin === 'filipino') {
-      // Logic for Filipino flow end
-      console.log("Filipino Setup Complete");
-      router.push('/dashboard'); // Assuming you have a dashboard
-    } else {
-      // Logic for Foreigner flow next step
-      console.log("Foreigner Next Step");
-      router.push('/dashboard'); // Or next foreigner page
+
+    setLoading(true);
+
+    try {
+      // A. Get the current authenticated user (from the OTP step)
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        throw new Error("No authenticated user found. Please log in again.");
+      }
+
+      // B. Update the 'profiles' table
+      // The trigger already created the row, so we just update it.
+      const updates = {
+        id: user.id,
+        first_name: firstName || '',
+        last_name: lastName || '',
+        origin_type: userOrigin,
+        // You can add region/country here if you pass it from the child components
+        updated_at: new Date(),
+      };
+
+      const { error } = await supabase
+        .from('profiles')
+        .upsert(updates);
+
+      if (error) throw error;
+
+      // C. Success! Redirect to Dashboard
+      // Use 'replace' to prevent going back to signup
+      router.replace('/frontend/homepage/home');
+
+    } catch (error) {
+      Alert.alert("Error saving profile", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,9 +133,13 @@ export default function SignupLocationScreen() {
           {/* === DYNAMIC BUTTON === */}
           {/* Only show button if a selection is made */}
           {userOrigin && (
-            <TouchableOpacity style={styles.mainButton} onPress={handleFinish}>
+            <TouchableOpacity 
+              style={[styles.mainButton, loading && { opacity: 0.7 }]} 
+              onPress={handleFinish}
+              disabled={loading}
+            >
               <Text style={styles.mainButtonText}>
-                {userOrigin === 'filipino' ? "GET STARTED" : "Next"}
+                {loading ? "SAVING..." : (userOrigin === 'filipino' ? "GET STARTED" : "Next")}
               </Text>
             </TouchableOpacity>
           )}

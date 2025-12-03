@@ -8,20 +8,28 @@ import {
   Platform,
   ScrollView,
   Alert,
-  Modal // 1. Import Modal
+  Modal 
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router'; // Added useLocalSearchParams
 
+// 1. Import Supabase Client
+import { supabase } from '../../../lib/database/supabase';
 import { styles } from './signup_styles';
 
 export default function SignupEmailScreen() {
   const router = useRouter();
+  
+  // 2. Get data passed from the Name screen
+  const params = useLocalSearchParams();
+  const { firstName, lastName } = params;
+
   const [email, setEmail] = useState('');
   
   // MODAL & OTP STATE
   const [modalVisible, setModalVisible] = useState(false);
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(100);
+  const [loading, setLoading] = useState(false); // Added loading state
 
   // TIMER LOGIC
   useEffect(() => {
@@ -34,31 +42,80 @@ export default function SignupEmailScreen() {
     return () => clearInterval(interval);
   }, [modalVisible, timer]);
 
-  const handleNext = () => {
+  // --- SEND OTP LOGIC ---
+  const handleNext = async () => {
     if (!email.includes('@') || !email.includes('.')) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
       return;
     }
-    // Open the OTP Modal
-    setModalVisible(true);
-    setTimer(100); // Reset timer just in case
+
+    setLoading(true);
+
+    // Send the OTP code via Email
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: { shouldCreateUser: true } 
+    });
+
+    setLoading(false);
+
+    if (error) {
+      Alert.alert("Error sending code", error.message);
+    } else {
+      // Success: Open the OTP Modal
+      setModalVisible(true);
+      setTimer(100); 
+    }
   };
 
-  const handleRetry = () => {
-    setTimer(100);
-    setOtp(''); // Clear input
+  // --- RESEND LOGIC ---
+  const handleRetry = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: { shouldCreateUser: true } 
+    });
+    setLoading(false);
+
+    if (error) {
+       Alert.alert("Error", error.message);
+    } else {
+       setTimer(100);
+       setOtp(''); 
+       Alert.alert("Sent", "New code sent to your email.");
+    }
   };
 
-  const handleVerifyOtp = () => {
+  // --- VERIFY OTP LOGIC ---
+  const handleVerifyOtp = async () => {
     if (otp.length !== 6) {
       Alert.alert("Invalid OTP", "Code must be 6 digits.");
       return;
     }
     
-    setModalVisible(false);
-    
-    // NAVIGATION UPDATE: Point to the new file location
-    router.push('/frontend/login_signup/signup_password');
+    setLoading(true);
+
+    // Check if the code matches
+    const { data, error } = await supabase.auth.verifyOtp({
+      email: email,
+      token: otp,
+      type: 'email',
+    });
+
+    setLoading(false);
+
+    if (error) {
+      Alert.alert("Verification Failed", "Invalid code or expired.");
+    } else {
+      setModalVisible(false);
+      
+      // Success! Go to Password Page
+      // We pass the Name info forward so we can save the full profile later
+      router.push({
+        pathname: '/frontend/login_signup/signup_password',
+        params: { firstName, lastName } 
+      });
+    }
   };
 
   return (
@@ -98,10 +155,13 @@ export default function SignupEmailScreen() {
             </Text>
 
             <TouchableOpacity 
-              style={[styles.nextButton, !email && styles.nextButtonDisabled]}
+              style={[styles.nextButton, (!email || loading) && styles.nextButtonDisabled]}
               onPress={handleNext}
+              disabled={loading}
             >
-              <Text style={styles.nextButtonText}>Next</Text>
+              <Text style={styles.nextButtonText}>
+                {loading ? "Sending..." : "Next"}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.footerLink} onPress={() => router.push('/frontend/login_signup')}>
@@ -160,7 +220,7 @@ export default function SignupEmailScreen() {
             </View>
 
             <Text style={{ textAlign: 'center', paddingHorizontal: 20, marginBottom: 10, color: '#555' }}>
-              We send you email, please check your email and complete the OTP Code
+              We sent you an email, please check your inbox and complete the OTP Code
             </Text>
 
             {/* Timer or Retry Logic */}
@@ -177,11 +237,13 @@ export default function SignupEmailScreen() {
 
             {/* Next Button (Inside Modal) */}
             <TouchableOpacity 
-              style={[styles.nextButton, (otp.length < 6 || timer === 0) && styles.nextButtonDisabled]}
+              style={[styles.nextButton, (otp.length < 6 || loading) && styles.nextButtonDisabled]}
               onPress={handleVerifyOtp}
-              disabled={timer === 0}
+              disabled={loading || timer === 0}
             >
-              <Text style={styles.nextButtonText}>Next</Text>
+              <Text style={styles.nextButtonText}>
+                {loading ? "Verifying..." : "Next"}
+              </Text>
             </TouchableOpacity>
 
           </TouchableOpacity>

@@ -63,10 +63,10 @@ export const SavedTrailsProvider = ({ children }) => {
     if (isCurrentlySaved) {
       // Remove from Supabase
       const { error } = await supabase
-        .from('saved_trails')
+        .from('trails')
         .delete()
         .eq('user_id', user.id)
-        .eq('trail_id', trailId);
+        .eq('id', trailId);
 
       if (error) {
         console.error('Error unsaving trail:', error);

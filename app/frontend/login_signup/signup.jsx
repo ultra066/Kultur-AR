@@ -16,7 +16,9 @@ import { styles } from './signup_styles';
 export default function SignupScreen() {
   const router = useRouter();
   const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [suffix, setSuffix] = useState('');
 
   // VALIDATION FUNCTION
   const handleNext = () => {
@@ -60,6 +62,17 @@ export default function SignupScreen() {
             />
           </View>
 
+          {/* Middle Name Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Middle name (optional)</Text>
+            <TextInput
+              style={styles.input}
+              value={middleName}
+              onChangeText={setMiddleName}
+              autoCapitalize="words"
+            />
+          </View>
+
           {/* Last Name Input (Updated to match Login style) */}
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Last name</Text>
@@ -67,6 +80,17 @@ export default function SignupScreen() {
               style={styles.input}
               value={lastName}
               onChangeText={setLastName}
+              autoCapitalize="words"
+            />
+          </View>
+
+          {/* Suffix Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Suffix (optional)</Text>
+            <TextInput
+              style={styles.input}
+              value={suffix}
+              onChangeText={setSuffix}
               autoCapitalize="words"
             />
           </View>

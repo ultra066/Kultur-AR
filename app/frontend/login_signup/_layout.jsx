@@ -7,7 +7,7 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false }}>
         {/* 'index' refers to index.jsx, which will be our Login screen */}
-        <Stack.Screen name="index" />
+        <Stack.Screen name="login" />
       </Stack>
     </>
   );
