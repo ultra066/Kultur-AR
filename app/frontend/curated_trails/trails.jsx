@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import SavedButton from '../components/savedButton/SavedButton';
 import { useRouter } from 'expo-router';
+import { useSavedItems } from '../components/SavedItemsContext';
 
 // Import Styles
 import { styles } from './_trails_styles';
@@ -76,6 +78,7 @@ const trailsData = [
 export default function CuratedTrailsScreen() {
   const router = useRouter();
   const [search, setSearch] = useState('');
+  const { handleSave, isSaved } = useSavedItems();
 
   // Render Single Card
   const renderCard = ({ item }) => (
@@ -113,7 +116,10 @@ export default function CuratedTrailsScreen() {
         </View>
 
       </View>
-
+        <SavedButton 
+          onPress={() => handleSave({ ...item, type: 'trail' })} 
+          initialState={isSaved(item.id, 'trail')}
+        />
       {/* Circular Explore Button */}
       <View style={styles.exploreButton}>
         <Ionicons name="compass-outline" size={24} color="#333" />

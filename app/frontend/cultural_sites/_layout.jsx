@@ -1,11 +1,14 @@
 import { Stack } from "expo-router";
+import { SavedItemsProvider } from '../components/SavedItemsContext';
 
 export default function CulturalSitesLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,  // Hide the default header
-      }}
-    />
+    <SavedItemsProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,  // Hide the default header
+        }}
+      />
+    </SavedItemsProvider>
   );
 }

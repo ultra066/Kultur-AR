@@ -12,6 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
+import SavedButton from '../components/savedButton/SavedButton';
+
+import { useSavedItems } from '../components/SavedItemsContext';
+
 // 1. Import Supabase Client (Ensure path is correct)
 import { supabase } from '../../../lib/database/supabase';
 // 2. Import Styles
@@ -21,6 +25,7 @@ export default function CulturalSitesScreen() {
   const router = useRouter();
   const [sites, setSites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { handleSave, isSaved } = useSavedItems();
 
   // 3. FETCH DATA ON LOAD
   useEffect(() => {
@@ -47,8 +52,7 @@ export default function CulturalSitesScreen() {
     }
   };
 
-  // 4. RENDER INDIVIDUAL CARD
-  const renderItem = ({ item }) => (
+    const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.card} 
       // === UPDATED NAVIGATION LOGIC ===
@@ -59,6 +63,10 @@ export default function CulturalSitesScreen() {
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
         style={styles.cardImage} 
         resizeMode="cover"
+      />
+      <SavedButton 
+        onPress={() => handleSave({ ...item, type: 'site' })} 
+        initialState={isSaved(item.id, 'site')} 
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>

@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { SavedItemsProvider } from '../components/SavedItemsContext';
 
-export default function CuisinesLayout() {
+export default function CuratedTrailsLayout() {
   return (
     <SavedItemsProvider>
       <Stack
