@@ -116,9 +116,9 @@ export default function CuratedTrailsScreen() {
         </View>
 
       </View>
-        <SavedButton 
-          onPress={() => handleSave({ ...item, type: 'trail' })} 
-          initialState={isSaved(item.id, 'trail')}
+        <SavedButton
+          onPress={() => handleSave({ ...item, type: 'curated_trails' })}
+          initialState={isSaved(item.id, 'curated_trails')}
         />
       {/* Circular Explore Button */}
       <View style={styles.exploreButton}>

@@ -64,9 +64,9 @@ export default function CuisinesScreen() {
         style={styles.cardImage} 
         resizeMode="cover"
       />
-      <SavedButton 
-        onPress={() => handleSave({ ...item, type: 'cuisine' })} 
-        initialState={isSaved(item.id, 'cuisine')} 
+      <SavedButton
+        onPress={() => handleSave({ ...item, type: 'cuisines' })}
+        initialState={isSaved(item.id, 'cuisines')}
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>

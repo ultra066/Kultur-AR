@@ -1,17 +1,63 @@
 import React, { useState } from 'react';
-import { View, Text, SectionList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, SectionList, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { useSavedItems } from '../components/SavedItemsContext';
 import { useSavedTrails } from '../components/SavedTrailsContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { supabase } from '../../../lib/database/supabase'; // Import supabase client for auth check
 
 const TAB_OPTIONS = ['All', 'Sites', 'Cuisines', 'Artifacts', 'Curated_Trails'];
 
 export default function SavedScreen() {
-  const { savedItems } = useSavedItems();
-  const { savedTrails } = useSavedTrails();
+  const { savedItems, loading: loadingItems } = useSavedItems();
+  const { savedTrails, loading: loadingTrails } = useSavedTrails();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState('All');
+  const [user, setUser] = useState(null);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+
+  // Check user authentication status
+  React.useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+      setLoadingAuth(false);
+    };
+
+    checkUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  if (loadingAuth || loadingItems || loadingTrails) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#6DA047" />
+          <Text style={styles.loadingText}>Loading saved items...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!user) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>Please log in to view your saved items.</Text>
+          <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/frontend/login_signup/index')}>
+            <Text style={styles.loginButtonText}>Go to Login</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   // Transform savedTrails (Set of IDs) into objects similar to savedItems
   const transformedSavedTrails = Array.from(savedTrails).map(trailId => ({
@@ -19,7 +65,7 @@ export default function SavedScreen() {
     type: 'curated_trails', // Use 'curated_trails' for internal consistency with paths
     name: `Curated Trail ${trailId}`, // Placeholder name
     description: `Explore Curated Trail with ID: ${trailId}`, // Placeholder description
-    image_url: 'https://via.placeholder.com/100', // Placeholder image
+    image_url: 'https://via.placeholder.com/100', // Placeholder image - IMPORTANT: replace with actual image logic if available
   }));
 
   // Combine all saved items and trails
@@ -226,4 +272,27 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#555',
+  },
+  loginButton: {
+    marginTop: 20,
+    backgroundColor: '#6DA047',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
+

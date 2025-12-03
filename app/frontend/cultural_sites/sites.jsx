@@ -64,9 +64,9 @@ export default function CulturalSitesScreen() {
         style={styles.cardImage} 
         resizeMode="cover"
       />
-      <SavedButton 
-        onPress={() => handleSave({ ...item, type: 'site' })} 
-        initialState={isSaved(item.id, 'site')} 
+      <SavedButton
+        onPress={() => handleSave({ ...item, type: 'sites' })}
+        initialState={isSaved(item.id, 'sites')}
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
