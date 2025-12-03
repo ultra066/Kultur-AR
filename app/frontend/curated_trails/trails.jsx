@@ -36,15 +36,6 @@ const trailsData = [
     description: 'A walking tour of the town that birthed the First Republic, focusing on Aguinaldo’s legacy.'
   },
   {
-    id: '3',
-    title: 'Coastal Heritage',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Zapote_Bridge_%28Bacoor_side%29.JPG/640px-Zapote_Bridge_%28Bacoor_side%29.JPG',
-    difficulty: 'Easy',
-    duration: '4 Hours',
-    distance: '15 km',
-    description: 'Explore the maritime history of Cavite, from Spanish forts to American naval bases along the bay.'
-  },
-  {
     id: '4',
     title: 'Valor & Martyrs Trail',
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Pacific_War_Memorial_Corregidor.jpg', // Corregidor
@@ -140,8 +131,13 @@ export default function CuratedTrailsScreen() {
         
         {/* 1. Title Header */}
         <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>Curated Trails</Text>
-          <Text style={styles.headerSubtitle}>Discover your next adventure.</Text>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <Ionicons name="arrow-back" size={24} color="#333" />
+            </TouchableOpacity>
+            <View>
+                <Text style={styles.headerTitle}>Curated Trails</Text>
+                <Text style={styles.headerSubtitle}>Discover your next adventure.</Text>
+            </View>
         </View>
 
         {/* 2. Search & Filter Row */}

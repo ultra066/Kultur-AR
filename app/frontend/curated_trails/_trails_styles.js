@@ -14,19 +14,25 @@ export const styles = StyleSheet.create({
   
   // === HEADER ===
   headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: Platform.OS === 'ios' ? 10 : 40,
     marginBottom: 20,
   },
   headerTitle: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 5,
+    marginBottom: 2,
   },
   headerSubtitle: {
     fontSize: 16,
     color: '#666',
     fontWeight: '400',
+  },
+  backButton: {
+    marginRight: 10,
+    padding: 5,
   },
 
   // === SEARCH & FILTER ROW ===

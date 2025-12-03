@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,39 +6,61 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { supabase } from '../../../lib/database/supabase';
 
 // Make sure this file exists in the same folder!
 import { styles } from './home_styles';
 
-// Sample Data for Trails
-const trailsData = [
-  {
-    id: '1',
-    title: 'The Revolution Trail',
-    sub: '5 Sites • 2 Hours',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Bonifacio_Trial_House.jpg',
-  },
-  {
-    id: '2',
-    title: 'Heroes of Kawit',
-    sub: '3 Sites • 1.5 Hours',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Aguinaldo_Shrine_Facade.jpg/1200px-Aguinaldo_Shrine_Facade.jpg',
-  },
-  {
-    id: '3',
-    title: 'Coastal Heritage',
-    sub: '4 Sites • 3 Hours',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Zapote_Bridge_%28Bacoor_side%29.JPG/640px-Zapote_Bridge_%28Bacoor_side%29.JPG',
-  },
-];
-
 export default function HomeScreen() {
   const router = useRouter();
+  const [trails, setTrails] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTrails();
+  }, []);
+
+  const fetchTrails = async () => {
+    try {
+      setLoading(true);
+      // Fetch all trails
+      const { data: trailsData, error: trailsError } = await supabase
+        .from('trails')
+        .select('*')
+        .in('title', ['The Revolution Road', 'The Old Churches Loop', 'Heritage Food Crawl']);
+
+      if (trailsError) throw trailsError;
+
+      // For each trail, fetch its stop count
+      const trailsWithStopCounts = await Promise.all(
+        trailsData.map(async (trail) => {
+          const { count, error: countError } = await supabase
+            .from('trail_stops')
+            .select('*', { count: 'exact', head: true })
+            .eq('trail_id', trail.id);
+
+          if (countError) throw countError;
+          
+          return {
+            ...trail,
+            stop_count: count || 0,
+          };
+        })
+      );
+
+      setTrails(trailsWithStopCounts);
+    } catch (error) {
+      console.error('Error fetching trails:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -118,13 +140,27 @@ export default function HomeScreen() {
         {/* 5. Curated Trails Section */}
         <SectionHeader 
           title="Curated Trails" 
-          onSeeMore={() => router.push('/frontend/curated_trails/trails')} // <--- THE FIX
+          onSeeMore={() => router.push('/frontend/curated_trails/trails')}
         />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-          {trailsData.map((trail) => (
-            <TrailCard key={trail.id} data={trail} />
-          ))}
-        </ScrollView>
+        {loading ? (
+          <ActivityIndicator size="large" color="#6DA047" style={{ marginVertical: 20 }} />
+        ) : (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
+            {trails.map((trail) => (
+              <TrailCard 
+                key={trail.id} 
+                data={{
+                  id: trail.id,
+                  title: trail.title,
+                  // Construct the subtitle dynamically
+                  sub: `${trail.stop_count} Sites • ${trail.duration}`,
+                  image: trail.image_url,
+                }}
+                onPress={() => router.push(`/frontend/curated_trails/${trail.id}`)} 
+              />
+            ))}
+          </ScrollView>
+        )}
 
         {/* 6. Featured Today Section */}
         <SectionHeader title="Featured Today" onSeeMore={() => {}} style={{marginTop: 10}} />
@@ -168,8 +204,8 @@ const CategoryItem = ({ icon, label, color, onPress }) => (
   </TouchableOpacity>
 );
 
-const TrailCard = ({ data }) => (
-  <TouchableOpacity style={styles.trailCard} activeOpacity={0.9}>
+const TrailCard = ({ data, onPress }) => (
+  <TouchableOpacity style={styles.trailCard} activeOpacity={0.9} onPress={onPress}>
     <Image source={{ uri: data.image }} style={styles.trailImage} resizeMode="cover" />
     <View style={styles.trailInfo}>
       <View>

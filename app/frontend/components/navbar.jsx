@@ -36,9 +36,9 @@ export default function Navbar({ state, descriptors, navigation }) {
           if (route.name === 'home') {
             iconName = isFocused ? 'home' : 'home-outline';
           } 
-          // 2. AR Scan (The second tab)
-          else if (route.name === 'ar_scan') {
-            iconName = isFocused ? 'scan' : 'scan-outline'; 
+          // 2. Translation
+          else if (route.name === 'translation') {
+            iconName = isFocused ? 'language' : 'language-outline';
           } 
           // 3. AR Mode (The Middle Button)
           else if (route.name === 'ar_mode') {

@@ -10,8 +10,8 @@ export default function HomeLayout() {
       {/* 1. Home */}
       <Tabs.Screen name="home" options={{ title: 'Home' }} />
 
-      {/* 2. AR Scan */}
-      <Tabs.Screen name="ar_scan" options={{ title: 'AR Scan' }} />
+      {/* 2. Translation */}
+      <Tabs.Screen name="translation" options={{ title: 'Translation' }} />
 
       {/* 3. AR Mode (The Middle Button) */}
       <Tabs.Screen name="ar_mode" options={{ title: 'AR Mode' }} />
