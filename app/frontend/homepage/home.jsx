@@ -116,7 +116,10 @@ export default function HomeScreen() {
         </View>
 
         {/* 5. Curated Trails Section */}
-        <SectionHeader title="Curated Trails" onSeeMore={() => {}} />
+        <SectionHeader 
+          title="Curated Trails" 
+          onSeeMore={() => router.push('/frontend/curated_trails/trails')} // <--- THE FIX
+        />
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
           {trailsData.map((trail) => (
             <TrailCard key={trail.id} data={trail} />
