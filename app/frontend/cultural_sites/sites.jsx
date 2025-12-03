@@ -65,8 +65,14 @@ export default function CulturalSitesScreen() {
         resizeMode="cover"
       />
       <SavedButton
-        onPress={() => handleSave({ ...item, type: 'sites' })}
-        initialState={isSaved(item.id, 'sites')}
+        isSaved={isSaved(item.id, 'sites')}
+        onToggleSave={() => handleSave({
+          id: item.id,
+          type: 'sites',
+          name: item.name,
+          description: '', // Assuming no description field in sites table
+          image_url: item.image_url,
+        })}
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>

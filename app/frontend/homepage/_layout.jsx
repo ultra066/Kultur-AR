@@ -1,12 +1,10 @@
 import { Tabs } from 'expo-router';
 import Navbar from '../components/navbar';
 import { SavedItemsProvider } from '../components/SavedItemsContext';
-import { SavedTrailsProvider } from '../components/SavedTrailsContext';
 
 export default function HomeLayout() {
   return (
     <SavedItemsProvider>
-      <SavedTrailsProvider>
         <Tabs
           tabBar={(props) => <Navbar {...props} />}
           screenOptions={{ headerShown: false }}
@@ -26,7 +24,6 @@ export default function HomeLayout() {
           {/* 5. Saved */}
           <Tabs.Screen name="saved" options={{ title: 'Saved' }} />
         </Tabs>
-      </SavedTrailsProvider>
     </SavedItemsProvider>
   );
 }

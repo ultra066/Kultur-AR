@@ -65,8 +65,14 @@ export default function CuisinesScreen() {
         resizeMode="cover"
       />
       <SavedButton
-        onPress={() => handleSave({ ...item, type: 'cuisines' })}
-        initialState={isSaved(item.id, 'cuisines')}
+        isSaved={isSaved(item.id, 'cuisines')}
+        onToggleSave={() => handleSave({
+          id: item.id,
+          type: 'cuisines',
+          name: item.name,
+          description: '', // Assuming no description field in cuisines table
+          image_url: item.image_url,
+        })}
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>

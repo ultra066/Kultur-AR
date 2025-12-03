@@ -63,11 +63,16 @@ export default function ArtifactsScreen() {
         style={styles.cardImage} 
         resizeMode="cover"
       />
-      <SavedButton 
-        onPress={() => handleSave({ ...item, type: 'artifact' })} 
-        initialState={isSaved(item.id, 'artifact')} 
-      />
-      <View style={styles.cardContent}>
+            <SavedButton
+              isSaved={isSaved(item.id, 'artifacts')}
+              onToggleSave={() => handleSave({
+                id: item.id,
+                type: 'artifacts',
+                name: item.name,
+                description: '', // Assuming no description field in artifacts table
+                image_url: item.image_url,
+              })}
+            />      <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
         <View style={styles.locationContainer}>
           <Ionicons name="location-sharp" size={12} color="#6DA047" />

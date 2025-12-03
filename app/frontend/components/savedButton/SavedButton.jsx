@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './SavedButton_styles';
 
-const SavedButton = ({ onPress, initialState }) => {
-  const [isSaved, setIsSaved] = useState(initialState);
-
-  const handlePress = () => {
-    setIsSaved(!isSaved);
-    onPress();
-  };
-
+const SavedButton = ({ isSaved, onToggleSave }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
+    <TouchableOpacity style={styles.button} onPress={onToggleSave}>
       <Ionicons
         name={isSaved ? 'bookmark' : 'bookmark-outline'}
         size={30}

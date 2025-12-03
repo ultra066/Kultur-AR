@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, SectionList, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { useSavedItems } from '../components/SavedItemsContext';
-import { useSavedTrails } from '../components/SavedTrailsContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { supabase } from '../../../lib/database/supabase'; // Import supabase client for auth check
+import SavedButton from '../components/savedButton/SavedButton'; // Import SavedButton
 
 const TAB_OPTIONS = ['All', 'Sites', 'Cuisines', 'Artifacts', 'Curated_Trails'];
 
 export default function SavedScreen() {
-  const { savedItems, loading: loadingItems } = useSavedItems();
-  const { savedTrails, loading: loadingTrails } = useSavedTrails();
+  const { savedItems, handleSave, isSaved, loading: loadingItems } = useSavedItems();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState('All');
   const [user, setUser] = useState(null);
@@ -35,7 +34,7 @@ export default function SavedScreen() {
     };
   }, []);
 
-  if (loadingAuth || loadingItems || loadingTrails) {
+  if (loadingAuth || loadingItems) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
@@ -59,17 +58,7 @@ export default function SavedScreen() {
     );
   }
 
-  // Transform savedTrails (Set of IDs) into objects similar to savedItems
-  const transformedSavedTrails = Array.from(savedTrails).map(trailId => ({
-    id: trailId,
-    type: 'curated_trails', // Use 'curated_trails' for internal consistency with paths
-    name: `Curated Trail ${trailId}`, // Placeholder name
-    description: `Explore Curated Trail with ID: ${trailId}`, // Placeholder description
-    image_url: 'https://via.placeholder.com/100', // Placeholder image - IMPORTANT: replace with actual image logic if available
-  }));
-
-  // Combine all saved items and trails
-  const allSavedItems = [...savedItems, ...transformedSavedTrails];
+  const allSavedItems = savedItems;
 
   const handleItemPress = (item) => {
     // Determine the correct path based on the item type
@@ -122,15 +111,21 @@ export default function SavedScreen() {
   }));
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => handleItemPress(item)}>
-      <Image source={{ uri: item.image_url || 'https://via.placeholder.com/100' }} style={styles.image} />
-      <View style={styles.cardContent}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.description} numberOfLines={2}>
-          {item.description || 'No description available.'}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.card}>
+      <TouchableOpacity style={styles.cardContentWrapper} onPress={() => handleItemPress(item)}>
+        <Image source={{ uri: item.image_url || 'https://via.placeholder.com/100' }} style={styles.image} />
+        <View style={styles.cardContent}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.description} numberOfLines={2}>
+            {item.description || 'No description available.'}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      <SavedButton
+        isSaved={isSaved(item.id, item.type)}
+        onToggleSave={() => handleSave(item)}
+      />
+    </View>
   );
 
   const renderSectionHeader = ({ section: { title } }) => {
@@ -239,6 +234,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 5,
     elevation: 3,
+    alignItems: 'center', // Align items vertically in the card
+  },
+  cardContentWrapper: {
+    flexDirection: 'row',
+    flex: 1, // Allow content to take up available space
   },
   image: {
     width: 90,
