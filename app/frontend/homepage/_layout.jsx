@@ -1,29 +1,32 @@
 import { Tabs } from 'expo-router';
 import Navbar from '../components/navbar';
 import { SavedItemsProvider } from '../components/SavedItemsContext';
+import { SavedTrailsProvider } from '../components/SavedTrailsContext';
 
 export default function HomeLayout() {
   return (
     <SavedItemsProvider>
-      <Tabs
-        tabBar={(props) => <Navbar {...props} />}
-        screenOptions={{ headerShown: false }}
-      >
-        {/* 1. Home */}
-        <Tabs.Screen name="home" options={{ title: 'Home' }} />
+      <SavedTrailsProvider>
+        <Tabs
+          tabBar={(props) => <Navbar {...props} />}
+          screenOptions={{ headerShown: false }}
+        >
+          {/* 1. Home */}
+          <Tabs.Screen name="home" options={{ title: 'Home' }} />
 
-        {/* 2. Translation */}
-        <Tabs.Screen name="translation" options={{ title: 'Translation' }} />
+          {/* 2. Translation */}
+          <Tabs.Screen name="translation" options={{ title: 'Translation' }} />
 
-        {/* 3. AR Mode (The Middle Button) */}
-        <Tabs.Screen name="ar_mode" options={{ title: 'AR Mode' }} />
+          {/* 3. AR Mode (The Middle Button) */}
+          <Tabs.Screen name="ar_mode" options={{ title: 'AR Mode' }} />
 
-        {/* 4. Map */}
-        <Tabs.Screen name="map" options={{ title: 'Map' }} />
+          {/* 4. Map */}
+          <Tabs.Screen name="map" options={{ title: 'Map' }} />
 
-        {/* 5. Saved */}
-        <Tabs.Screen name="saved" options={{ title: 'Saved' }} />
-      </Tabs>
+          {/* 5. Saved */}
+          <Tabs.Screen name="saved" options={{ title: 'Saved' }} />
+        </Tabs>
+      </SavedTrailsProvider>
     </SavedItemsProvider>
   );
 }

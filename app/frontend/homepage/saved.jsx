@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, SectionList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useSavedItems } from '../components/SavedItemsContext';
+import { useSavedTrails } from '../components/SavedTrailsContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 
-const TAB_OPTIONS = ['All', 'Sites', 'Cuisines', 'Artifacts'];
+const TAB_OPTIONS = ['All', 'Sites', 'Cuisines', 'Artifacts', 'Curated_Trails'];
 
 export default function SavedScreen() {
   const { savedItems } = useSavedItems();
+  const { savedTrails } = useSavedTrails();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState('All');
+
+  // Transform savedTrails (Set of IDs) into objects similar to savedItems
+  const transformedSavedTrails = Array.from(savedTrails).map(trailId => ({
+    id: trailId,
+    type: 'curated_trails', // Use 'curated_trails' for internal consistency with paths
+    name: `Curated Trail ${trailId}`, // Placeholder name
+    description: `Explore Curated Trail with ID: ${trailId}`, // Placeholder description
+    image_url: 'https://via.placeholder.com/100', // Placeholder image
+  }));
+
+  // Combine all saved items and trails
+  const allSavedItems = [...savedItems, ...transformedSavedTrails];
 
   const handleItemPress = (item) => {
     // Determine the correct path based on the item type
@@ -24,6 +38,12 @@ export default function SavedScreen() {
       case 'artifacts':
         path = `/frontend/artifacts/${item.id}`;
         break;
+      case 'festivals': // Assuming 'festivals' will have a similar path structure
+        path = `/frontend/festivals/${item.id}`;
+        break;
+      case 'curated_trails':
+        path = `/frontend/curated_trails/${item.id}`;
+        break;
       default:
         // Optional: handle default case or unsupported types
         console.warn(`Unsupported item type: ${item.type}`);
@@ -32,17 +52,21 @@ export default function SavedScreen() {
     router.push(path);
   };
 
-  const filteredItems = selectedTab === 'All' 
-    ? savedItems 
-    : savedItems.filter(item => item.type.toLowerCase() === selectedTab.toLowerCase());
+  const filteredItems = selectedTab === 'All'
+    ? allSavedItems
+    : allSavedItems.filter(item => {
+        const itemType = item.type.toLowerCase().replace(/_/g, ' '); // Normalize item type for comparison
+        const selected = selectedTab.toLowerCase().replace(/_/g, ' '); // Normalize selected tab for comparison
+        return itemType === selected;
+      });
 
   const groupedItems = filteredItems.reduce((acc, item) => {
-    // Use a consistent type format (e.g., capitalize first letter)
-    const type = item.type.charAt(0).toUpperCase() + item.type.slice(1);
-    if (!acc[type]) {
-      acc[type] = [];
+    // Use a consistent type format (e.g., capitalize first letter and handle spaces)
+    const typeKey = item.type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    if (!acc[typeKey]) {
+      acc[typeKey] = [];
     }
-    acc[type].push(item);
+    acc[typeKey].push(item);
     return acc;
   }, {});
 
@@ -63,9 +87,10 @@ export default function SavedScreen() {
     </TouchableOpacity>
   );
 
-  const renderSectionHeader = ({ section: { title } }) => (
-    <Text style={styles.sectionHeader}>{title}</Text>
-  );
+  const renderSectionHeader = ({ section: { title } }) => {
+    const formattedTitle = title.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return <Text style={styles.sectionHeader}>{formattedTitle}</Text>;
+  };
   
   return (
     <SafeAreaView style={styles.container}>
@@ -82,7 +107,7 @@ export default function SavedScreen() {
               onPress={() => setSelectedTab(tab)}
             >
               <Text style={[styles.tabText, selectedTab === tab && styles.selectedTabText]}>
-                {tab}
+                {tab.replace(/_/g, ' ')}
               </Text>
             </TouchableOpacity>
           ))}
