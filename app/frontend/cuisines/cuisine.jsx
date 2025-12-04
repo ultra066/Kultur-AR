@@ -12,6 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
+import SavedButton from '../components/savedButton/SavedButton';
+
+import { useSavedItems } from '../components/SavedItemsContext';
+
 // 1. Import Supabase Client (Adjust path if needed)
 import { supabase } from '../../../lib/database/supabase';
 // 2. Import Styles
@@ -21,6 +25,7 @@ export default function CuisinesScreen() {
   const router = useRouter();
   const [cuisines, setCuisines] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { handleSave, isSaved } = useSavedItems();
 
   // 3. FETCH DATA ON LOAD
   useEffect(() => {
@@ -48,8 +53,7 @@ export default function CuisinesScreen() {
     }
   };
 
-  // 4. RENDER INDIVIDUAL CARD
-  const renderItem = ({ item }) => (
+    const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.card} 
       // You can add navigation to a "Details" page later
@@ -59,6 +63,16 @@ export default function CuisinesScreen() {
         source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
         style={styles.cardImage} 
         resizeMode="cover"
+      />
+      <SavedButton
+        isSaved={isSaved(item.id, 'cuisines')}
+        onToggleSave={() => handleSave({
+          id: item.id,
+          type: 'cuisines',
+          name: item.name,
+          description: '', // Assuming no description field in cuisines table
+          image_url: item.image_url,
+        })}
       />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>

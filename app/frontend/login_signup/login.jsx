@@ -6,11 +6,14 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import { useRouter } from 'expo-router'; 
 
-import { styles } from './login_styles'; // Make sure this matches your file name
+// 1. IMPORT SUPABASE
+import { supabase } from '../../../lib/database/supabase';
+import { styles } from './login_styles'; 
 
 export default function LoginScreen() {
   const router = useRouter(); 
@@ -18,6 +21,33 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
+
+  // --- 2. LOGIN FUNCTION ---
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true);
+
+    // Call Supabase Authentication
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      Alert.alert("Login Failed", error.message);
+    } else {
+      // Success! Go to Home Page
+      // Use 'replace' so they can't go back to login by swiping
+      router.replace('/frontend/homepage/home'); 
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -30,7 +60,6 @@ export default function LoginScreen() {
 
         <View style={styles.cardContainer}>
           
-          {/* HERE IS THE FIX: */}
           <Text style={styles.title}>
             Sign in to your{'\n'}account
           </Text>
@@ -53,11 +82,19 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
+              autoCapitalize="none"
             />
           </View>
 
-          <TouchableOpacity style={styles.signInButton}>
-            <Text style={styles.signInButtonText}>Sign in</Text>
+          {/* 3. CONNECT BUTTON TO FUNCTION */}
+          <TouchableOpacity 
+            style={[styles.signInButton, loading && { opacity: 0.7 }]}
+            onPress={handleLogin}
+            disabled={loading}
+          >
+            <Text style={styles.signInButtonText}>
+              {loading ? "Signing in..." : "Sign in"}
+            </Text>
           </TouchableOpacity>
 
           <View style={styles.optionsRow}>

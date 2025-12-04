@@ -12,6 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
+import SavedButton from '../components/savedButton/SavedButton';
+
+import { useSavedItems } from '../components/SavedItemsContext';
+
 // 1. Import Supabase Client (Adjust path if needed)
 import { supabase } from '../../../lib/database/supabase';
 // 2. Import Styles
@@ -21,6 +25,7 @@ export default function ArtifactsScreen() {
   const router = useRouter();
   const [artifacts, setArtifacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { handleSave, isSaved } = useSavedItems();
 
   // 3. FETCH DATA ON LOAD
   useEffect(() => {
@@ -48,8 +53,7 @@ export default function ArtifactsScreen() {
     }
   };
 
-  // 4. RENDER INDIVIDUAL CARD
-  const renderItem = ({ item }) => (
+    const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.card} 
       onPress={() => router.push(`/frontend/artifacts/${item.id}`)} 
@@ -59,7 +63,16 @@ export default function ArtifactsScreen() {
         style={styles.cardImage} 
         resizeMode="cover"
       />
-      <View style={styles.cardContent}>
+            <SavedButton
+              isSaved={isSaved(item.id, 'artifacts')}
+              onToggleSave={() => handleSave({
+                id: item.id,
+                type: 'artifacts',
+                name: item.name,
+                description: '', // Assuming no description field in artifacts table
+                image_url: item.image_url,
+              })}
+            />      <View style={styles.cardContent}>
         <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
         <View style={styles.locationContainer}>
           <Ionicons name="location-sharp" size={12} color="#6DA047" />
