@@ -54,30 +54,31 @@ export default function ArtifactsScreen() {
   };
 
     const renderItem = ({ item }) => (
-    <TouchableOpacity 
-      style={styles.card} 
-      onPress={() => router.push(`/frontend/artifacts/${item.id}`)} 
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push(`/frontend/artifacts/${String(item.id)}`)}
     >
-      <Image 
-        source={{ uri: item.image_url || 'https://via.placeholder.com/150' }} 
-        style={styles.cardImage} 
+      <Image
+        source={{ uri: typeof item.image_url === 'string' ? item.image_url : 'https://via.placeholder.com/150' }}
+        style={styles.cardImage}
         resizeMode="cover"
       />
-            <SavedButton
-              isSaved={isSaved(item.id, 'artifacts')}
-              onToggleSave={() => handleSave({
-                id: item.id,
-                type: 'artifacts',
-                name: item.name,
-                description: '', // Assuming no description field in artifacts table
-                image_url: item.image_url,
-              })}
-            />      <View style={styles.cardContent}>
-        <Text style={styles.cardTitle} numberOfLines={1}>{item.name}</Text>
+      <SavedButton
+        isSaved={isSaved(item.id, 'artifacts')}
+        onToggleSave={() => handleSave({
+          id: item.id,
+          type: 'artifacts',
+          name: item.name,
+          description: '', // Assuming no description field in artifacts table
+          image_url: item.image_url,
+        })}
+      />
+      <View style={styles.cardContent}>
+        <Text style={styles.cardTitle} numberOfLines={1}>{String(item.name || '')}</Text>
         <View style={styles.locationContainer}>
           <Ionicons name="location-sharp" size={12} color="#6DA047" />
           <Text style={styles.cardLocation} numberOfLines={1}>
-            {item.current_location}
+            {String(item.current_location || '')}
           </Text>
         </View>
       </View>
