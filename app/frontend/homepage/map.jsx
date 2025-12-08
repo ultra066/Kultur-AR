@@ -46,11 +46,6 @@ export default function MapScreen() {
 
       let userLocation = await Location.getCurrentPositionAsync({});
       setLocation(userLocation.coords);
-      
-      // ONLY fetch route if "Get Directions" was clicked (params exist)
-      if (destLat && destLon) {
-        fetchRoute(userLocation.coords.latitude, userLocation.coords.longitude, parseFloat(destLat), parseFloat(destLon));
-      }
 
       fetchSites();
     })();
@@ -68,32 +63,6 @@ export default function MapScreen() {
       console.log(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // --- ROUTING FUNCTION (Mapbox API) ---
-  const fetchRoute = async (startLat, startLon, endLat, endLon) => {
-    try {
-      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startLon},${startLat};${endLon},${endLat}?geometries=geojson&access_token=${MAPBOX_ACCESS_TOKEN}`;
-      
-      const response = await fetch(url);
-      const json = await response.json();
-
-      if (json.routes && json.routes.length > 0) {
-        const coordinates = json.routes[0].geometry.coordinates.map(coord => ({
-          latitude: coord[1],
-          longitude: coord[0],
-        }));
-        setRouteCoords(coordinates);
-
-        // Zoom to fit the route
-        mapRef.current?.fitToCoordinates(coordinates, {
-          edgePadding: { top: 100, right: 50, bottom: 100, left: 50 },
-          animated: true,
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching route:", error);
     }
   };
 
@@ -154,12 +123,19 @@ export default function MapScreen() {
         mapType={Platform.OS === 'android' ? "none" : "standard"} 
         showsUserLocation={true}
         showsMyLocationButton={true}
-        initialRegion={{
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={
+          destLat && destLon ? {
+            latitude: parseFloat(destLat),
+            longitude: parseFloat(destLon),
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          } : {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }
+        }
         onPress={() => {
             setShowResults(false);
             Keyboard.dismiss();
@@ -171,15 +147,6 @@ export default function MapScreen() {
           flipY={false}
           tileSize={256}
         />
-
-        {/* Blue Route Line (Only shows if routeCoords has data) */}
-        {routeCoords.length > 0 && (
-          <Polyline
-            coordinates={routeCoords}
-            strokeColor="#007AFF"
-            strokeWidth={4}
-          />
-        )}
 
         {/* Markers */}
         {sites.map((site) => (

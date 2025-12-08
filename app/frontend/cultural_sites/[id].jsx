@@ -116,7 +116,7 @@ export default function SiteDetailsScreen() {
               });
             }}
           >
-            <Text style={styles.directionsText}>Get Directions</Text>
+            <Text style={styles.directionsText}>Map</Text>
           </TouchableOpacity>
 
         </View>
