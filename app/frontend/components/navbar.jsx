@@ -5,6 +5,12 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 const { width } = Dimensions.get('window');
 
 export default function Navbar({ state, descriptors, navigation }) {
+  // Hide the navbar when on the AR Mode screen
+  const focusedRoute = state.routes[state.index];
+  if (focusedRoute.name === 'ar_mode') {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.tabBar}>
