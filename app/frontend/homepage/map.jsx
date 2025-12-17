@@ -1,69 +1,61 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { 
-  StyleSheet, View, Text, ActivityIndicator, Alert, Platform, 
-  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView, 
-  Image, Animated, PanResponder, Dimensions 
+import {
+  StyleSheet, View, Text, ActivityIndicator, Alert,
+  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView,Image, Animated, PanResponder, Dimensions
 } from 'react-native';
-import MapView, { Marker, UrlTile, Polyline, PROVIDER_DEFAULT } from 'react-native-maps';
+import Mapbox from '@rnmapbox/maps'; // <--- Ensure this is correct
 import * as Location from 'expo-location';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import * as polyline from '@mapbox/polyline'; 
+import { Ionicons } from '@expo/vector-icons';
+import * as polyline from '@mapbox/polyline';
 
 import { supabase } from '../../../lib/database/supabase';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 // --- MAPBOX CONFIGURATION ---
-const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21oMHAyeXBwMDF6OTJrcXpyZ3B6MXo3byJ9.HyebjVUxFqknP0lGm6arvg"; 
-const MAPBOX_STYLE_ID = "outdoors-v12"; 
-const MAPBOX_USERNAME = "mapbox";
-const MAPBOX_URL_TEMPLATE = `https://api.mapbox.com/styles/v1/${MAPBOX_USERNAME}/${MAPBOX_STYLE_ID}/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`;
-
-// Bottom Sheet Snap Points
-const SNAP_TOP = -SCREEN_HEIGHT * 0.25; // Slide up 25%
-const SNAP_BOTTOM = 0; // Default position
+const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21oMHAyeXBwMDF6OTJrcXpyZ3B6MXo3byJ9.HyebjVUxFqknP0lGm6arvg";
+Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 export default function MapScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const { destLat, destLon, destName } = params;
 
-  const mapRef = useRef(null);
-  
+  const cameraRef = useRef(null);
+
   // Data State
   const [location, setLocation] = useState(null);
   const [sites, setSites] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Search State
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredSites, setFilteredSites] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
   // Route State
-  const [routeCoords, setRouteCoords] = useState([]); // Simple array of coordinates
-  const [routeInfo, setRouteInfo] = useState(null); 
+  const [route, setRoute] = useState(null);
+  const [routeInfo, setRouteInfo] = useState(null);
   const [selectedSite, setSelectedSite] = useState(null);
   const [isRouting, setIsRouting] = useState(false);
 
   // --- ANIMATED BOTTOM SHEET STATE ---
   const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
-  
+
   // --- PAN RESPONDER ---
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: (_, gestureState) => Math.abs(gestureState.dy) > Math.abs(gestureState.dx),
       onPanResponderMove: (_, gestureState) => {
-        // Only allow dragging down to close
         if (gestureState.dy > 0) translateY.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 100) {
-           closeSheet(); // Drag down = Close
+          closeSheet();
         } else {
-           openSheet(); // Snap back up
+          openSheet();
         }
       },
     })
@@ -77,33 +69,50 @@ export default function MapScreen() {
     Animated.timing(translateY, { toValue: SCREEN_HEIGHT, duration: 300, useNativeDriver: true }).start(() => {
       setSelectedSite(null);
       setRouteInfo(null);
-      setRouteCoords([]);
+      setRoute(null);
     });
     Keyboard.dismiss();
   };
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert("Permission Denied", "Location permission is required to show your position on the map.");
+          setLocation({ latitude: 14.5995, longitude: 120.9842 }); // Fallback
+          setLoading(false);
+          return;
+        }
+
+        const locationPromise = Location.getCurrentPositionAsync({});
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000));
+
+        try {
+            let userLocation = await Promise.race([locationPromise, timeoutPromise]);
+            setLocation(userLocation.coords);
+        } catch (e) {
+            console.log("Location fetch timed out or failed, using fallback.");
+            setLocation({ latitude: 14.5995, longitude: 120.9842 }); 
+        }
+
+        if (destLat && destLon) {
+          const tempSite = {
+            id: 'nav_target',
+            name: destName || 'Destination',
+            latitude: parseFloat(destLat),
+            longitude: parseFloat(destLon),
+            image_url: 'https://via.placeholder.com/150'
+          };
+          handleSiteSelection(tempSite);
+          setTimeout(() => handleGetDirections(tempSite, location || { latitude: 14.5995, longitude: 120.9842 }), 1000);
+        }
+        
+        await fetchSites();
+      } catch (e) {
+        console.error(e);
         setLoading(false);
-        return;
       }
-      let userLocation = await Location.getCurrentPositionAsync({});
-      setLocation(userLocation.coords);
-      
-      if (destLat && destLon) {
-        const tempSite = { 
-          id: 'nav_target', 
-          name: destName || 'Destination', 
-          latitude: parseFloat(destLat), 
-          longitude: parseFloat(destLon),
-          image_url: 'https://via.placeholder.com/150' 
-        };
-        handleSiteSelection(tempSite);
-        setTimeout(() => handleGetDirections(tempSite, userLocation.coords), 1000);
-      }
-      fetchSites();
     })();
   }, [destLat, destLon]);
 
@@ -114,7 +123,7 @@ export default function MapScreen() {
         .select('id, name, city, latitude, longitude, image_url');
       if (error) throw error;
       setSites(data);
-    } catch (error) { console.log(error); } 
+    } catch (error) { console.log(error); }
     finally { setLoading(false); }
   };
 
@@ -123,60 +132,52 @@ export default function MapScreen() {
     setSearchQuery(site.name);
     setShowResults(false);
     Keyboard.dismiss();
-    
-    // Clear old route
-    setRouteCoords([]); 
-    setRouteInfo(null); 
-    
-    // Show Sheet
+
+    setRoute(null);
+    setRouteInfo(null);
+
     openSheet();
 
-    mapRef.current?.animateToRegion({
-      latitude: site.latitude,
-      longitude: site.longitude,
-      latitudeDelta: 0.005,
-      longitudeDelta: 0.005,
-    }, 1000);
+    cameraRef.current?.flyTo([site.longitude, site.latitude], 1000);
   };
 
-  // --- 2. SIMPLE GET DIRECTIONS ---
   const handleGetDirections = async (site = selectedSite, userLoc = location) => {
     if (!site || !userLoc) return;
-    
     setIsRouting(true);
 
     try {
-      // Using standard 'driving' profile for reliability
-      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLoc.longitude},${userLoc.latitude};${site.longitude},${site.latitude}?geometries=polyline&steps=true&access_token=${MAPBOX_ACCESS_TOKEN}`;
-      
+      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLoc.longitude},${userLoc.latitude};${site.longitude},${site.latitude}?geometries=polyline6&steps=true&access_token=${MAPBOX_ACCESS_TOKEN}`;
       const response = await fetch(url);
       const json = await response.json();
 
       if (json.routes && json.routes.length > 0) {
-        const route = json.routes[0];
-        
-        // Decode Geometry
-        const points = polyline.decode(route.geometry).map(c => ({ 
-           latitude: c[0], 
-           longitude: c[1] 
-        }));
+        const currentRoute = json.routes[0];
+        const decodedPoints = polyline.decode(currentRoute.geometry, 6);
+        const coordinates = decodedPoints.map(point => [point[1], point[0]]);
 
-        setRouteCoords(points);
+        const routeGeoJSON = {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: coordinates,
+          },
+        };
+        setRoute(routeGeoJSON);
 
-        const durationMins = Math.round(route.duration / 60);
-        const distanceKm = (route.distance / 1000).toFixed(1);
-
-        setRouteInfo({ 
-            duration: durationMins, 
-            distance: distanceKm, 
-            steps: route.legs[0].steps.map(step => step.maneuver.instruction),
+        const durationMins = Math.round(currentRoute.duration / 60);
+        const distanceKm = (currentRoute.distance / 1000).toFixed(1);
+        setRouteInfo({
+          duration: durationMins,
+          distance: distanceKm,
+          steps: currentRoute.legs[0].steps.map(step => step.maneuver.instruction),
         });
 
-        // Zoom to fit route
-        mapRef.current?.fitToCoordinates(points, {
-          edgePadding: { top: 50, right: 50, bottom: 400, left: 50 },
-          animated: true,
-        });
+        const [ne, sw] = coordinates.reduce(([ne, sw], coord) => [
+            [Math.max(ne[0], coord[0]), Math.max(ne[1], coord[1])],
+            [Math.min(sw[0], coord[0]), Math.min(sw[1], coord[1])],
+        ], [[-Infinity, -Infinity], [Infinity, Infinity]]);
+
+        cameraRef.current?.fitBounds(ne, sw, { top: 50, right: 50, bottom: 400, left: 50 }, 1000);
       }
     } catch (error) {
       console.error("Error fetching route:", error);
@@ -204,60 +205,52 @@ export default function MapScreen() {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#6DA047" />
+        <Text style={{marginTop: 10, color: '#666'}}>Fetching location...</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={mapRef}
+      <Mapbox.MapView
         style={styles.map}
-        provider={PROVIDER_DEFAULT}
-        mapType={Platform.OS === 'android' ? "none" : "standard"} 
-        showsUserLocation={true}
-        showsMyLocationButton={false} 
-        initialRegion={{
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        styleURL="mapbox://styles/mapbox/outdoors-v12"
         onPress={() => {
-            setShowResults(false);
-            Keyboard.dismiss();
-            closeSheet();
+          setShowResults(false);
+          Keyboard.dismiss();
+          closeSheet();
         }}
+        onDidFailLoadingMap={(e) => console.error("Map failed to load:", e)}
       >
-        <UrlTile
-          urlTemplate={MAPBOX_URL_TEMPLATE}
-          maximumZ={19}
-          flipY={false}
-          tileSize={256}
+        <Mapbox.UserLocation />
+        <Mapbox.Camera
+            ref={cameraRef}
+            defaultSettings={{
+                centerCoordinate: [location.longitude, location.latitude],
+                zoomLevel: 12,
+            }}
         />
-
-        {/* --- SIMPLE BLUE ROUTE LINE --- */}
-        {routeCoords.length > 0 && (
-          <Polyline 
-             coordinates={routeCoords} 
-             strokeColor="#007AFF" 
-             strokeWidth={5} 
-          />
-        )}
 
         {sites.map((site) => (
           site.latitude && site.longitude ? (
-            <Marker
+            <Mapbox.PointAnnotation
               key={site.id}
-              coordinate={{ latitude: site.latitude, longitude: site.longitude }}
-              title={site.name}
-              onPress={() => handleSiteSelection(site)}
+              id={site.id.toString()}
+              coordinate={[site.longitude, site.latitude]}
+              onSelected={() => handleSiteSelection(site)}
             >
               <Ionicons name="location" size={40} color={selectedSite?.id === site.id ? "#007AFF" : "#E91E63"} />
-            </Marker>
+            </Mapbox.PointAnnotation>
           ) : null
         ))}
-      </MapView>
+
+        {route && (
+          <Mapbox.ShapeSource id="routeSource" shape={route}>
+            <Mapbox.LineLayer id="routeFill" style={{ lineColor: '#007AFF', lineWidth: 5 }} />
+          </Mapbox.ShapeSource>
+        )}
+
+      </Mapbox.MapView>
 
       <View style={styles.searchWrapper}>
         <View style={styles.searchContainer}>
@@ -296,18 +289,16 @@ export default function MapScreen() {
         )}
       </View>
 
-      {/* === BOTTOM SHEET === */}
       {selectedSite && (
-        <Animated.View 
+        <Animated.View
            style={[styles.modalCard, { transform: [{ translateY }] }]}
            {...panResponder.panHandlers}
         >
            <View style={styles.modalHandle} />
-
            <View style={styles.previewSection}>
-              <Image 
-                 source={{ uri: selectedSite.image_url || 'https://via.placeholder.com/150' }} 
-                 style={styles.previewImage} 
+              <Image
+                 source={{ uri: selectedSite.image_url || 'https://via.placeholder.com/150' }}
+                 style={styles.previewImage}
               />
               <View style={{flex: 1}}>
                   <Text style={styles.sheetTitle}>{selectedSite.name}</Text>
@@ -319,23 +310,32 @@ export default function MapScreen() {
                  <Ionicons name="close" size={24} color="#555" />
               </TouchableOpacity>
            </View>
-
            <View style={styles.buttonRow}>
-               <TouchableOpacity 
+               {/* 
+                  UPDATED: Pass the model address dynamically to AR Mode 
+                  Assuming 'site.model_address' exists in your Supabase DB.
+                  If not, you can hardcode a test one here to verify.
+               */}
+               <TouchableOpacity
                    style={styles.infoButton}
-                   onPress={() => router.push(`/frontend/cultural_sites/${selectedSite.id}`)}
+                   onPress={() => router.push({
+                       pathname: '/ar_mode',
+                       params: { 
+                           mode: 'HistoricalSite',
+                           // Use the column from your DB, or a fallback string
+                           modelAddress: site.model_address || 'Assets/Prefabs/AR/Historical/3D Models/Imus/ImusCathedral.prefab' 
+                       }
+                   })}
                >
-                   <Text style={styles.infoButtonText}>View Info</Text>
+                   <Text style={styles.infoButtonText}>View in AR</Text>
                </TouchableOpacity>
-
-               <TouchableOpacity 
+               <TouchableOpacity
                    style={styles.dirButton}
                    onPress={() => handleGetDirections()}
                >
                    {isRouting ? <ActivityIndicator color="#fff"/> : <Text style={styles.dirButtonText}>Get Directions</Text>}
                </TouchableOpacity>
            </View>
-
            {routeInfo && (
               <View style={styles.routeSection}>
                  <View style={styles.divider} />
@@ -364,7 +364,7 @@ export default function MapScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  map: { width: '100%', height: '100%' },
+  map: { flex: 1 },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -378,8 +378,6 @@ const styles = StyleSheet.create({
   resultItem: { flexDirection: 'row', alignItems: 'center', padding: 15, borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
   resultTitle: { fontSize: 14, fontWeight: '600', color: '#333' },
   resultCity: { fontSize: 12, color: '#888' },
-
-  modalOverlay: { flex: 1, backgroundColor: 'transparent' },
   modalCard: {
     position: 'absolute',
     left: 0,
@@ -395,8 +393,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 20,
-    minHeight: 250, 
-    maxHeight: '60%', 
+    minHeight: 250,
+    maxHeight: '60%',
   },
   modalHandle: { width: 40, height: 5, backgroundColor: '#ddd', borderRadius: 3, alignSelf: 'center', marginBottom: 15 },
   previewSection: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },

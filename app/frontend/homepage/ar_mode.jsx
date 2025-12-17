@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, PermissionsAndroid, Platform } from 'react-native';
 import UnityView, { UnityModule } from '@azesmway/react-native-unity';
+import { useLocalSearchParams } from 'expo-router'; // To receive data from the previous screen
 
 const ARMode = () => {
   const [hasPermission, setHasPermission] = useState(false);
+  
+  // Get parameters passed from the previous screen (e.g., from your Map or Gallery)
+  // `mode` can be 'Artifacts', 'LocalCuisine', 'HistoricalSite', or 'Festival'
+  // `modelAddress` is the specific Addressable path for a 3D model
+  const { mode, modelAddress } = useLocalSearchParams(); 
 
+  // --- Define the fixed addresses for your ONNX models (from your screenshot) ---
+  const onnxForArtifacts = 'Assets/Model/Artifacts/artifacts_model.onnx';
+  const onnxForCuisine = 'Assets/Model/Local Cuisine/local_canine.onnx'; // I'm using the exact name from your image, even with the typo
+
+  // --- Step 1: Request Camera Permission ---
   useEffect(() => {
     const checkAndRequestPermission = async () => {
       if (Platform.OS === 'android') {
@@ -13,23 +24,21 @@ const ARMode = () => {
             PermissionsAndroid.PERMISSIONS.CAMERA,
             {
               title: "AR Camera Permission",
-              message: "We need access to your camera to show AR artifacts.",
+              message: "Kultur-AR needs camera access to display augmented reality.",
               buttonPositive: "OK",
-              buttonNegative: "Cancel",
             }
           );
-          
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log("Camera permission granted");
+            console.log("[React Native] Camera permission granted.");
             setHasPermission(true);
           } else {
-            console.log("Camera permission denied");
+            console.log("[React Native] Camera permission denied.");
+            // Handle permission denial (e.g., show an error or go back)
           }
         } catch (err) {
           console.warn(err);
         }
       } else {
-        // iOS permissions are handled by Info.plist
         setHasPermission(true);
       }
     };
@@ -37,50 +46,69 @@ const ARMode = () => {
     checkAndRequestPermission();
   }, []);
 
+  // --- Step 2: Tell Unity Which Assets to Load ---
   useEffect(() => {
-    // IMMEDIATE STARTUP LOGIC
+    // This runs as soon as permission is granted
     if (hasPermission) {
-      // Use requestAnimationFrame to send the message as soon as the next frame is ready.
-      // This is much faster and safer than a fixed timer.
       requestAnimationFrame(() => {
         if (UnityModule) {
-          console.log("Sending Start Message IMMEDIATELY");
-          // Send the message multiple times in quick succession to ensure Unity catches it
-          // during its initialization phase. This is a common trick for faster startup.
-          UnityModule.postMessage('UnityMessageManager', 'LoadMode', 'Artifacts');
+          console.log(`[React Native] Entering AR mode: ${mode}`);
+
+          // Always tell Unity to clear any previously loaded models first
+          UnityModule.postMessage('UnityMessageManager', 'UnloadAllArtifacts', '');
           
-          // Optional: Send it again after 500ms just in case the first one was too fast
-          setTimeout(() => {
-             UnityModule.postMessage('UnityMessageManager', 'LoadMode', 'Artifacts');
-          }, 500);
+          // Use a switch to handle the different modes
+          switch (mode) {
+            case 'Artifacts':
+              console.log(`[React Native] Loading ONNX model: ${onnxForArtifacts}`);
+              UnityModule.postMessage('UnityMessageManager', 'LoadONNXModel', onnxForArtifacts);
+              break;
+
+            case 'LocalCuisine':
+              console.log(`[React Native] Loading ONNX model: ${onnxForCuisine}`);
+              UnityModule.postMessage('UnityMessageManager', 'LoadONNXModel', onnxForCuisine);
+              break;
+
+            case 'HistoricalSite':
+              if (modelAddress) {
+                console.log(`[React Native] Loading 3D Historical Site: ${modelAddress}`);
+                UnityModule.postMessage('UnityMessageManager', 'LoadArtifact', modelAddress);
+              } else {
+                console.log("[React Native] No specific 3D model address was provided for HistoricalSite mode.");
+              }
+              break;
+
+            case 'Festival':
+              // This mode might not load a 3D model, but maybe a specific UI or image.
+              // For example, you could load the 'Wagayway Festival.png' as a texture.
+              // For now, we'll just start the camera.
+              console.log("[React Native] Festival mode activated. No specific model loaded from RN.");
+              break;
+
+            default:
+              console.log(`[React Native] Unknown AR mode: ${mode}.`);
+              break;
+          }
         }
       });
     }
-  }, [hasPermission]);
+  }, [hasPermission, mode, modelAddress]); // This effect re-runs if the mode or model changes
 
+  // --- Step 3: Render the UI ---
   if (!hasPermission) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Waiting for Camera Permission...</Text>
+        <Text style={styles.loadingText}>Waiting for camera permission...</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      {/* 
-        UnityView is rendered immediately after permission is granted.
-        No artificial delays.
-      */}
       <UnityView
         style={styles.unity}
-        onUnityMessage={(e) => console.log("Message from Unity:", e.nativeEvent.message)}
+        onUnityMessage={(e) => console.log(`[React Native] Message from Unity: ${e.nativeEvent.message}`)}
       />
-      
-      {/* Minimal overlay to verify RN is rendering */}
-      <View style={styles.overlay}>
-        <Text style={styles.text}>AR Mode Active</Text>
-      </View>
     </View>
   );
 };
@@ -88,8 +116,7 @@ const ARMode = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // Transparent background is critical for seeing Unity if Z-ordering fails
-    backgroundColor: 'transparent', 
+    backgroundColor: 'black',
   },
   unity: {
     position: 'absolute',
@@ -97,20 +124,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 1,
   },
-  overlay: {
-    position: 'absolute',
-    bottom: 50,
-    left: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 10,
-    borderRadius: 8,
-    zIndex: 2,
-  },
-  text: {
+  loadingText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
