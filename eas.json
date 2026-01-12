@@ -1,16 +1,29 @@
 {
+  "cli": {
+    "version": ">= 16.28.0",
+    "appVersionSource": "remote"
+  },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ"
+      }
     },
     "production": {
+      "autoIncrement": true,
       "env": {
-        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ" 
+        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ"
       }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
