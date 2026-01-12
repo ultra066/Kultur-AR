@@ -1,0 +1,16 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ" 
+      }
+    }
+  }
+}
