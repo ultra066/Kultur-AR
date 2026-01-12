@@ -13,13 +13,16 @@
         "buildType": "apk"
       },
       "env": {
-        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ"
+        "NODE_ENV": "production",
+        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ",
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true" 
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ"
+        "MAPBOX_DOWNLOADS_TOKEN": "sk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21peXNpc2FmMGdtYTNjc2M4cDR4NzVkdCJ9.Ba0m7ePvsSvlhSVT9TiOyQ",
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
       }
     }
   },
