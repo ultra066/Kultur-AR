@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
   StyleSheet, View, Text, ActivityIndicator, Alert,
-  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView,Image, Animated, PanResponder, Dimensions
+  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView,  Image, Animated, PanResponder, Dimensions
 } from 'react-native';
-import Mapbox from '@rnmapbox/maps'; // <--- Ensure this is correct
+import Mapbox from '@rnmapbox/maps';
 import * as Location from 'expo-location';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as polyline from '@mapbox/polyline';
 
 import { supabase } from '../../../lib/database/supabase';
@@ -16,6 +16,29 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 // --- MAPBOX CONFIGURATION ---
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21oMHAyeXBwMDF6OTJrcXpyZ3B6MXo3byJ9.HyebjVUxFqknP0lGm6arvg";
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+
+// --- HELPER TO RENDER CATEGORY ICON ---
+const renderCategoryIcon = (category, isSelected) => {
+  const size = isSelected ? 35 : 25;
+  const color = isSelected ? "#007AFF" : "#E91E63";
+  
+  // Match the exact strings from your database table
+  switch (category) {
+    case 'House':
+      return <Ionicons name="home" size={size} color={color} />;
+    case 'Church':
+      return <FontAwesome5 name="church" size={size - 4} color={color} />;
+    case 'Monument':
+      return <MaterialCommunityIcons name="pillar" size={size} color={color} />;
+    case 'Mountain':
+      return <FontAwesome5 name="mountain" size={size - 4} color={color} />;
+    case 'Site':
+      return <Ionicons name="location" size={size} color={color} />;
+    default:
+      // Fallback icon
+      return <Ionicons name="location-sharp" size={size} color={color} />;
+  }
+};
 
 export default function MapScreen() {
   const router = useRouter();
@@ -80,21 +103,13 @@ export default function MapScreen() {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           Alert.alert("Permission Denied", "Location permission is required to show your position on the map.");
-          setLocation({ latitude: 14.5995, longitude: 120.9842 }); // Fallback
+          setLocation({ latitude: 14.5995, longitude: 120.9842 });
           setLoading(false);
           return;
         }
 
-        const locationPromise = Location.getCurrentPositionAsync({});
-        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000));
-
-        try {
-            let userLocation = await Promise.race([locationPromise, timeoutPromise]);
-            setLocation(userLocation.coords);
-        } catch (e) {
-            console.log("Location fetch timed out or failed, using fallback.");
-            setLocation({ latitude: 14.5995, longitude: 120.9842 }); 
-        }
+        const userLocation = await Location.getCurrentPositionAsync({});
+        setLocation(userLocation.coords);
 
         if (destLat && destLon) {
           const tempSite = {
@@ -105,7 +120,7 @@ export default function MapScreen() {
             image_url: 'https://via.placeholder.com/150'
           };
           handleSiteSelection(tempSite);
-          setTimeout(() => handleGetDirections(tempSite, location || { latitude: 14.5995, longitude: 120.9842 }), 1000);
+          setTimeout(() => handleGetDirections(tempSite, userLocation.coords), 1000);
         }
         
         await fetchSites();
@@ -120,7 +135,8 @@ export default function MapScreen() {
     try {
       const { data, error } = await supabase
         .from('sites')
-        .select('id, name, city, latitude, longitude, image_url');
+        // UPDATED: Use 'Category' with capital C as seen in your table screenshot
+        .select('id, name, city, latitude, longitude, image_url, Category');
       if (error) throw error;
       setSites(data);
     } catch (error) { console.log(error); }
@@ -239,7 +255,9 @@ export default function MapScreen() {
               coordinate={[site.longitude, site.latitude]}
               onSelected={() => handleSiteSelection(site)}
             >
-              <Ionicons name="location" size={40} color={selectedSite?.id === site.id ? "#007AFF" : "#E91E63"} />
+              <View style={styles.markerWrapper}>
+                {renderCategoryIcon(site.Category, selectedSite?.id === site.id)}
+              </View>
             </Mapbox.PointAnnotation>
           ) : null
         ))}
@@ -311,23 +329,11 @@ export default function MapScreen() {
               </TouchableOpacity>
            </View>
            <View style={styles.buttonRow}>
-               {/* 
-                  UPDATED: Pass the model address dynamically to AR Mode 
-                  Assuming 'site.model_address' exists in your Supabase DB.
-                  If not, you can hardcode a test one here to verify.
-               */}
                <TouchableOpacity
                    style={styles.infoButton}
-                   onPress={() => router.push({
-                       pathname: '/ar_mode',
-                       params: { 
-                           mode: 'HistoricalSite',
-                           // Use the column from your DB, or a fallback string
-                           modelAddress: site.model_address || 'Assets/Prefabs/AR/Historical/3D Models/Imus/ImusCathedral.prefab' 
-                       }
-                   })}
+                   onPress={() => router.push(`/frontend/cultural_sites/${selectedSite.id}`)}
                >
-                   <Text style={styles.infoButtonText}>View in AR</Text>
+                   <Text style={styles.infoButtonText}>View Info</Text>
                </TouchableOpacity>
                <TouchableOpacity
                    style={styles.dirButton}
@@ -378,6 +384,12 @@ const styles = StyleSheet.create({
   resultItem: { flexDirection: 'row', alignItems: 'center', padding: 15, borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
   resultTitle: { fontSize: 14, fontWeight: '600', color: '#333' },
   resultCity: { fontSize: 12, color: '#888' },
+  markerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+  },
   modalCard: {
     position: 'absolute',
     left: 0,
