@@ -55,7 +55,10 @@ export default function TrailDetailsScreen() {
             name,
             city,
             province,
-            image_url
+            image_url,
+            latitude,
+            longitude,
+            Category
           )
         `)
         .eq('trail_id', id)
@@ -179,7 +182,28 @@ export default function TrailDetailsScreen() {
 
       {/* START TRAIL BUTTON */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.startButton} onPress={() => console.log('Start Trail')}>
+        <TouchableOpacity 
+          style={styles.startButton} 
+          onPress={() => {
+            // Prepare the trail data to pass to the map
+            const trailData = {
+              id: trail.id,
+              name: trail.title,
+              sites: stops
+                .sort((a, b) => a.stop_order - b.stop_order)
+                .map(s => s.sites)
+                .filter(site => site && site.latitude && site.longitude)
+            };
+            
+            // Navigate to map with trail data
+            router.push({
+              pathname: '/frontend/homepage/map',
+              params: { 
+                trailData: JSON.stringify(trailData)
+              }
+            });
+          }}
+        >
           <FontAwesome5 name="compass" size={20} color="#fff" style={{ marginRight: 10 }} />
           <Text style={styles.startButtonText}>Start Trail</Text>
         </TouchableOpacity>
