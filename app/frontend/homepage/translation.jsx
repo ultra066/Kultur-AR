@@ -56,7 +56,7 @@ export default function TranslationScreen() {
       finalTranslation = dictionaryMap[normalizedInput];
     } else {
       try {
-        const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || 'AIzaSyBi4Mm4RUSThEcsjPErdmTMVt-BQ5RnUSQ'; 
+        const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || ''; 
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
         const prompt = `You are a linguistics expert for Bahra (Ternate Chavacano).
@@ -153,19 +153,6 @@ export default function TranslationScreen() {
           {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.mainBtnText}>Translate</Text>}
         </TouchableOpacity>
 
-        {/* Menu Items */}
-        <View style={styles.menuRow}>
-          <TouchableOpacity style={styles.menuItem}>
-            <MaterialCommunityIcons name="book-open-variant" size={24} color="#6A6A70" />
-            <Text style={styles.menuText}>Show dictionary</Text>
-          </TouchableOpacity>
-          <View style={styles.divider} />
-          <TouchableOpacity style={styles.menuItem}>
-            <Ionicons name="star-outline" size={24} color="#6A6A70" />
-            <Text style={styles.menuText}>Rate translation</Text>
-          </TouchableOpacity>
-        </View>
-
       </ScrollView>
     </SafeAreaView>
   );
@@ -241,19 +228,5 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 6
   },
-  mainBtnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
-  menuRow: { 
-    flexDirection: 'row', 
-    backgroundColor: '#fff', 
-    borderRadius: 20, 
-    marginTop: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2
-  },
-  menuItem: { flex: 1, padding: 20, alignItems: 'center' },
-  menuText: { fontSize: 12, marginTop: 8, color: '#6A6A70' },
-  divider: { width: 1, backgroundColor: '#E8E9EB' }
+  mainBtnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' }
 });
