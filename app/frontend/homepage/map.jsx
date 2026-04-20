@@ -353,7 +353,8 @@ export default function MapScreen() {
     } catch (error) { console.log("Initial route error", error); }
   };
 
-  const handleSiteSelection = (site) => {
+const handleSiteSelection = (site) => {
+    console.log('Site selected:', site.name, site.id);
     setSelectedSite(site);
     setSearchQuery(site.name);
     setShowResults(false);
@@ -445,11 +446,18 @@ export default function MapScreen() {
 
           return (
             site.latitude && site.longitude ? (
-              <Mapbox.PointAnnotation key={site.id} id={site.id.toString()} coordinate={[site.longitude, site.latitude]} onSelected={() => handleSiteSelection(site)}>
+              <Mapbox.PointAnnotation 
+                key={`${site.id}_${selectedSite?.id === site.id ? 'selected' : 'unselected'}`}
+                id={`${site.id.toString()}_${selectedSite?.id === site.id ? 'selected' : 'unselected'}`}
+                title={site.name}
+                coordinate={[site.longitude, site.latitude]} 
+                onSelected={() => handleSiteSelection(site)}>
                 <View style={[styles.markerCircle, { 
                   borderColor: isCompleted ? "#888" : (selectedSite?.id === site.id ? PRIMARY_GREEN : "#ccc"),
                   backgroundColor: isCompleted ? "#eee" : "white"
                 }]}>
+
+
                   {renderCategoryIcon(site.Category, selectedSite?.id === site.id, isCompleted)}
                 </View>
               </Mapbox.PointAnnotation>
