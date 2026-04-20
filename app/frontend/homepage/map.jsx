@@ -53,7 +53,7 @@ const renderCategoryIcon = (category, isSelected, isCompleted = false) => {
 export default function MapScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { destLat, destLon, destName, trailId, trailData } = params;
+  const { destLat, destLon, destName, trailId, trailData, city, type } = params;
 
   const cameraRef = useRef(null);
 
@@ -61,6 +61,7 @@ export default function MapScreen() {
   const [location, setLocation] = useState(null);
   const [sites, setSites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mapReady, setMapReady] = useState(false);
 
   // UI State
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,6 +75,10 @@ export default function MapScreen() {
   const [isRouting, setIsRouting] = useState(false);
   const [travelMode, setTravelMode] = useState('driving'); 
   const [estimations, setEstimations] = useState({ driving: null, walking: null, cycling: null });
+
+// Festival boundary GeoJSON from Supabase Storage
+
+
 
   // --- TRAIL STATE ---
   const [activeTrail, setActiveTrail] = useState(null);
@@ -163,6 +168,115 @@ export default function MapScreen() {
     }
   }, [location, activeTrail, trailProgress]);
 
+
+  // Auto-center camera on destination coords - PRIORITY (sites button)
+  useEffect(() => {
+    console.log('Dest effect:', {destLat, destLon, mapReady: mapReady ? 'yes' : 'no'});
+    if (!destLat || !destLon || !mapReady) return;
+    
+    const destLatitude = parseFloat(destLat);
+    const destLongitude = parseFloat(destLon);
+    
+    if (isNaN(destLatitude) || isNaN(destLongitude)) {
+      console.log('Invalid coords, skipping');
+      return;
+    }
+
+    console.log('=== AUTO-CENTERING SITE ===', destLatitude, destLongitude);
+    
+    // Delay for camera stability
+    const timer = setTimeout(() => {
+      if (cameraRef.current) {
+        cameraRef.current.setCamera({
+          centerCoordinate: [destLongitude, destLatitude],
+          zoomLevel: 17
+        });
+        console.log('Camera set to site!');
+      } else {
+        console.error('cameraRef.current null!');
+      }
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, [destLat, destLon, mapReady]);
+
+
+  // Site matching after sites load (for site detail pages - skip trails)
+  useEffect(() => {
+    if (!destLat || !destLon || !sites.length || trailId || trailData) return;
+
+    console.log('Site matching for dest:', destLat, destLon);
+    const destLatitude = parseFloat(destLat);
+    const destLongitude = parseFloat(destLon);
+    if (isNaN(destLatitude) || isNaN(destLongitude)) return;
+
+    const matchingSite = sites.find(site => {
+      return Math.abs((site.latitude || 0) - destLatitude) < 0.01 &&
+             Math.abs((site.longitude || 0) - destLongitude) < 0.01;
+    });
+
+    if (matchingSite) {
+      console.log('Site match:', matchingSite.name);
+      setSelectedSite(matchingSite);
+      setSearchQuery(destName || matchingSite.name);
+      openSheet();
+      
+      // Explicitly center camera on matched site like handleSiteSelection
+      if (mapReady && cameraRef.current) {
+        cameraRef.current.setCamera({
+          centerCoordinate: [matchingSite.longitude, matchingSite.latitude],
+          zoomLevel: 17
+        }, { duration: 1000 });
+        console.log('Centered on matched site from dest params');
+      } else {
+        // Fallback timeout like handleSiteSelection
+        setTimeout(() => {
+          if (cameraRef.current) {
+            cameraRef.current.setCamera({
+              centerCoordinate: [matchingSite.longitude, matchingSite.latitude],
+              zoomLevel: 17
+            }, { duration: 1000 });
+            console.log('Fallback centered on matched site');
+          }
+        }, 500);
+      }
+      
+      if (location) fetchEstimations(matchingSite, location);
+    } else {
+      console.log('No site match found for dest coords');
+    }
+  }, [destLat, destLon, sites.length, trailId, trailData, destName, location]);
+
+// Fallback geocode only if festival and no valid dest coords
+  useEffect(() => {
+    if (type !== 'festival' || !city || !mapReady || (destLat && destLon)) return;
+
+    const destLatitude = destLat ? parseFloat(destLat) : NaN;
+    const destLongitude = destLon ? parseFloat(destLon) : NaN;
+    if (!isNaN(destLatitude) && !isNaN(destLongitude)) return;
+
+    const geocodeCity = async () => {
+      try {
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(city)}.json?access_token=${MAPBOX_ACCESS_TOKEN}&country=PH&types=place,city`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.features && data.features.length > 0) {
+          const center = data.features[0].center;
+          console.log(`Festival geocode fallback:`, center);
+          cameraRef.current.setCamera({
+            centerCoordinate: center,
+            zoomLevel: 12
+          }, { duration: 2000 });
+        }
+      } catch (error) {
+        console.error('Geocoding error:', city, error);
+      }
+    };
+
+    geocodeCity();
+  }, [city, type, mapReady, destLat, destLon]);
+
   const fetchSites = async () => {
     const { data, error } = await supabase.from('sites').select('*');
     if (!error) setSites(data);
@@ -248,7 +362,21 @@ export default function MapScreen() {
     setRouteInfo(null);
     setTravelMode('driving');
     openSheet();
-    cameraRef.current?.flyTo([site.longitude, site.latitude], 1000);
+    if (mapReady && cameraRef.current) {
+      cameraRef.current.setCamera({
+        centerCoordinate: [site.longitude, site.latitude],
+        zoomLevel: 16
+      }, { duration: 1000 });
+    } else {
+      setTimeout(() => {
+        if (cameraRef.current) {
+          cameraRef.current.setCamera({
+            centerCoordinate: [site.longitude, site.latitude],
+            zoomLevel: 16
+          }, { duration: 1000 });
+        }
+      }, 500);
+    }
     if (location) fetchEstimations(site, location);
   };
 
@@ -303,9 +431,12 @@ export default function MapScreen() {
 
   return (
     <View style={styles.container}>
-      <Mapbox.MapView style={styles.map} styleURL="mapbox://styles/mapbox/outdoors-v12" onPress={() => { setShowResults(false); Keyboard.dismiss(); closeSheet(); }}>
+      <Mapbox.MapView style={styles.map} styleURL="mapbox://styles/mapbox/outdoors-v12" onPress={() => { setShowResults(false); Keyboard.dismiss(); closeSheet(); }} onDidFinishLoadingMapComplete={() => {
+        console.log('Map fully loaded, mapReady=true');
+        setMapReady(true);
+      }}>
         <Mapbox.UserLocation />
-        <Mapbox.Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [location.longitude, location.latitude], zoomLevel: 12 }} />
+        <Mapbox.Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [location?.longitude || 120.9842, location?.latitude || 14.5995], zoomLevel: 12 }} />
 
         {sites.map((site) => {
           const isTrailSite = activeTrail?.sites.some(s => s.id === site.id);
@@ -337,6 +468,7 @@ export default function MapScreen() {
             <Mapbox.LineLayer id="trailRouteFill" style={{ lineColor: LIGHT_GREEN, lineWidth: 4, lineOpacity: 0.6 }} />
           </Mapbox.ShapeSource>
         )}
+
       </Mapbox.MapView>
 
       <View style={styles.searchWrapper}>

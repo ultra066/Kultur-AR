@@ -204,7 +204,7 @@ export default function HomeScreen() {
                 icon={<MaterialCommunityIcons name="party-popper" size={24} color="#E91E63" />} 
                 label="Festivals" 
                 color="#FCE4EC" 
-                onPress={() => console.log("Festivals Clicked")}
+                onPress={() => router.push('/frontend/festivals/festivals')}
               />
               
               <CategoryItem 

@@ -1,0 +1,14 @@
+import { Stack } from "expo-router";
+import { SavedItemsProvider } from '../components/SavedItemsContext';
+
+export default function FestivalsLayout() {
+  return (
+    <SavedItemsProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,  // Hide the default header
+        }}
+      />
+    </SavedItemsProvider>
+  );
+}

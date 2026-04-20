@@ -11,32 +11,32 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../../../lib/database/supabase';
-import { styles } from './_site_details_styles';
+import { styles } from './_festival_details_styles';
 
-export default function SiteDetailsScreen() {
+export default function FestivalDetailsScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
 
-  const [site, setSite] = useState(null);
+  const [festival, setFestival] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSiteDetails();
+    fetchFestivalDetails();
   }, [id]);
 
-  const fetchSiteDetails = async () => {
+  const fetchFestivalDetails = async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('sites')
+        .from('festivals')
         .select('*')
         .eq('id', id)
         .single();
 
       if (error) throw error;
-      setSite(data);
+      setFestival(data);
     } catch (error) {
-      console.error('Error fetching site details:', error.message);
+      console.error('Error fetching festival details:', error.message);
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,9 @@ export default function SiteDetailsScreen() {
     );
   }
 
-  if (!site) return null;
+  if (!festival) return null;
+
+  const locationText = festival.city + (festival.month_celebrated ? `, ${festival.month_celebrated}` : '');
 
   return (
     <View style={styles.container}>
@@ -61,7 +63,7 @@ export default function SiteDetailsScreen() {
         {/* Header Image */}
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: site.image_url || 'https://via.placeholder.com/400x300' }}
+            source={{ uri: festival.image_url || 'https://via.placeholder.com/400x300' }}
             style={styles.image}
             resizeMode="cover"
           />
@@ -72,35 +74,20 @@ export default function SiteDetailsScreen() {
 
         {/* Content */}
         <View style={styles.contentContainer}>
-          <Text style={styles.title}>{site.name}</Text>
+          <Text style={styles.title}>{festival.name}</Text>
           
           <View style={styles.locationContainer}>
             <Ionicons name="location-sharp" size={18} color="#666" />
             <Text style={styles.locationText}>
-              {site.city ? `${site.city}, ` : ''}{site.province}
+              {locationText}
             </Text>
           </View>
 
           <Text style={styles.description}>
-            {site.description || "No description available for this site."}
+            {festival.description || "No description available for this festival."}
           </Text>
 
-          {/* Map Button Only */}
-          <TouchableOpacity 
-            style={styles.directionsButton}
-            onPress={() => {
-              router.push({
-                pathname: '/frontend/homepage/map',
-                params: { 
-                  destLat: site.latitude, 
-                  destLon: site.longitude,
-                  destName: site.name 
-                }
-              });
-            }}
-          >
-            <Text style={styles.directionsText}>Map</Text>
-          </TouchableOpacity>
+
 
         </View>
       </ScrollView>

@@ -86,12 +86,17 @@ export default function CuisineDetailsScreen() {
             {cuisine.description || "No description available for this cuisine."}
           </Text>
 
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.actionButton} onPress={() => console.log('View Recipe Clicked')}>
-              <Ionicons name="restaurant-outline" size={32} color="#355E3B" />
-              <Text style={styles.actionLabel}>View Recipe</Text>
-            </TouchableOpacity>
-          </View>
+          {/* Map Button Only */}
+          <TouchableOpacity style={styles.directionsButton} onPress={() => {
+            router.push({
+              pathname: '/frontend/homepage/map',
+              params: { 
+                searchQuery: cuisine.city_origin || cuisine.province 
+              }
+            });
+          }}>
+            <Text style={styles.directionsText}>Map</Text>
+          </TouchableOpacity>
 
         </View>
       </ScrollView>

@@ -9,7 +9,7 @@ import {
   StatusBar
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // 1. Import Supabase Client
 import { supabase } from '../../../lib/database/supabase';
@@ -21,6 +21,7 @@ export default function ArtifactDetailsScreen() {
   const router = useRouter();
 
   const [artifact, setArtifact] = useState(null);
+  const [site, setSite] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,14 +31,19 @@ export default function ArtifactDetailsScreen() {
   const fetchArtifactDetails = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
+      const { data: artifactData, error } = await supabase
         .from('artifacts')
-        .select('*')
+        .select('*, sites(name, latitude, longitude, city)')
         .eq('id', id)
         .single();
 
       if (error) throw error;
-      setArtifact(data);
+      setArtifact(artifactData);
+      
+      // Extract site details from join
+      if (artifactData.sites) {
+        setSite(artifactData.sites);
+      }
     } catch (error) {
       console.error('Error fetching artifact details:', error.message);
     } finally {
@@ -55,6 +61,9 @@ export default function ArtifactDetailsScreen() {
   }
 
   if (!artifact) return null;
+
+  const siteName = site?.name || '';
+  const hasSiteCoords = site?.latitude && site?.longitude;
 
   return (
     <View style={styles.container}>
@@ -74,17 +83,46 @@ export default function ArtifactDetailsScreen() {
 
         <View style={styles.contentContainer}>
           <Text style={styles.title}>{artifact.name}</Text>
+          
+          {/* Located At Site Name - Pin icon */}
+          {siteName && (
+            <View style={styles.locationContainer}>
+              <Ionicons name="location-sharp" size={18} color="#666" />
+              <Text style={styles.locationText}>{siteName}</Text>
+            </View>
+          )}
 
           <Text style={styles.description}>
             {artifact.description || "No description available for this artifact."}
           </Text>
 
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.actionButton} onPress={() => console.log('3D View Clicked')}>
-              <MaterialCommunityIcons name="cube-scan" size={32} color="#355E3B" />
-              <Text style={styles.actionLabel}>3D View</Text>
-            </TouchableOpacity>
-          </View>
+          {/* Map Button - Center on site location */}
+          <TouchableOpacity 
+            style={styles.directionsButton}
+            onPress={() => {
+              if (hasSiteCoords) {
+                // Use site lat/lon for precise centering (like Sites)
+                router.push({
+                  pathname: '/frontend/homepage/map',
+                  params: { 
+                    destLat: site.latitude, 
+                    destLon: site.longitude,
+                    destName: siteName 
+                  }
+                });
+              } else {
+                // Fallback to search
+                router.push({
+                  pathname: '/frontend/homepage/map',
+                  params: { 
+                    searchQuery: siteName || artifact.current_location 
+                  }
+                });
+              }
+            }}
+          >
+            <Text style={styles.directionsText}>Map</Text>
+          </TouchableOpacity>
 
         </View>
       </ScrollView>
