@@ -56,7 +56,7 @@ export default function TranslationScreen() {
       finalTranslation = dictionaryMap[normalizedInput];
     } else {
       try {
-        const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || 'AIzaSyAugi_5u1AOSRe7hZ3bhsmEa_ETfpp0Mp4'; 
+        const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || ''; 
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
         const prompt = `You are a linguistics expert for Bahra (Ternate Chavacano).
