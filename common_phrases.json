@@ -1,0 +1,1407 @@
+{
+  "project": "KULTURAR",
+  "language": "Chavacano (Bahra)",
+  "total_phrases": 200,
+  "common_phrases": [
+    {
+      "id": 1,
+      "tagalog": "Magandang umaga",
+      "english": "Good morning",
+      "bahra": "Buenas dias",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_dias.aac"
+    },
+    {
+      "id": 2,
+      "tagalog": "Magandang hapon",
+      "english": "Good afternoon",
+      "bahra": "Buenas tardes",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_tardes.aac"
+    },
+    {
+      "id": 3,
+      "tagalog": "Magandang gabi",
+      "english": "Good evening",
+      "bahra": "Buenas noches",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_noches.aac"
+    },
+    {
+      "id": 4,
+      "tagalog": "Kumusta ka?",
+      "english": "How are you?",
+      "bahra": "Quetal ya tu?",
+      "file_path": "recordings/4.aac"
+    },
+    {
+      "id": 5,
+      "tagalog": "Mabuti naman",
+      "english": "I'm fine",
+      "bahra": "Bueno naman",
+      "file_path": "recordings/5.aac"
+    },
+    {
+      "id": 6,
+      "tagalog": "Salamat",
+      "english": "Thank you",
+      "bahra": "Gracias",
+      "file_path": "recordings/6.aac"
+    },
+    {
+      "id": 7,
+      "tagalog": "Maraming salamat",
+      "english": "Thank you very much",
+      "bahra": "Muchas gracias",
+      "file_path": "recordings/7.aac"
+    },
+    {
+      "id": 8,
+      "tagalog": "Walang anuman",
+      "english": "You're welcome",
+      "bahra": "Nuay aquel / De nada",
+      "file_path": "recordings/8.aac"
+    },
+    {
+      "id": 9,
+      "tagalog": "Pasensya na",
+      "english": "I'm sorry",
+      "bahra": "Perdona mi / Dispensa",
+      "file_path": "recordings/9.aac"
+    },
+    {
+      "id": 10,
+      "tagalog": "Tao po!",
+      "english": "Is anyone home?",
+      "bahra": "Buenas!",
+      "file_path": "recordings/10.aac"
+    },
+    {
+      "id": 11,
+      "tagalog": "Tuloy ka",
+      "english": "Come in",
+      "bahra": "Entra ba tu",
+      "file_path": "recordings/11.aac"
+    },
+    {
+      "id": 12,
+      "tagalog": "Ingat ka",
+      "english": "Take care",
+      "bahra": "Cuidao tu",
+      "file_path": "recordings/12.aac"
+    },
+    {
+      "id": 13,
+      "tagalog": "Paalam",
+      "english": "Goodbye",
+      "bahra": "Adios",
+      "file_path": "recordings/13.aac"
+    },
+    {
+      "id": 14,
+      "tagalog": "Hanggang sa muli",
+      "english": "Until next time",
+      "bahra": "Hasta la otra",
+      "file_path": "recordings/14.aac"
+    },
+    {
+      "id": 15,
+      "tagalog": "Anong pangalan mo?",
+      "english": "What is your name?",
+      "bahra": "Cosa di tuyu nombre?",
+      "file_path": "recordings/15.aac"
+    },
+    {
+      "id": 16,
+      "tagalog": "Ako si...",
+      "english": "I am...",
+      "bahra": "Iyo si...",
+      "file_path": "recordings/16.aac"
+    },
+    {
+      "id": 17,
+      "tagalog": "Kinagagalak kitang makilala",
+      "english": "Nice to meet you",
+      "bahra": "Alegre yo cunuci cuntigo",
+      "file_path": "recordings/17.aac"
+    },
+    {
+      "id": 18,
+      "tagalog": "Opo",
+      "english": "Yes (respectful)",
+      "bahra": "Si po",
+      "file_path": "recordings/18.aac"
+    },
+    {
+      "id": 19,
+      "tagalog": "Hindi po",
+      "english": "No (respectful)",
+      "bahra": "Hindi po",
+      "file_path": "recordings/19.aac"
+    },
+    {
+      "id": 20,
+      "tagalog": "Pakiusap",
+      "english": "Please",
+      "bahra": "Pabor",
+      "file_path": "recordings/20.aac"
+    },
+    {
+      "id": 21,
+      "tagalog": "Saan ka galing?",
+      "english": "Where are you from?",
+      "bahra": "De donde tu?",
+      "file_path": "recordings/21.aac"
+    },
+    {
+      "id": 22,
+      "tagalog": "Taga-Ternate ako",
+      "english": "I am from Ternate",
+      "bahra": "De Ternate iyo",
+      "file_path": "recordings/22.aac"
+    },
+    {
+      "id": 23,
+      "tagalog": "Ilang taon ka na?",
+      "english": "How old are you?",
+      "bahra": "Cuanto año ya tu?",
+      "file_path": "recordings/23.aac"
+    },
+    {
+      "id": 24,
+      "tagalog": "Gutom na ako",
+      "english": "I am hungry",
+      "bahra": "Tiene ya iyo hambre",
+      "file_path": "recordings/24.aac"
+    },
+    {
+      "id": 25,
+      "tagalog": "Uhaw na ako",
+      "english": "I am thirsty",
+      "bahra": "Tiene ya iyo sed",
+      "file_path": "recordings/25.aac"
+    },
+    {
+      "id": 26,
+      "tagalog": "Busog na ako",
+      "english": "I am full",
+      "bahra": "Harto na iyo",
+      "file_path": "recordings/26.aac"
+    },
+    {
+      "id": 27,
+      "tagalog": "Masarap",
+      "english": "Delicious",
+      "bahra": "Sabroso",
+      "file_path": "recordings/27.aac"
+    },
+    {
+      "id": 28,
+      "tagalog": "Sobrang sarap",
+      "english": "Very delicious",
+      "bahra": "Bien sabroso",
+      "file_path": "recordings/28.aac"
+    },
+    {
+      "id": 29,
+      "tagalog": "Ano ito?",
+      "english": "What is this?",
+      "bahra": "Cosa esti?",
+      "file_path": "recordings/29.aac"
+    },
+    {
+      "id": 30,
+      "tagalog": "Sino siya?",
+      "english": "Who is he/she?",
+      "bahra": "Quien ele?",
+      "file_path": "recordings/30.aac"
+    },
+    {
+      "id": 31,
+      "tagalog": "Saan tayo pupunta?",
+      "english": "Where are we going?",
+      "bahra": "Donde niso di anda?",
+      "file_path": "recordings/31.aac"
+    },
+    {
+      "id": 32,
+      "tagalog": "Tara na",
+      "english": "Let's go",
+      "bahra": "Anda na niso",
+      "file_path": "recordings/32.aac"
+    },
+    {
+      "id": 33,
+      "tagalog": "Dito lang",
+      "english": "Just here",
+      "bahra": "Aqui lang",
+      "file_path": "recordings/33.aac"
+    },
+    {
+      "id": 34,
+      "tagalog": "Doon",
+      "english": "Over there",
+      "bahra": "Alla",
+      "file_path": "recordings/34.aac"
+    },
+    {
+      "id": 35,
+      "tagalog": "Sandali lang",
+      "english": "Just a moment",
+      "bahra": "Un rato lang",
+      "file_path": "recordings/35.aac"
+    },
+    {
+      "id": 36,
+      "tagalog": "Teka lang",
+      "english": "Wait",
+      "bahra": "Espera anay",
+      "file_path": "recordings/36.aac"
+    },
+    {
+      "id": 37,
+      "tagalog": "Marunong ka ba mag-Chavacano?",
+      "english": "Do you know how to speak Chavacano?",
+      "bahra": "Sabe tu platica Bahra?",
+      "file_path": "recordings/37.aac"
+    },
+    {
+      "id": 38,
+      "tagalog": "Kaunti lang",
+      "english": "Just a little",
+      "bahra": "Um-poco lang",
+      "file_path": "recordings/38.aac"
+    },
+    {
+      "id": 39,
+      "tagalog": "Hindi ko alam",
+      "english": "I don't know",
+      "bahra": "No sabe iyo",
+      "file_path": "recordings/39.aac"
+    },
+    {
+      "id": 40,
+      "tagalog": "Naiintindihan mo ba?",
+      "english": "Do you understand?",
+      "bahra": "Ta intindi tu?",
+      "file_path": "recordings/40.aac"
+    },
+    {
+      "id": 41,
+      "tagalog": "Saan ang banyo?",
+      "english": "Where is the bathroom?",
+      "bahra": "Donde el banyo?",
+      "file_path": "recordings/41.aac"
+    },
+    {
+      "id": 42,
+      "tagalog": "Malayo ba?",
+      "english": "Is it far?",
+      "bahra": "Malayo ba aquel?",
+      "file_path": "recordings/42.aac"
+    },
+    {
+      "id": 43,
+      "tagalog": "Malapit lang",
+      "english": "It's just near",
+      "bahra": "Cercani lang",
+      "file_path": "recordings/43.aac"
+    },
+    {
+      "id": 44,
+      "tagalog": "Saan ang simbahan?",
+      "english": "Where is the church?",
+      "bahra": "Donde el iglesia?",
+      "file_path": "recordings/44.aac"
+    },
+    {
+      "id": 45,
+      "tagalog": "Saan ang munisipyo?",
+      "english": "Where is the municipal hall?",
+      "bahra": "Donde el munisipyo?",
+      "file_path": "recordings/45.aac"
+    },
+    {
+      "id": 46,
+      "tagalog": "Kanan",
+      "english": "Right",
+      "bahra": "Derecha",
+      "file_path": "recordings/46.aac"
+    },
+    {
+      "id": 47,
+      "tagalog": "Kaliwa",
+      "english": "Left",
+      "bahra": "Izquierda",
+      "file_path": "recordings/47.aac"
+    },
+    {
+      "id": 48,
+      "tagalog": "Diretso lang",
+      "english": "Just go straight",
+      "bahra": "Derechu lang",
+      "file_path": "recordings/48.aac"
+    },
+    {
+      "id": 49,
+      "tagalog": "Sakay tayo",
+      "english": "Let's ride",
+      "bahra": "Monta niso",
+      "file_path": "recordings/49.aac"
+    },
+    {
+      "id": 50,
+      "tagalog": "Para po",
+      "english": "Stop here",
+      "bahra": "Para po",
+      "file_path": "recordings/50.aac"
+    },
+    {
+      "id": 51,
+      "tagalog": "Magkano ang pamasahe?",
+      "english": "How much is the fare?",
+      "bahra": "Cuanto el pasaje?",
+      "file_path": "recordings/51.aac"
+    },
+    {
+      "id": 52,
+      "tagalog": "Saan ang palengke?",
+      "english": "Where is the market?",
+      "bahra": "Donde el palengke?",
+      "file_path": "recordings/52.aac"
+    },
+    {
+      "id": 53,
+      "tagalog": "Saan ang sakayan?",
+      "english": "Where is the terminal?",
+      "bahra": "Donde el terminal / parada?",
+      "file_path": "recordings/53.aac"
+    },
+    {
+      "id": 54,
+      "tagalog": "Gusto ko pumunta sa dagat",
+      "english": "I want to go to the sea",
+      "bahra": "Quieri iyo anda na mar",
+      "file_path": "recordings/54.aac"
+    },
+    {
+      "id": 55,
+      "tagalog": "Anong oras na?",
+      "english": "What time is it?",
+      "bahra": "Cosa ya hora?",
+      "file_path": "recordings/55.aac"
+    },
+    {
+      "id": 56,
+      "tagalog": "Tanghali na",
+      "english": "It's already noon",
+      "bahra": "Medio dia na",
+      "file_path": "recordings/56.aac"
+    },
+    {
+      "id": 57,
+      "tagalog": "Gabi na",
+      "english": "It's already night",
+      "bahra": "Noche na",
+      "file_path": "recordings/57.aac"
+    },
+    {
+      "id": 58,
+      "tagalog": "Bukas",
+      "english": "Tomorrow",
+      "bahra": "Mañana",
+      "file_path": "recordings/58.aac"
+    },
+    {
+      "id": 59,
+      "tagalog": "Kahapon",
+      "english": "Yesterday",
+      "bahra": "Ayer",
+      "file_path": "recordings/59.aac"
+    },
+    {
+      "id": 60,
+      "tagalog": "Ngayon",
+      "english": "Now/Today",
+      "bahra": "Ahora / Este dia",
+      "file_path": "recordings/60.aac"
+    },
+    {
+      "id": 61,
+      "tagalog": "Maligo ka na",
+      "english": "Take a bath now",
+      "bahra": "Man-banyo na tu",
+      "file_path": "recordings/61.aac"
+    },
+    {
+      "id": 62,
+      "tagalog": "Matulog na tayo",
+      "english": "Let's sleep",
+      "bahra": "Durmi na niso",
+      "file_path": "recordings/62.aac"
+    },
+    {
+      "id": 63,
+      "tagalog": "Gising na",
+      "english": "Wake up",
+      "bahra": "Disperta na",
+      "file_path": "recordings/63.aac"
+    },
+    {
+      "id": 64,
+      "tagalog": "Ano ang ulam?",
+      "english": "What is the viand?",
+      "bahra": "Cosa el comida?",
+      "file_path": "recordings/64.aac"
+    },
+    {
+      "id": 65,
+      "tagalog": "Kain tayo",
+      "english": "Let's eat",
+      "bahra": "Cumi niso",
+      "file_path": "recordings/65.aac"
+    },
+    {
+      "id": 66,
+      "tagalog": "Magluto ka",
+      "english": "You cook",
+      "bahra": "Man-cocina tu",
+      "file_path": "recordings/66.aac"
+    },
+    {
+      "id": 67,
+      "tagalog": "Hugas plato",
+      "english": "Wash the dishes",
+      "bahra": "Laba plato",
+      "file_path": "recordings/67.aac"
+    },
+    {
+      "id": 68,
+      "tagalog": "Saan ka pupunta?",
+      "english": "Where are you going?",
+      "bahra": "Donde tu anda?",
+      "file_path": "recordings/68.aac"
+    },
+    {
+      "id": 69,
+      "tagalog": "Uuwi na ako",
+      "english": "I'm going home",
+      "bahra": "Di anda na iyo na casa",
+      "file_path": "recordings/69.aac"
+    },
+    {
+      "id": 70,
+      "tagalog": "Kasama ko sila",
+      "english": "I am with them",
+      "bahra": "Junto iyo conila",
+      "file_path": "recordings/70.aac"
+    },
+    {
+      "id": 71,
+      "tagalog": "Hintayin mo ako",
+      "english": "Wait for me",
+      "bahra": "Espera conmigo",
+      "file_path": "recordings/71.aac"
+    },
+    {
+      "id": 72,
+      "tagalog": "Bilisan mo",
+      "english": "Hurry up",
+      "bahra": "Dali-dali tu",
+      "file_path": "recordings/72.aac"
+    },
+    {
+      "id": 73,
+      "tagalog": "Dahan-dahan lang",
+      "english": "Slowly",
+      "bahra": "Despacio lang",
+      "file_path": "recordings/73.aac"
+    },
+    {
+      "id": 74,
+      "tagalog": "Mainit ngayon",
+      "english": "It's hot today",
+      "bahra": "Calor ahora",
+      "file_path": "recordings/74.aac"
+    },
+    {
+      "id": 75,
+      "tagalog": "Maulan",
+      "english": "It's rainy",
+      "bahra": "Ta lobi",
+      "file_path": "recordings/75.aac"
+    },
+    {
+      "id": 76,
+      "tagalog": "Malakas ang hangin",
+      "english": "The wind is strong",
+      "bahra": "Forte el biento",
+      "file_path": "recordings/76.aac"
+    },
+    {
+      "id": 77,
+      "tagalog": "Pagod na ako",
+      "english": "I am tired",
+      "bahra": "Cansao na iyo",
+      "file_path": "recordings/77.aac"
+    },
+    {
+      "id": 78,
+      "tagalog": "Antok na ako",
+      "english": "I am sleepy",
+      "bahra": "Tiene ya iyo sueño",
+      "file_path": "recordings/78.aac"
+    },
+    {
+      "id": 79,
+      "tagalog": "Masaya ako",
+      "english": "I am happy",
+      "bahra": "Alegre iyo",
+      "file_path": "recordings/79.aac"
+    },
+    {
+      "id": 80,
+      "tagalog": "Malungkot ako",
+      "english": "I am sad",
+      "bahra": "Triste iyo",
+      "file_path": "recordings/80.aac"
+    },
+    {
+      "id": 81,
+      "tagalog": "Magkano ito?",
+      "english": "How much is this?",
+      "bahra": "Cuanto esti?",
+      "file_path": "recordings/81.aac"
+    },
+    {
+      "id": 82,
+      "tagalog": "Ang mahal naman",
+      "english": "That's too expensive",
+      "bahra": "Bien caro naman",
+      "file_path": "recordings/82.aac"
+    },
+    {
+      "id": 83,
+      "tagalog": "Pwedeng tawad?",
+      "english": "Can I get a discount?",
+      "bahra": "Puede discount/tawad?",
+      "file_path": "recordings/83.aac"
+    },
+    {
+      "id": 84,
+      "tagalog": "Mura lang",
+      "english": "It's cheap",
+      "bahra": "Barato lang",
+      "file_path": "recordings/84.aac"
+    },
+    {
+      "id": 85,
+      "tagalog": "Bibilhin ko ito",
+      "english": "I will buy this",
+      "bahra": "Di compra iyo esti",
+      "file_path": "recordings/85.aac"
+    },
+    {
+      "id": 86,
+      "tagalog": "Wala na bang iba?",
+      "english": "Is there nothing else?",
+      "bahra": "Nuay na ba otro?",
+      "file_path": "recordings/86.aac"
+    },
+    {
+      "id": 87,
+      "tagalog": "Pabili po",
+      "english": "Can I buy...",
+      "bahra": "Pabili po / Compra pabor",
+      "file_path": "recordings/87.aac"
+    },
+    {
+      "id": 88,
+      "tagalog": "Sukli ko po",
+      "english": "My change please",
+      "bahra": "Di mio sencillo pabor",
+      "file_path": "recordings/88.aac"
+    },
+    {
+      "id": 89,
+      "tagalog": "Gusto ko nito",
+      "english": "I like this",
+      "bahra": "Quieri iyo esti",
+      "file_path": "recordings/89.aac"
+    },
+    {
+      "id": 90,
+      "tagalog": "Ayaw ko niyan",
+      "english": "I don't like that",
+      "bahra": "No quieri iyo aquel",
+      "file_path": "recordings/90.aac"
+    },
+    {
+      "id": 91,
+      "tagalog": "Sariwa ba ito?",
+      "english": "Is this fresh?",
+      "bahra": "Fresco ba esti?",
+      "file_path": "recordings/91.aac"
+    },
+    {
+      "id": 92,
+      "tagalog": "Isda",
+      "english": "Fish",
+      "bahra": "Pescao",
+      "file_path": "recordings/92.aac"
+    },
+    {
+      "id": 93,
+      "tagalog": "Karne",
+      "english": "Meat",
+      "bahra": "Carne",
+      "file_path": "recordings/93.aac"
+    },
+    {
+      "id": 94,
+      "tagalog": "Bigas",
+      "english": "Rice (uncooked)",
+      "bahra": "Arroz",
+      "file_path": "recordings/94.aac"
+    },
+    {
+      "id": 95,
+      "tagalog": "Kanin",
+      "english": "Rice (cooked)",
+      "bahra": "Comida / Kanin",
+      "file_path": "recordings/95.aac"
+    },
+    {
+      "id": 96,
+      "tagalog": "Tubig",
+      "english": "Water",
+      "bahra": "Agua",
+      "file_path": "recordings/96.aac"
+    },
+    {
+      "id": 97,
+      "tagalog": "Tinapay",
+      "english": "Bread",
+      "bahra": "Pan",
+      "file_path": "recordings/97.aac"
+    },
+    {
+      "id": 98,
+      "tagalog": "Itlog",
+      "english": "Egg",
+      "bahra": "Huevo",
+      "file_path": "recordings/98.aac"
+    },
+    {
+      "id": 99,
+      "tagalog": "Prutas",
+      "english": "Fruit",
+      "bahra": "Frutas",
+      "file_path": "recordings/99.aac"
+    },
+    {
+      "id": 100,
+      "tagalog": "Gulay",
+      "english": "Vegetables",
+      "bahra": "Gulay / Legumbres",
+      "file_path": "recordings/100.aac"
+    },
+    {
+      "id": 101,
+      "tagalog": "Mayroon ba kayong...?",
+      "english": "Do you have...?",
+      "bahra": "Tiene ba ustedes...?",
+      "file_path": "recordings/101.aac"
+    },
+    {
+      "id": 102,
+      "tagalog": "Wala po",
+      "english": "None",
+      "bahra": "Nuay po",
+      "file_path": "recordings/102.aac"
+    },
+    {
+      "id": 103,
+      "tagalog": "Meron po",
+      "english": "We have",
+      "bahra": "Tiene po",
+      "file_path": "recordings/103.aac"
+    },
+    {
+      "id": 104,
+      "tagalog": "Ilan ang kailangan mo?",
+      "english": "How many do you need?",
+      "bahra": "Cuanto tu necita?",
+      "file_path": "recordings/104.aac"
+    },
+    {
+      "id": 105,
+      "tagalog": "Isa lang",
+      "english": "Just one",
+      "bahra": "Uno lang",
+      "file_path": "recordings/105.aac"
+    },
+    {
+      "id": 106,
+      "tagalog": "Dalawa",
+      "english": "Two",
+      "bahra": "Dos",
+      "file_path": "recordings/106.aac"
+    },
+    {
+      "id": 107,
+      "tagalog": "Tatlo",
+      "english": "Three",
+      "bahra": "Tres",
+      "file_path": "recordings/107.aac"
+    },
+    {
+      "id": 108,
+      "tagalog": "Marami",
+      "english": "Many",
+      "bahra": "Mucho / Poco ese",
+      "file_path": "recordings/108.aac"
+    },
+    {
+      "id": 109,
+      "tagalog": "Kaunti",
+      "english": "A few",
+      "bahra": "Diutay",
+      "file_path": "recordings/109.aac"
+    },
+    {
+      "id": 110,
+      "tagalog": "Puno na",
+      "english": "It's full",
+      "bahra": "Lleno na",
+      "file_path": "recordings/110.aac"
+    },
+    {
+      "id": 111,
+      "tagalog": "Ubos na",
+      "english": "It's finished/gone",
+      "bahra": "Acaba ya",
+      "file_path": "recordings/111.aac"
+    },
+    {
+      "id": 112,
+      "tagalog": "Bukas ba kayo?",
+      "english": "Are you open?",
+      "bahra": "Abierto ba ustedes?",
+      "file_path": "recordings/112.aac"
+    },
+    {
+      "id": 113,
+      "tagalog": "Sarado na",
+      "english": "Already closed",
+      "bahra": "Cerrao na",
+      "file_path": "recordings/113.aac"
+    },
+    {
+      "id": 114,
+      "tagalog": "Saan ang bayaran?",
+      "english": "Where is the payment area?",
+      "bahra": "Donde el pagahan?",
+      "file_path": "recordings/114.aac"
+    },
+    {
+      "id": 115,
+      "tagalog": "Pera",
+      "english": "Money",
+      "bahra": "Cualta",
+      "file_path": "recordings/115.aac"
+    },
+    {
+      "id": 116,
+      "tagalog": "Utang",
+      "english": "Debt",
+      "bahra": "Fiat",
+      "file_path": "recordings/116.aac"
+    },
+    {
+      "id": 117,
+      "tagalog": "Bayad po",
+      "english": "Here is the payment",
+      "bahra": "Pagahan po",
+      "file_path": "recordings/117.aac"
+    },
+    {
+      "id": 118,
+      "tagalog": "Tulong!",
+      "english": "Help!",
+      "bahra": "Ayuda!",
+      "file_path": "recordings/118.aac"
+    },
+    {
+      "id": 119,
+      "tagalog": "Magnanakaw!",
+      "english": "Thief!",
+      "bahra": "Ladron!",
+      "file_path": "recordings/119.aac"
+    },
+    {
+      "id": 120,
+      "tagalog": "Sunog!",
+      "english": "Fire!",
+      "bahra": "Quema!",
+      "file_path": "recordings/120.aac"
+    },
+    {
+      "id": 121,
+      "tagalog": "Mahal kita",
+      "english": "I love you",
+      "bahra": "Ta ama iyo contigo",
+      "file_path": "recordings/121.aac"
+    },
+    {
+      "id": 122,
+      "tagalog": "Miss na kita",
+      "english": "I miss you",
+      "bahra": "Ta falta iyo contigo",
+      "file_path": "recordings/122.aac"
+    },
+    {
+      "id": 123,
+      "tagalog": "Sino ang kasama mo?",
+      "english": "Who are you with?",
+      "bahra": "Quien di tuyu kasama?",
+      "file_path": "recordings/123.aac"
+    },
+    {
+      "id": 124,
+      "tagalog": "Kaibigan ko siya",
+      "english": "He/She is my friend",
+      "bahra": "Di mio amigo/amiga ele",
+      "file_path": "recordings/124.aac"
+    },
+    {
+      "id": 125,
+      "tagalog": "Pamilya",
+      "english": "Family",
+      "bahra": "Familia",
+      "file_path": "recordings/125.aac"
+    },
+    {
+      "id": 126,
+      "tagalog": "Nanay",
+      "english": "Mother",
+      "bahra": "Nanay / Mama",
+      "file_path": "recordings/126.aac"
+    },
+    {
+      "id": 127,
+      "tagalog": "Tatay",
+      "english": "Father",
+      "bahra": "Tatay / Papa",
+      "file_path": "recordings/127.aac"
+    },
+    {
+      "id": 128,
+      "tagalog": "Kuya",
+      "english": "Older brother",
+      "bahra": "Manong",
+      "file_path": "recordings/128.aac"
+    },
+    {
+      "id": 129,
+      "tagalog": "Ate",
+      "english": "Older sister",
+      "bahra": "Manang",
+      "file_path": "recordings/129.aac"
+    },
+    {
+      "id": 130,
+      "tagalog": "Bunso",
+      "english": "Youngest child",
+      "bahra": "Bunso / Mas jutay",
+      "file_path": "recordings/130.aac"
+    },
+    {
+      "id": 131,
+      "tagalog": "Asawa",
+      "english": "Spouse",
+      "bahra": "Asawa",
+      "file_path": "recordings/131.aac"
+    },
+    {
+      "id": 132,
+      "tagalog": "Anak",
+      "english": "Child",
+      "bahra": "Anak / Hijo",
+      "file_path": "recordings/132.aac"
+    },
+    {
+      "id": 133,
+      "tagalog": "Lolo",
+      "english": "Grandfather",
+      "bahra": "Abuelo",
+      "file_path": "recordings/133.aac"
+    },
+    {
+      "id": 134,
+      "tagalog": "Lola",
+      "english": "Grandmother",
+      "bahra": "Abuela",
+      "file_path": "recordings/134.aac"
+    },
+    {
+      "id": 135,
+      "tagalog": "Pinsan",
+      "english": "Cousin",
+      "bahra": "Primo / Prima",
+      "file_path": "recordings/135.aac"
+    },
+    {
+      "id": 136,
+      "tagalog": "Pamangkin",
+      "english": "Nephew/Niece",
+      "bahra": "Sobrino / Sobrina",
+      "file_path": "recordings/136.aac"
+    },
+    {
+      "id": 137,
+      "tagalog": "Ninong",
+      "english": "Godfather",
+      "bahra": "Padrino",
+      "file_path": "recordings/137.aac"
+    },
+    {
+      "id": 138,
+      "tagalog": "Ninang",
+      "english": "Godmother",
+      "bahra": "Madrina",
+      "file_path": "recordings/138.aac"
+    },
+    {
+      "id": 139,
+      "tagalog": "Binyag",
+      "english": "Baptism",
+      "bahra": "Bautismo",
+      "file_path": "recordings/139.aac"
+    },
+    {
+      "id": 140,
+      "tagalog": "Kasal",
+      "english": "Wedding",
+      "bahra": "Boda / Casamiento",
+      "file_path": "recordings/140.aac"
+    },
+    {
+      "id": 141,
+      "tagalog": "Kamag-anak",
+      "english": "Relative",
+      "bahra": "Pariente",
+      "file_path": "recordings/141.aac"
+    },
+    {
+      "id": 142,
+      "tagalog": "Bisita",
+      "english": "Visitor",
+      "bahra": "Bisita",
+      "file_path": "recordings/142.aac"
+    },
+    {
+      "id": 143,
+      "tagalog": "Bahay",
+      "english": "House",
+      "bahra": "Casa",
+      "file_path": "recordings/143.aac"
+    },
+    {
+      "id": 144,
+      "tagalog": "Kapitbahay",
+      "english": "Neighbor",
+      "bahra": "Bisino",
+      "file_path": "recordings/144.aac"
+    },
+    {
+      "id": 145,
+      "tagalog": "Usap tayo",
+      "english": "Let's talk",
+      "bahra": "Conversa niso",
+      "file_path": "recordings/145.aac"
+    },
+    {
+      "id": 146,
+      "tagalog": "Anong balita?",
+      "english": "What's the news?",
+      "bahra": "Cosa balita?",
+      "file_path": "recordings/146.aac"
+    },
+    {
+      "id": 147,
+      "tagalog": "Wala naman",
+      "english": "Nothing much",
+      "bahra": "Nuay naman",
+      "file_path": "recordings/147.aac"
+    },
+    {
+      "id": 148,
+      "tagalog": "Totoo ba?",
+      "english": "Is it true?",
+      "bahra": "Berdad ba?",
+      "file_path": "recordings/148.aac"
+    },
+    {
+      "id": 149,
+      "tagalog": "Biyahe",
+      "english": "Journey/Trip",
+      "bahra": "Viaje",
+      "file_path": "recordings/149.aac"
+    },
+    {
+      "id": 150,
+      "tagalog": "Mag-ingat sa daan",
+      "english": "Be careful on the road",
+      "bahra": "Cuidao na camino",
+      "file_path": "recordings/150.aac"
+    },
+    {
+      "id": 151,
+      "tagalog": "Nakakapagod",
+      "english": "It's tiring",
+      "bahra": "Ta cansa",
+      "file_path": "recordings/151.aac"
+    },
+    {
+      "id": 152,
+      "tagalog": "Nakakatuwa",
+      "english": "It's fun/funny",
+      "bahra": "Ta alegre",
+      "file_path": "recordings/152.aac"
+    },
+    {
+      "id": 153,
+      "tagalog": "Huwag",
+      "english": "Don't",
+      "bahra": "No / Hinde",
+      "file_path": "recordings/153.aac"
+    },
+    {
+      "id": 154,
+      "tagalog": "Huwag kang maingay",
+      "english": "Don't be noisy",
+      "bahra": "No hace rudio",
+      "file_path": "recordings/154.aac"
+    },
+    {
+      "id": 155,
+      "tagalog": "Tahimik lang",
+      "english": "Just be quiet",
+      "bahra": "Silencio lang",
+      "file_path": "recordings/155.aac"
+    },
+    {
+      "id": 156,
+      "tagalog": "Galit ka ba?",
+      "english": "Are you angry?",
+      "bahra": "Rabiao ba tu?",
+      "file_path": "recordings/156.aac"
+    },
+    {
+      "id": 157,
+      "tagalog": "Hindi ako galit",
+      "english": "I am not angry",
+      "bahra": "Hinde iyo rabiao",
+      "file_path": "recordings/157.aac"
+    },
+    {
+      "id": 158,
+      "tagalog": "Ngumiti ka",
+      "english": "Smile",
+      "bahra": "Man-risas tu",
+      "file_path": "recordings/158.aac"
+    },
+    {
+      "id": 159,
+      "tagalog": "Tumawa tayo",
+      "english": "Let's laugh",
+      "bahra": "Man-risas niso",
+      "file_path": "recordings/159.aac"
+    },
+    {
+      "id": 160,
+      "tagalog": "Umiiyak siya",
+      "english": "He/She is crying",
+      "bahra": "Ta llora ele",
+      "file_path": "recordings/160.aac"
+    },
+    {
+      "id": 161,
+      "tagalog": "Pista ng Ternate",
+      "english": "Ternate Festival",
+      "bahra": "Fiesta di Ternate",
+      "file_path": "recordings/161.aac"
+    },
+    {
+      "id": 162,
+      "tagalog": "Sto. Niño de Ternate",
+      "english": "Holy Child of Ternate",
+      "bahra": "Sto. Niño di Ternate",
+      "file_path": "recordings/162.aac"
+    },
+    {
+      "id": 163,
+      "tagalog": "Simbang Gabi",
+      "english": "Midnight Mass",
+      "bahra": "Misa di Gallo",
+      "file_path": "recordings/163.aac"
+    },
+    {
+      "id": 164,
+      "tagalog": "Paskuhan",
+      "english": "Christmas",
+      "bahra": "Pascua",
+      "file_path": "recordings/164.aac"
+    },
+    {
+      "id": 165,
+      "tagalog": "Bagong Taon",
+      "english": "New Year",
+      "bahra": "Año Nuevo",
+      "file_path": "recordings/165.aac"
+    },
+    {
+      "id": 166,
+      "tagalog": "Maligayang Bati",
+      "english": "Happy Greetings",
+      "bahra": "Feliz Cumpleaño (Birthday)",
+      "file_path": "recordings/166.aac"
+    },
+    {
+      "id": 167,
+      "tagalog": "Mano po",
+      "english": "Blessing (respect gesture)",
+      "bahra": "Mano po",
+      "file_path": "recordings/167.aac"
+    },
+    {
+      "id": 168,
+      "tagalog": "Kaibigan",
+      "english": "Friend",
+      "bahra": "Amigo",
+      "file_path": "recordings/168.aac"
+    },
+    {
+      "id": 169,
+      "tagalog": "Kaaway",
+      "english": "Enemy",
+      "bahra": "Enemigo",
+      "file_path": "recordings/169.aac"
+    },
+    {
+      "id": 170,
+      "tagalog": "Mahirap",
+      "english": "Difficult/Poor",
+      "bahra": "Dificil / Pobre",
+      "file_path": "recordings/170.aac"
+    },
+    {
+      "id": 171,
+      "tagalog": "Mayaman",
+      "english": "Rich",
+      "bahra": "Rico",
+      "file_path": "recordings/171.aac"
+    },
+    {
+      "id": 172,
+      "tagalog": "Matalino",
+      "english": "Intelligent",
+      "bahra": "Listo / Inteligente",
+      "file_path": "recordings/172.aac"
+    },
+    {
+      "id": 173,
+      "tagalog": "Maganda",
+      "english": "Beautiful",
+      "bahra": "Guapa / Bunita",
+      "file_path": "recordings/173.aac"
+    },
+    {
+      "id": 174,
+      "tagalog": "Gwapo",
+      "english": "Handsome",
+      "bahra": "Guapo",
+      "file_path": "recordings/174.aac"
+    },
+    {
+      "id": 175,
+      "tagalog": "Pangit",
+      "english": "Ugly",
+      "bahra": "Malo cara / Feo",
+      "file_path": "recordings/175.aac"
+    },
+    {
+      "id": 176,
+      "tagalog": "Mataba",
+      "english": "Fat",
+      "bahra": "Gordo",
+      "file_path": "recordings/176.aac"
+    },
+    {
+      "id": 177,
+      "tagalog": "Payat",
+      "english": "Thin",
+      "bahra": "Flaco",
+      "file_path": "recordings/177.aac"
+    },
+    {
+      "id": 178,
+      "tagalog": "Matangkad",
+      "english": "Tall",
+      "bahra": "Alto",
+      "file_path": "recordings/178.aac"
+    },
+    {
+      "id": 179,
+      "tagalog": "Pandak",
+      "english": "Short (person)",
+      "bahra": "Abajito / Jutay",
+      "file_path": "recordings/179.aac"
+    },
+    {
+      "id": 180,
+      "tagalog": "Malakas",
+      "english": "Strong",
+      "bahra": "Forte",
+      "file_path": "recordings/180.aac"
+    },
+    {
+      "id": 181,
+      "tagalog": "Mahina",
+      "english": "Weak",
+      "bahra": "Debil",
+      "file_path": "recordings/181.aac"
+    },
+    {
+      "id": 182,
+      "tagalog": "Maaga",
+      "english": "Early",
+      "bahra": "Temprano",
+      "file_path": "recordings/182.aac"
+    },
+    {
+      "id": 183,
+      "tagalog": "Huli na",
+      "english": "Late",
+      "bahra": "Tarde na",
+      "file_path": "recordings/183.aac"
+    },
+    {
+      "id": 184,
+      "tagalog": "Mabilis",
+      "english": "Fast",
+      "bahra": "Presto / Dali",
+      "file_path": "recordings/184.aac"
+    },
+    {
+      "id": 185,
+      "tagalog": "Mabagal",
+      "english": "Slow",
+      "bahra": "Despacio",
+      "file_path": "recordings/185.aac"
+    },
+    {
+      "id": 186,
+      "tagalog": "Malinis",
+      "english": "Clean",
+      "bahra": "Limpio",
+      "file_path": "recordings/186.aac"
+    },
+    {
+      "id": 187,
+      "tagalog": "Marumi",
+      "english": "Dirty",
+      "bahra": "Sucio",
+      "file_path": "recordings/187.aac"
+    },
+    {
+      "id": 188,
+      "tagalog": "Mabango",
+      "english": "Fragrant",
+      "bahra": "Oloroso / Huele bueno",
+      "file_path": "recordings/188.aac"
+    },
+    {
+      "id": 189,
+      "tagalog": "Mabaho",
+      "english": "Stinky",
+      "bahra": "Huele malo / Apesta",
+      "file_path": "recordings/189.aac"
+    },
+    {
+      "id": 190,
+      "tagalog": "Bago",
+      "english": "New",
+      "bahra": "Nuevo",
+      "file_path": "recordings/190.aac"
+    },
+    {
+      "id": 191,
+      "tagalog": "Luma",
+      "english": "Old (object)",
+      "bahra": "Viejo",
+      "file_path": "recordings/191.aac"
+    },
+    {
+      "id": 192,
+      "tagalog": "Matanda",
+      "english": "Old (person)",
+      "bahra": "Viejo",
+      "file_path": "recordings/192.aac"
+    },
+    {
+      "id": 193,
+      "tagalog": "Bata",
+      "english": "Young / Child",
+      "bahra": "Nuevo / Bata",
+      "file_path": "recordings/193.aac"
+    },
+    {
+      "id": 194,
+      "tagalog": "Ano ang gagawin natin?",
+      "english": "What are we going to do?",
+      "bahra": "Cosa niso di hace?",
+      "file_path": "recordings/194.aac"
+    },
+    {
+      "id": 195,
+      "tagalog": "Bahala na",
+      "english": "Come what may",
+      "bahra": "Bahala na",
+      "file_path": "recordings/195.aac"
+    },
+    {
+      "id": 196,
+      "tagalog": "Sayaw tayo",
+      "english": "Let's dance",
+      "bahra": "Baila niso",
+      "file_path": "recordings/196.aac"
+    },
+    {
+      "id": 197,
+      "tagalog": "Kanta tayo",
+      "english": "Let's sing",
+      "bahra": "Canta niso",
+      "file_path": "recordings/197.aac"
+    },
+    {
+      "id": 198,
+      "tagalog": "Maglaro tayo",
+      "english": "Let's play",
+      "bahra": "Juga niso",
+      "file_path": "recordings/198.aac"
+    },
+    {
+      "id": 199,
+      "tagalog": "Pagpalain ka ng Diyos",
+      "english": "God bless you",
+      "bahra": "Bendici contigo el Dios",
+      "file_path": "recordings/199.aac"
+    },
+    {
+      "id": 200,
+      "tagalog": "Maraming salamat sa inyong lahat",
+      "english": "Thank you very much to you all",
+      "bahra": "Muchas gracias con ustedes todo",
+      "file_path": "recordings/200.aac"
+    }
+  ]
+}
