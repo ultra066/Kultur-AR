@@ -5,11 +5,14 @@ import {
   StyleSheet, Keyboard, SafeAreaView, ScrollView, Animated, Clipboard 
 } from 'react-native';
 import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av'; // Added for Supabase playback
 import { GoogleGenerativeAI } from '@google/generative-ai';
-// Switch to Expo's built-in icons
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
 
+// Database & JSON Imports
 import bahraDict from '../../../bahra_translation.json';
+import commonPhrasesData from '../../../common_phrases.json'; 
+import { supabase } from '../../../lib/database/supabase'; 
 
 export default function TranslationScreen() {
   const router = useRouter();
@@ -17,9 +20,23 @@ export default function TranslationScreen() {
   const [translatedText, setTranslatedText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  
+  // New state for suggestions and audio
+  const [suggestions, setSuggestions] = useState([]);
+  const [sound, setSound] = useState();
 
   const glowAnim = useRef(new Animated.Value(1)).current;
 
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  // Animation for the speaker icon
   useEffect(() => {
     if (isSpeaking) {
       Animated.loop(
@@ -33,6 +50,7 @@ export default function TranslationScreen() {
     }
   }, [isSpeaking]);
 
+  // Memoized Dictionary Lookup
   const dictionaryMap = useMemo(() => {
     const dict = {};
     bahraDict.forEach((section) => {
@@ -44,30 +62,69 @@ export default function TranslationScreen() {
     return dict;
   }, []);
 
+  // Handle Input Change and Filter Suggestions
+  const handleTextChange = (text) => {
+    setInputText(text);
+    
+    // Only show suggestions if user typed more than 2 characters
+    if (text.trim().length > 2) {
+      const normalizedQuery = text.toLowerCase();
+      // Accessing the array inside your JSON structure
+      const matches = commonPhrasesData.common_phrases.filter(phrase => 
+        phrase.tagalog.toLowerCase().includes(normalizedQuery) ||
+        phrase.english.toLowerCase().includes(normalizedQuery)
+      );
+      setSuggestions(matches);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  // Select a suggestion from the list
+  const handleSelectSuggestion = (phrase) => {
+    setInputText(phrase.tagalog); // Autofill the text area with the Tagalog match
+    setSuggestions([]); // Hide suggestions
+  };
+
   const handleTranslateAndSpeak = async () => {
     if (!inputText.trim()) return;
     Keyboard.dismiss();
+    setSuggestions([]); // Hide suggestions if Translate is tapped
     setIsLoading(true);
 
     const normalizedInput = inputText.trim().toLowerCase();
-    let finalTranslation = '';
 
+    // 1. Check Common Phrases FIRST (Prioritized)
+    const phraseMatch = commonPhrasesData.common_phrases.find(p => 
+      p.tagalog.toLowerCase() === normalizedInput || 
+      p.english.toLowerCase() === normalizedInput
+    );
+
+    if (phraseMatch) {
+      setTranslatedText(phraseMatch.bahra);
+      setIsLoading(false);
+      // Play the authentic recording from Supabase
+      playRealAudio(phraseMatch.file_path);
+      return; // Stop execution here
+    }
+
+    // 2. Check Local Dictionary Next
+    let finalTranslation = '';
     if (dictionaryMap[normalizedInput]) {
       finalTranslation = dictionaryMap[normalizedInput];
     } else {
+      // 3. Fallback to Gemini AI for Sentences
       try {
         const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
         const prompt = `You are a linguistics expert for Bahra (Ternate Chavacano).
-
         Translate the following text to Bahra: "${inputText}".
-
         Rules:
-
         - Return ONLY the translated string.
         - No explanations or markdown.
         - Use Ternate-specific terminology.`;
+        
         const result = await model.generateContent(prompt);
         finalTranslation = result.response.text().trim();
       } catch (error) {
@@ -77,11 +134,43 @@ export default function TranslationScreen() {
 
     setTranslatedText(finalTranslation);
     setIsLoading(false);
-    playSpeech(finalTranslation);
+    // Play synthetic speech for Dictionary/Gemini outputs
+    playSyntheticSpeech(finalTranslation);
   };
 
-  const playSpeech = async (text) => {
+  // Play audio from Supabase URL
+  const playRealAudio = async (filePath) => {
+    if (!filePath) return;
+    await Speech.stop(); // Stop any synthetic speech
+    setIsSpeaking(true);
+
+    try {
+      // The filePath already contains the full Supabase HTTPS link from the JSON.
+      // We pass it directly to the Audio player instead of trying to generate a new public URL.
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        { uri: filePath },
+        { shouldPlay: true }
+      );
+      
+      setSound(newSound);
+
+      newSound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          setIsSpeaking(false);
+          newSound.unloadAsync(); // Free memory
+        }
+      });
+    } catch (error) {
+      console.error("Supabase Audio Error:", error);
+      setIsSpeaking(false);
+    }
+  };
+
+  // Play synthetic AI Speech
+  const playSyntheticSpeech = async (text) => {
     if (!text || text.includes("error")) return;
+    if (sound) await sound.unloadAsync(); // Unload any Supabase audio
+    
     await Speech.stop();
     setIsSpeaking(true);
     Speech.speak(text, {
@@ -93,9 +182,24 @@ export default function TranslationScreen() {
     });
   };
 
+  // Global Audio Triggers based on source
+  const handleSpeakerIconPress = () => {
+    const normalizedInput = inputText.trim().toLowerCase();
+    const phraseMatch = commonPhrasesData.common_phrases.find(p => 
+      p.tagalog.toLowerCase() === normalizedInput || 
+      p.english.toLowerCase() === normalizedInput
+    );
+
+    if (phraseMatch && translatedText === phraseMatch.bahra) {
+      playRealAudio(phraseMatch.file_path);
+    } else {
+      playSyntheticSpeech(translatedText);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* Header with Back Button */}
+      {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#000" />
@@ -103,18 +207,34 @@ export default function TranslationScreen() {
         <Text style={styles.headerTitle}>Translation</Text>
       </View>
       
-      <ScrollView contentContainerStyle={styles.container} style={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.container} style={styles.scrollView} keyboardShouldPersistTaps="handled">
         
         {/* Input Card */}
-        <View style={styles.card}>
+        <View style={[styles.card, { zIndex: 10 }]}>
           <Text style={styles.langLabel}>Tagalog / English</Text>
           <TextInput
             style={styles.textInput}
             value={inputText}
-            onChangeText={setInputText}
+            onChangeText={handleTextChange}
             placeholder="Anong balita?"
             multiline
           />
+          
+          {/* Autocomplete Suggestions */}
+          {suggestions.length > 0 && (
+            <View style={styles.suggestionsContainer}>
+              {suggestions.slice(0, 5).map((item) => ( 
+                <TouchableOpacity 
+                  key={item.id} 
+                  style={styles.suggestionItem}
+                  onPress={() => handleSelectSuggestion(item)}
+                >
+                  <Text style={styles.suggestionText}>{item.tagalog}</Text>
+                  <Text style={styles.suggestionSubText}>{item.english}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
         </View>
 
         {/* Output Card */}
@@ -122,7 +242,7 @@ export default function TranslationScreen() {
           <View style={styles.cardHeader}>
             <Text style={styles.langLabel}>Bahra (Ternate)</Text>
             
-            <TouchableOpacity onPress={() => playSpeech(translatedText)}>
+            <TouchableOpacity onPress={handleSpeakerIconPress}>
               <Animated.View style={{ transform: [{ scale: glowAnim }] }}>
                 <MaterialCommunityIcons 
                   name="volume-high" 
@@ -138,7 +258,10 @@ export default function TranslationScreen() {
           </Text>
           
           <View style={styles.cardFooter}>
-            <TouchableOpacity onPress={() => { setInputText(''); setTranslatedText(''); }} style={styles.footerIcon}>
+            <TouchableOpacity 
+              onPress={() => { setInputText(''); setTranslatedText(''); setSuggestions([]); }} 
+              style={styles.footerIcon}
+            >
                <Ionicons name="trash-outline" size={20} color="#999" />
                <Text style={styles.footerText}>Clear</Text>
             </TouchableOpacity>
@@ -177,12 +300,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     elevation: 2,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-  },
-  headerSpacer: { width: 50 },
+  headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#1a1a1a' },
   container: { padding: 20, paddingTop: 10 },
   card: { 
     backgroundColor: '#fff', 
@@ -196,6 +314,19 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3
   },
+  suggestionsContainer: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#E8E9EB',
+    maxHeight: 180,
+  },
+  suggestionItem: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  suggestionText: { fontSize: 16, color: '#333', fontWeight: '500' },
+  suggestionSubText: { fontSize: 12, color: '#888', marginTop: 2 },
   outputCard: { 
     backgroundColor: '#F8F9FA', 
     borderWidth: 1, 
