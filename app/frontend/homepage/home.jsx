@@ -34,9 +34,9 @@ export default function HomeScreen() {
       setLoading(true);
       // Fetch all trails
       const { data: trailsData, error: trailsError } = await supabase
-        .from('trails')
+.from('trails')
         .select('*')
-        .in('title', ['The Revolution Road', 'The Old Churches Loop', 'Heritage Food Crawl']);
+        .in('title', ['The Revolution Road', 'The Old Churches Loop', 'Heroes of Kawit']);
 
       if (trailsError) throw trailsError;
 
@@ -57,7 +57,15 @@ export default function HomeScreen() {
         })
       );
 
-      setTrails(trailsWithStopCounts);
+      const curatedOrder = ['The Revolution Road', 'The Old Churches Loop', 'Heroes of Kawit'];
+      const orderIndex = new Map(curatedOrder.map((t, idx) => [t, idx]));
+      const ordered = trailsWithStopCounts.slice().sort((a, b) => {
+        const ia = orderIndex.has(a.title) ? orderIndex.get(a.title) : Number.MAX_SAFE_INTEGER;
+        const ib = orderIndex.has(b.title) ? orderIndex.get(b.title) : Number.MAX_SAFE_INTEGER;
+        return ia - ib;
+      });
+
+      setTrails(ordered);
     } catch (error) {
       console.error('Error fetching trails:', error.message);
     } finally {
@@ -177,7 +185,7 @@ export default function HomeScreen() {
             >
               {/* Use a real map image here */}
               <Image 
-                source={{ uri: 'https://img.freepik.com/free-vector/city-map-background-concept_23-2148006429.jpg' }} 
+                source={{ uri: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Map.jpg' }} 
                 style={styles.mapImage} 
                 resizeMode="cover"
               />
@@ -239,7 +247,17 @@ export default function HomeScreen() {
                       title: trail.title,
                       // Construct the subtitle dynamically
                       sub: `${trail.stop_count} Sites • ${trail.duration}`,
-                      image: trail.image_url,
+                      image:
+                        trail.title === 'The Revolution Road'
+                          ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Revolution%20Road.jpg'
+                          : trail.title === 'Heroes of Kawit'
+                          ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Emilio%20of%20Kawit.jpg'
+                          : trail.title === 'Valor & Martyrs Trail'
+                          ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Martyrs.jpg'
+                          : trail.title === 'The Old Churches Loop'
+                          ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Church.jpg'
+                          : 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Church.jpg',
+
                     }}
                     onPress={() => router.push(`/frontend/curated_trails/${trail.id}`)} 
                   />
@@ -247,21 +265,7 @@ export default function HomeScreen() {
               </ScrollView>
             )}
 
-            {/* 6. Featured Today Section */}
-            <SectionHeader title="Featured Today" onSeeMore={() => {}} style={{marginTop: 10}} />
-            <TouchableOpacity style={[styles.trailCard, { width: '90%', alignSelf: 'center' }]}>
-               <Image 
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Saint_Mary_Magdalene_Parish_Church_of_Kawit_-_Facade_%28Kawit%2C_Cavite%3B_04-23-2023%29.jpg' }} 
-                  style={styles.trailImage} 
-                />
-                <View style={styles.trailInfo}>
-                  <View>
-                    <Text style={styles.trailTitle}>St. Mary Magdalene Church</Text>
-                    <Text style={styles.trailSub}>Kawit, Cavite</Text>
-                  </View>
-                  <Ionicons name="heart-circle" size={32} color="#E91E63" />
-                </View>
-            </TouchableOpacity>
+            
           </>
         )}
 

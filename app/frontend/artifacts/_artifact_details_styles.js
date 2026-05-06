@@ -72,6 +72,7 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#444',
     marginBottom: 30,
+    textAlign: 'justify',
   },
 
   // --- Map Button (like sites/festivals) ---

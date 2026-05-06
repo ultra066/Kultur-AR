@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import {
   StyleSheet, View, Text, ActivityIndicator, Alert,
-  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView,  Image, Animated, PanResponder, Dimensions
+  TextInput, TouchableOpacity, FlatList, Keyboard, ScrollView, Image, Animated, PanResponder, Dimensions
 } from 'react-native';
 import Mapbox from '@rnmapbox/maps';
 import * as Location from 'expo-location';
@@ -21,17 +21,27 @@ const LIGHT_GREEN = "#A5C68A";
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21oMHAyeXBwMDF6OTJrcXpyZ3B6MXo3byJ9.HyebjVUxFqknP0lGm6arvg";
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
+// --- CATEGORY DEFINITIONS ---
+const CATEGORIES = [
+  { key: null, label: 'All', icon: (size, color) => <MaterialIcons name="layers" size={size} color={color} /> },
+  { key: 'House', label: 'House', icon: (size, color) => <Ionicons name="home" size={size} color={color} /> },
+  { key: 'Church', label: 'Church', icon: (size, color) => <FontAwesome5 name="church" size={size - 4} color={color} /> },
+  { key: 'Monument', label: 'Monument', icon: (size, color) => <MaterialCommunityIcons name="pillar" size={size} color={color} /> },
+  { key: 'Mountain', label: 'Mountain', icon: (size, color) => <FontAwesome5 name="mountain" size={size - 4} color={color} /> },
+  { key: 'Site', label: 'Site', icon: (size, color) => <Ionicons name="location" size={size} color={color} /> },
+];
+
 // Helper for arrival detection
 const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371e3; // meters
-  const φ1 = lat1 * Math.PI/180;
-  const φ2 = lat2 * Math.PI/180;
-  const Δφ = (lat2-lat1) * Math.PI/180;
-  const Δλ = (lon2-lon1) * Math.PI/180;
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const φ1 = lat1 * Math.PI / 180;
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) *
+    Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
 
@@ -39,7 +49,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 const renderCategoryIcon = (category, isSelected, isCompleted = false) => {
   const size = isSelected ? 24 : 20;
   const color = isCompleted ? "#888" : (isSelected ? PRIMARY_GREEN : "#666");
-  
+
   switch (category) {
     case 'House': return <Ionicons name="home" size={size} color={color} />;
     case 'Church': return <FontAwesome5 name="church" size={size - 4} color={color} />;
@@ -68,21 +78,21 @@ export default function MapScreen() {
   const [filteredSites, setFilteredSites] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
+  // Category Filter State
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showCategorySheet, setShowCategorySheet] = useState(false);
+
   // Route State
   const [route, setRoute] = useState(null);
   const [routeInfo, setRouteInfo] = useState(null);
   const [selectedSite, setSelectedSite] = useState(null);
   const [isRouting, setIsRouting] = useState(false);
-  const [travelMode, setTravelMode] = useState('driving'); 
+  const [travelMode, setTravelMode] = useState('driving');
   const [estimations, setEstimations] = useState({ driving: null, walking: null, cycling: null });
-
-// Festival boundary GeoJSON from Supabase Storage
-
-
 
   // --- TRAIL STATE ---
   const [activeTrail, setActiveTrail] = useState(null);
-  const [trailProgress, setTrailProgress] = useState(0); 
+  const [trailProgress, setTrailProgress] = useState(0);
   const [isTrailCardExpanded, setIsTrailCardExpanded] = useState(false);
   const [trailRoute, setTrailRoute] = useState(null);
 
@@ -108,6 +118,31 @@ export default function MapScreen() {
     });
     Keyboard.dismiss();
   };
+
+  // Category sheet animation
+  const categorySheetY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
+
+  const openCategorySheet = () => {
+    setShowCategorySheet(true);
+    Animated.spring(categorySheetY, { toValue: 0, useNativeDriver: true, friction: 8 }).start();
+  };
+
+  const closeCategorySheet = () => {
+    Animated.timing(categorySheetY, { toValue: SCREEN_HEIGHT, duration: 250, useNativeDriver: true }).start(() => {
+      setShowCategorySheet(false);
+    });
+  };
+
+  const handleCategorySelect = (categoryKey) => {
+    setSelectedCategory(categoryKey);
+    closeCategorySheet();
+  };
+
+  // Filtered sites for map markers
+  const visibleSites = useMemo(() => {
+    if (!selectedCategory) return sites;
+    return sites.filter(site => site.Category === selectedCategory);
+  }, [sites, selectedCategory]);
 
   useEffect(() => {
     let locationSubscription = null;
@@ -138,7 +173,6 @@ export default function MapScreen() {
             setIsTrailCardExpanded(true);
             if (parsedTrail.sites) {
               fetchTrailRoute(parsedTrail.sites);
-              // Auto-route from user location to first site when trail starts
               if (userLocation && parsedTrail.sites.length > 0) {
                 const firstSite = parsedTrail.sites[0];
                 fetchInitialRoute(userLocation, firstSite);
@@ -168,23 +202,21 @@ export default function MapScreen() {
     }
   }, [location, activeTrail, trailProgress]);
 
-
   // Auto-center camera on destination coords - PRIORITY (sites button)
   useEffect(() => {
-    console.log('Dest effect:', {destLat, destLon, mapReady: mapReady ? 'yes' : 'no'});
+    console.log('Dest effect:', { destLat, destLon, mapReady: mapReady ? 'yes' : 'no' });
     if (!destLat || !destLon || !mapReady) return;
-    
+
     const destLatitude = parseFloat(destLat);
     const destLongitude = parseFloat(destLon);
-    
+
     if (isNaN(destLatitude) || isNaN(destLongitude)) {
       console.log('Invalid coords, skipping');
       return;
     }
 
     console.log('=== AUTO-CENTERING SITE ===', destLatitude, destLongitude);
-    
-    // Delay for camera stability
+
     const timer = setTimeout(() => {
       if (cameraRef.current) {
         cameraRef.current.setCamera({
@@ -196,10 +228,9 @@ export default function MapScreen() {
         console.error('cameraRef.current null!');
       }
     }, 500);
-    
+
     return () => clearTimeout(timer);
   }, [destLat, destLon, mapReady]);
-
 
   // Site matching after sites load (for site detail pages - skip trails)
   useEffect(() => {
@@ -212,7 +243,7 @@ export default function MapScreen() {
 
     const matchingSite = sites.find(site => {
       return Math.abs((site.latitude || 0) - destLatitude) < 0.01 &&
-             Math.abs((site.longitude || 0) - destLongitude) < 0.01;
+        Math.abs((site.longitude || 0) - destLongitude) < 0.01;
     });
 
     if (matchingSite) {
@@ -220,8 +251,7 @@ export default function MapScreen() {
       setSelectedSite(matchingSite);
       setSearchQuery(destName || matchingSite.name);
       openSheet();
-      
-      // Explicitly center camera on matched site like handleSiteSelection
+
       if (mapReady && cameraRef.current) {
         cameraRef.current.setCamera({
           centerCoordinate: [matchingSite.longitude, matchingSite.latitude],
@@ -229,7 +259,6 @@ export default function MapScreen() {
         }, { duration: 1000 });
         console.log('Centered on matched site from dest params');
       } else {
-        // Fallback timeout like handleSiteSelection
         setTimeout(() => {
           if (cameraRef.current) {
             cameraRef.current.setCamera({
@@ -240,14 +269,14 @@ export default function MapScreen() {
           }
         }, 500);
       }
-      
+
       if (location) fetchEstimations(matchingSite, location);
     } else {
       console.log('No site match found for dest coords');
     }
   }, [destLat, destLon, sites.length, trailId, trailData, destName, location]);
 
-// Fallback geocode only if festival and no valid dest coords
+  // Fallback geocode only if festival and no valid dest coords
   useEffect(() => {
     if (type !== 'festival' || !city || !mapReady || (destLat && destLon)) return;
 
@@ -260,7 +289,7 @@ export default function MapScreen() {
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(city)}.json?access_token=${MAPBOX_ACCESS_TOKEN}&country=PH&types=place,city`;
         const response = await fetch(url);
         const data = await response.json();
-        
+
         if (data.features && data.features.length > 0) {
           const center = data.features[0].center;
           console.log(`Festival geocode fallback:`, center);
@@ -338,22 +367,20 @@ export default function MapScreen() {
           distance: (currentRoute.distance / 1000).toFixed(1),
           steps: currentRoute.legs[0].steps.map(step => step.maneuver.instruction),
         });
-        // Set selected site and open the sheet
         setSelectedSite(firstSite);
         setTravelMode('driving');
         openSheet();
-        // Fit camera to show route
         cameraRef.current?.fitBounds(
           [Math.max(...decodedPoints.map(c => c[0]), userLocation.longitude), Math.max(...decodedPoints.map(c => c[1]), userLocation.latitude)],
           [Math.min(...decodedPoints.map(c => c[0]), userLocation.longitude), Math.min(...decodedPoints.map(c => c[1]), userLocation.latitude)],
-          { top: 50, right: 50, bottom: 450, left: 50 }, 
+          { top: 50, right: 50, bottom: 450, left: 50 },
           1000
         );
       }
     } catch (error) { console.log("Initial route error", error); }
   };
 
-const handleSiteSelection = (site) => {
+  const handleSiteSelection = (site) => {
     console.log('Site selected:', site.name, site.id);
     setSelectedSite(site);
     setSearchQuery(site.name);
@@ -439,25 +466,23 @@ const handleSiteSelection = (site) => {
         <Mapbox.UserLocation />
         <Mapbox.Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [location?.longitude || 120.9842, location?.latitude || 14.5995], zoomLevel: 12 }} />
 
-        {sites.map((site) => {
+        {visibleSites.map((site) => {
           const isTrailSite = activeTrail?.sites.some(s => s.id === site.id);
           const trailIdx = activeTrail?.sites.findIndex(s => s.id === site.id);
           const isCompleted = isTrailSite && trailIdx < trailProgress;
 
           return (
             site.latitude && site.longitude ? (
-              <Mapbox.PointAnnotation 
+              <Mapbox.PointAnnotation
                 key={`${site.id}_${selectedSite?.id === site.id ? 'selected' : 'unselected'}`}
                 id={`${site.id.toString()}_${selectedSite?.id === site.id ? 'selected' : 'unselected'}`}
                 title={site.name}
-                coordinate={[site.longitude, site.latitude]} 
+                coordinate={[site.longitude, site.latitude]}
                 onSelected={() => handleSiteSelection(site)}>
-                <View style={[styles.markerCircle, { 
+                <View style={[styles.markerCircle, {
                   borderColor: isCompleted ? "#888" : (selectedSite?.id === site.id ? PRIMARY_GREEN : "#ccc"),
                   backgroundColor: isCompleted ? "#eee" : "white"
                 }]}>
-
-
                   {renderCategoryIcon(site.Category, selectedSite?.id === site.id, isCompleted)}
                 </View>
               </Mapbox.PointAnnotation>
@@ -481,17 +506,68 @@ const handleSiteSelection = (site) => {
 
       <View style={styles.searchWrapper}>
         <View style={styles.searchContainer}>
-            <Ionicons name="search" size={20} color="#666" style={{marginRight: 10}} />
-            <TextInput style={styles.searchInput} placeholder="Search heritage..." value={searchQuery} onChangeText={handleSearch} />
+          <Ionicons name="search" size={20} color="#666" style={{ marginRight: 10 }} />
+          <TextInput style={styles.searchInput} placeholder="Search heritage..." value={searchQuery} onChangeText={handleSearch} />
         </View>
         {showResults && filteredSites.length > 0 && (
-            <View style={styles.resultsList}>
-                <FlatList data={filteredSites} keyExtractor={(item) => item.id.toString()} renderItem={({ item }) => (
-                    <TouchableOpacity style={styles.resultItem} onPress={() => handleSiteSelection(item)}><Text style={styles.resultTitle}>{item.name}</Text></TouchableOpacity>
-                )} />
-            </View>
+          <View style={styles.resultsList}>
+            <FlatList data={filteredSites} keyExtractor={(item) => item.id.toString()} renderItem={({ item }) => (
+              <TouchableOpacity style={styles.resultItem} onPress={() => handleSiteSelection(item)}><Text style={styles.resultTitle}>{item.name}</Text></TouchableOpacity>
+            )} />
+          </View>
         )}
       </View>
+
+      {/* Category Filter Button */}
+      <TouchableOpacity
+        style={styles.categoryFilterBtn}
+        onPress={openCategorySheet}
+        activeOpacity={0.8}
+      >
+        <MaterialIcons name="layers" size={22} color={selectedCategory ? PRIMARY_GREEN : "#555"} />
+        {selectedCategory && (
+          <View style={styles.filterBadge}>
+            <Text style={styles.filterBadgeText}>1</Text>
+          </View>
+        )}
+      </TouchableOpacity>
+
+      {/* Category Filter Popup Sheet */}
+      {showCategorySheet && (
+        <View style={styles.categoryOverlay}>
+          <TouchableOpacity style={styles.overlayTouch} onPress={closeCategorySheet} activeOpacity={1} />
+          <Animated.View style={[styles.categorySheet, { transform: [{ translateY: categorySheetY }] }]}>
+            <View style={styles.categoryHandle} />
+            <Text style={styles.categorySheetTitle}>Filter by Category</Text>
+            <ScrollView style={styles.categoryList} showsVerticalScrollIndicator={false}>
+              {CATEGORIES.map((cat) => {
+                const isSelected = selectedCategory === cat.key;
+                return (
+                  <TouchableOpacity
+                    key={cat.label}
+                    style={[styles.categoryItem, isSelected && styles.categoryItemSelected]}
+                    onPress={() => handleCategorySelect(cat.key)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={[styles.categoryIconWrapper, isSelected && { backgroundColor: PRIMARY_GREEN + '20' }]}>
+                      {cat.icon(22, isSelected ? PRIMARY_GREEN : '#666')}
+                    </View>
+                    <Text style={[styles.categoryItemLabel, isSelected && styles.categoryItemLabelSelected]}>
+                      {cat.label}
+                    </Text>
+                    {isSelected && (
+                      <Ionicons name="checkmark" size={20} color={PRIMARY_GREEN} style={styles.categoryCheckmark} />
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+            <TouchableOpacity style={styles.categoryCloseBtn} onPress={closeCategorySheet}>
+              <Text style={styles.categoryCloseText}>Close</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
+      )}
 
       {activeTrail && (
         <View style={styles.trailControlContainer}>
@@ -526,43 +602,43 @@ const handleSiteSelection = (site) => {
 
       {selectedSite && (
         <Animated.View style={[styles.modalCard, { transform: [{ translateY }] }]} {...panResponder.panHandlers}>
-           <View style={styles.modalHandle} />
-           <View style={styles.previewSection}>
-              <Image source={{ uri: selectedSite.image_url || 'https://via.placeholder.com/150' }} style={styles.previewImage} />
-              <View style={{flex: 1}}><Text style={styles.sheetTitle}>{selectedSite.name}</Text><Text style={styles.sheetSubtitle}>{selectedSite.city}</Text></View>
-              <TouchableOpacity style={styles.closeButton} onPress={closeSheet}><Ionicons name="close" size={24} color="#555" /></TouchableOpacity>
-           </View>
+          <View style={styles.modalHandle} />
+          <View style={styles.previewSection}>
+            <Image source={{ uri: selectedSite.image_url || 'https://via.placeholder.com/150' }} style={styles.previewImage} />
+            <View style={{ flex: 1 }}><Text style={styles.sheetTitle}>{selectedSite.name}</Text><Text style={styles.sheetSubtitle}>{selectedSite.city}</Text></View>
+            <TouchableOpacity style={styles.closeButton} onPress={closeSheet}><Ionicons name="close" size={24} color="#555" /></TouchableOpacity>
+          </View>
 
-           <View style={styles.buttonRow}>
-               <TouchableOpacity style={styles.infoButton} onPress={() => router.push(`/frontend/cultural_sites/${selectedSite.id}`)}><Text style={styles.infoButtonText}>View Info</Text></TouchableOpacity>
-               <TouchableOpacity style={styles.dirMainButton} onPress={() => handleGetDirections()}><Text style={styles.dirButtonText}>Directions</Text></TouchableOpacity>
-           </View>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.infoButton} onPress={() => router.push(`/frontend/cultural_sites/${selectedSite.id}`)}><Text style={styles.infoButtonText}>View Info</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.dirMainButton} onPress={() => handleGetDirections()}><Text style={styles.dirButtonText}>Directions</Text></TouchableOpacity>
+          </View>
 
-           {routeInfo && (
-              <View style={styles.routeSection}>
-                 <View style={styles.divider} />
-                 <View style={styles.modeBar}>
-                    <TouchableOpacity style={[styles.modeTab, travelMode === 'driving' && styles.activeTab]} onPress={() => handleGetDirections('driving')}>
-                      <Ionicons name="car" size={24} color={travelMode === 'driving' ? PRIMARY_GREEN : '#666'} />
-                      <Text style={[styles.modeTime, travelMode === 'driving' && styles.activeTimeText]}>{estimations.driving ? `${estimations.driving}m` : '--'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.modeTab, travelMode === 'cycling' && styles.activeTab]} onPress={() => handleGetDirections('cycling')}>
-                      <MaterialIcons name="motorcycle" size={24} color={travelMode === 'cycling' ? PRIMARY_GREEN : '#666'} />
-                      <Text style={[styles.modeTime, travelMode === 'cycling' && styles.activeTimeText]}>{estimations.cycling ? `${estimations.cycling}m` : '--'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.modeTab, travelMode === 'walking' && styles.activeTab]} onPress={() => handleGetDirections('walking')}>
-                      <Ionicons name="walk" size={24} color={travelMode === 'walking' ? PRIMARY_GREEN : '#666'} />
-                      <Text style={[styles.modeTime, travelMode === 'walking' && styles.activeTimeText]}>{estimations.walking ? `${estimations.walking}m` : '--'}</Text>
-                    </TouchableOpacity>
-                 </View>
-                 <Text style={styles.stepsLabel}>Steps ({routeInfo.distance} km):</Text>
-                 <ScrollView style={styles.stepsContainer}>
-                    {routeInfo.steps.map((step, index) => (
-                        <View key={index} style={styles.stepItem}><Ionicons name="arrow-forward" size={16} color="#666" style={{marginRight: 8}}/><Text style={styles.stepText}>{step}</Text></View>
-                    ))}
-                 </ScrollView>
+          {routeInfo && (
+            <View style={styles.routeSection}>
+              <View style={styles.divider} />
+              <View style={styles.modeBar}>
+                <TouchableOpacity style={[styles.modeTab, travelMode === 'driving' && styles.activeTab]} onPress={() => handleGetDirections('driving')}>
+                  <Ionicons name="car" size={24} color={travelMode === 'driving' ? PRIMARY_GREEN : '#666'} />
+                  <Text style={[styles.modeTime, travelMode === 'driving' && styles.activeTimeText]}>{estimations.driving ? `${estimations.driving}m` : '--'}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.modeTab, travelMode === 'cycling' && styles.activeTab]} onPress={() => handleGetDirections('cycling')}>
+                  <MaterialIcons name="motorcycle" size={24} color={travelMode === 'cycling' ? PRIMARY_GREEN : '#666'} />
+                  <Text style={[styles.modeTime, travelMode === 'cycling' && styles.activeTimeText]}>{estimations.cycling ? `${estimations.cycling}m` : '--'}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.modeTab, travelMode === 'walking' && styles.activeTab]} onPress={() => handleGetDirections('walking')}>
+                  <Ionicons name="walk" size={24} color={travelMode === 'walking' ? PRIMARY_GREEN : '#666'} />
+                  <Text style={[styles.modeTime, travelMode === 'walking' && styles.activeTimeText]}>{estimations.walking ? `${estimations.walking}m` : '--'}</Text>
+                </TouchableOpacity>
               </View>
-           )}
+              <Text style={styles.stepsLabel}>Steps ({routeInfo.distance} km):</Text>
+              <ScrollView style={styles.stepsContainer}>
+                {routeInfo.steps.map((step, index) => (
+                  <View key={index} style={styles.stepItem}><Ionicons name="arrow-forward" size={16} color="#666" style={{ marginRight: 8 }} /><Text style={styles.stepText}>{step}</Text></View>
+                ))}
+              </ScrollView>
+            </View>
+          )}
         </Animated.View>
       )}
     </View>
@@ -580,6 +656,138 @@ const styles = StyleSheet.create({
   resultItem: { padding: 15, borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
   resultTitle: { fontSize: 14, fontWeight: '600', color: '#333' },
   markerCircle: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'white', borderWidth: 2, alignItems: 'center', justifyContent: 'center', elevation: 5 },
+
+  // Category Filter Button
+  categoryFilterBtn: {
+    position: 'absolute',
+    top: 110,
+    left: '5%',
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    zIndex: 10,
+  },
+  filterBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    backgroundColor: PRIMARY_GREEN,
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+  },
+  filterBadgeText: {
+    color: 'white',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+
+  // Category Sheet Overlay
+  categoryOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 20,
+    justifyContent: 'flex-end',
+  },
+  overlayTouch: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
+  categorySheet: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 30,
+    maxHeight: SCREEN_HEIGHT * 0.6,
+    elevation: 25,
+  },
+  categoryHandle: {
+    width: 40,
+    height: 5,
+    backgroundColor: '#ddd',
+    borderRadius: 3,
+    alignSelf: 'center',
+    marginBottom: 15,
+  },
+  categorySheetTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1a1a1a',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  categoryList: {
+    maxHeight: SCREEN_HEIGHT * 0.4,
+  },
+  categoryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    marginBottom: 8,
+    backgroundColor: '#f9f9f9',
+  },
+  categoryItemSelected: {
+    backgroundColor: PRIMARY_GREEN + '15',
+    borderWidth: 1,
+    borderColor: PRIMARY_GREEN + '40',
+  },
+  categoryIconWrapper: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#eee',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 14,
+  },
+  categoryItemLabel: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '500',
+  },
+  categoryItemLabelSelected: {
+    color: PRIMARY_GREEN,
+    fontWeight: '700',
+  },
+  categoryCheckmark: {
+    marginLeft: 8,
+  },
+  categoryCloseBtn: {
+    marginTop: 12,
+    backgroundColor: '#f0f0f0',
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: 'center',
+  },
+  categoryCloseText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#333',
+  },
+
   trailControlContainer: { position: 'absolute', top: 110, right: '5%', width: '60%', alignItems: 'flex-end', zIndex: 9 },
   trailToggleBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: PRIMARY_GREEN, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20, elevation: 5 },
   trailToggleText: { color: 'white', fontWeight: 'bold', marginLeft: 6, fontSize: 12 },

@@ -22,7 +22,7 @@ const trailsData = [
   {
     id: '1',
     title: 'The Revolution Road',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Bonifacio_Trial_House.jpg',
+    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Revolution%20Road.jpg',
     difficulty: 'Moderate',
     duration: '5 Hours',
     distance: '45 km',
@@ -31,7 +31,7 @@ const trailsData = [
   {
     id: '2',
     title: 'Heroes of Kawit',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Aguinaldo_Shrine_Facade.jpg/1200px-Aguinaldo_Shrine_Facade.jpg',
+    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Emilio%20of%20Kawit.jpg',
     difficulty: 'Easy',
     duration: '2 Hours',
     distance: '3.0 km',
@@ -40,7 +40,7 @@ const trailsData = [
   {
     id: '4',
     title: 'Valor & Martyrs Trail',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Pacific_War_Memorial_Corregidor.jpg', // Corregidor
+    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Martyrs.jpg',
     difficulty: 'Hard',
     duration: '6 Hours',
     distance: '30 km',
@@ -49,29 +49,11 @@ const trailsData = [
   {
     id: '5',
     title: 'The Old Churches Loop',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Saint_Mary_Magdalene_Parish_Church_of_Kawit_-_Facade_%28Kawit%2C_Cavite%3B_04-23-2023%29.jpg',
+    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Church.jpg',
     difficulty: 'Easy',
     duration: '3.5 Hours',
     distance: '25 km',
     description: 'A Visita Iglesia route featuring the centuries-old baroque churches of Silang, Maragondon, and Kawit.'
-  },
-  {
-    id: '6',
-    title: 'Heritage Food Crawl',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Pancit_Pusit_Cavite.jpg/640px-Pancit_Pusit_Cavite.jpg',
-    difficulty: 'Easy',
-    duration: '4 Hours',
-    distance: '10 km',
-    description: 'A gastronomic adventure tasting Pancit Pusit, Tamales, and Pahimis Coffee across three towns.'
-  },
-  {
-    id: '7',
-    title: 'Highland Art Crawl',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Museo_Orlina_Tagaytay.jpg',
-    difficulty: 'Easy',
-    duration: '4.0 hours',
-    distance: '12.0 km',
-    description: 'Relax in the cool breeze of Tagaytay while visiting world-class museums and art galleries.'
   },
 ];
 

@@ -8,132 +8,132 @@
       "tagalog": "Magandang umaga",
       "english": "Good morning",
       "bahra": "Buenas dias",
-      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_dias.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_dias.mp3"
     },
     {
       "id": 2,
       "tagalog": "Magandang hapon",
       "english": "Good afternoon",
       "bahra": "Buenas tardes",
-      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_tardes.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_tardes.mp3"
     },
     {
       "id": 3,
       "tagalog": "Magandang gabi",
       "english": "Good evening",
       "bahra": "Buenas noches",
-      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_noches.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas_noches.mp3"
     },
     {
       "id": 4,
       "tagalog": "Kumusta ka?",
       "english": "How are you?",
-      "bahra": "Quetal ya tu?",
-      "file_path": "recordings/4.aac"
+      "bahra": "Quetal ya bu?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/quetal_ya_bu.wav"
     },
     {
       "id": 5,
       "tagalog": "Mabuti naman",
       "english": "I'm fine",
-      "bahra": "Bueno naman",
-      "file_path": "recordings/5.aac"
+      "bahra": "Bueno tamieng",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bueno_tamieng.wav"
     },
     {
       "id": 6,
       "tagalog": "Salamat",
       "english": "Thank you",
       "bahra": "Gracias",
-      "file_path": "recordings/6.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/gracias.wav"
     },
     {
       "id": 7,
       "tagalog": "Maraming salamat",
       "english": "Thank you very much",
       "bahra": "Muchas gracias",
-      "file_path": "recordings/7.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/muchas_gracias.wav"
     },
     {
       "id": 8,
       "tagalog": "Walang anuman",
       "english": "You're welcome",
       "bahra": "Nuay aquel / De nada",
-      "file_path": "recordings/8.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/nuay_aquel.wav"
     },
     {
       "id": 9,
       "tagalog": "Pasensya na",
       "english": "I'm sorry",
       "bahra": "Perdona mi / Dispensa",
-      "file_path": "recordings/9.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/dispensa.wav"
     },
     {
       "id": 10,
       "tagalog": "Tao po!",
       "english": "Is anyone home?",
       "bahra": "Buenas!",
-      "file_path": "recordings/10.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/buenas.wav"
     },
     {
       "id": 11,
       "tagalog": "Tuloy ka",
       "english": "Come in",
-      "bahra": "Entra ba tu",
-      "file_path": "recordings/11.aac"
+      "bahra": "Entra ba bu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/entra_ba_bu.wav"
     },
     {
       "id": 12,
       "tagalog": "Ingat ka",
       "english": "Take care",
-      "bahra": "Cuidao tu",
-      "file_path": "recordings/12.aac"
+      "bahra": "Cuidao bu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cuidao_bu.wavhttps://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cuidao_na_camino.wav"
     },
     {
       "id": 13,
       "tagalog": "Paalam",
       "english": "Goodbye",
       "bahra": "Adios",
-      "file_path": "recordings/13.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/adios.wav"
     },
     {
       "id": 14,
       "tagalog": "Hanggang sa muli",
       "english": "Until next time",
       "bahra": "Hasta la otra",
-      "file_path": "recordings/14.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/hasta_la_otra.wav"
     },
     {
       "id": 15,
       "tagalog": "Anong pangalan mo?",
       "english": "What is your name?",
-      "bahra": "Cosa di tuyu nombre?",
-      "file_path": "recordings/15.aac"
+      "bahra": "Cosa di bus nombre?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa%20di%20bus%20nombre.wav"
     },
     {
       "id": 16,
       "tagalog": "Ako si...",
       "english": "I am...",
       "bahra": "Iyo si...",
-      "file_path": "recordings/16.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/iyo_si.wav"
     },
     {
       "id": 17,
       "tagalog": "Kinagagalak kitang makilala",
       "english": "Nice to meet you",
       "bahra": "Alegre yo cunuci cuntigo",
-      "file_path": "recordings/17.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/alegri_iyo_cunuci_contigo.wav"
     },
     {
       "id": 18,
       "tagalog": "Opo",
       "english": "Yes (respectful)",
-      "bahra": "Si po",
-      "file_path": "recordings/18.aac"
+      "bahra": "Si po ee",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/si_po_ee.wav"
     },
     {
       "id": 19,
       "tagalog": "Hindi po",
       "english": "No (respectful)",
-      "bahra": "Hindi po",
+      "bahra": "Niho po",
       "file_path": "recordings/19.aac"
     },
     {
@@ -141,27 +141,27 @@
       "tagalog": "Pakiusap",
       "english": "Please",
       "bahra": "Pabor",
-      "file_path": "recordings/20.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pabor.wav"
     },
     {
       "id": 21,
       "tagalog": "Saan ka galing?",
       "english": "Where are you from?",
-      "bahra": "De donde tu?",
-      "file_path": "recordings/21.aac"
+      "bahra": "De donde bu?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/de_donde_bu.wav"
     },
     {
       "id": 22,
       "tagalog": "Taga-Ternate ako",
       "english": "I am from Ternate",
-      "bahra": "De Ternate iyo",
-      "file_path": "recordings/22.aac"
+      "bahra": "De bahra iyo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/de_bahra_iyo.wav"
     },
     {
       "id": 23,
       "tagalog": "Ilang taon ka na?",
       "english": "How old are you?",
-      "bahra": "Cuanto año ya tu?",
+      "bahra": "Cuanto año ya bu?",
       "file_path": "recordings/23.aac"
     },
     {
@@ -169,42 +169,42 @@
       "tagalog": "Gutom na ako",
       "english": "I am hungry",
       "bahra": "Tiene ya iyo hambre",
-      "file_path": "recordings/24.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tiene_ya_iyo_hambre.wav"
     },
     {
       "id": 25,
       "tagalog": "Uhaw na ako",
       "english": "I am thirsty",
       "bahra": "Tiene ya iyo sed",
-      "file_path": "recordings/25.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tiene_ya_iyo_sed.wav"
     },
     {
       "id": 26,
       "tagalog": "Busog na ako",
       "english": "I am full",
-      "bahra": "Harto na iyo",
-      "file_path": "recordings/26.aac"
+      "bahra": "Yenu ya iyo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/yenu_ya_iyo.wav"
     },
     {
       "id": 27,
       "tagalog": "Masarap",
       "english": "Delicious",
       "bahra": "Sabroso",
-      "file_path": "recordings/27.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/sabroso.wav"
     },
     {
       "id": 28,
       "tagalog": "Sobrang sarap",
       "english": "Very delicious",
-      "bahra": "Bien sabroso",
-      "file_path": "recordings/28.aac"
+      "bahra": "Beng sabroso",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/beng_sabroso.wav"
     },
     {
       "id": 29,
       "tagalog": "Ano ito?",
       "english": "What is this?",
       "bahra": "Cosa esti?",
-      "file_path": "recordings/29.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa_esti.wav"
     },
     {
       "id": 30,
@@ -217,190 +217,190 @@
       "id": 31,
       "tagalog": "Saan tayo pupunta?",
       "english": "Where are we going?",
-      "bahra": "Donde niso di anda?",
+      "bahra": "Donde bu denda?",
       "file_path": "recordings/31.aac"
     },
     {
       "id": 32,
       "tagalog": "Tara na",
       "english": "Let's go",
-      "bahra": "Anda na niso",
-      "file_path": "recordings/32.aac"
+      "bahra": "Dini ya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/dini_ya.wav"
     },
     {
       "id": 33,
       "tagalog": "Dito lang",
       "english": "Just here",
       "bahra": "Aqui lang",
-      "file_path": "recordings/33.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/aqui_lang.wav"
     },
     {
       "id": 34,
       "tagalog": "Doon",
       "english": "Over there",
-      "bahra": "Alla",
-      "file_path": "recordings/34.aac"
+      "bahra": "Aya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/aya.wav"
     },
     {
       "id": 35,
       "tagalog": "Sandali lang",
       "english": "Just a moment",
-      "bahra": "Un rato lang",
-      "file_path": "recordings/35.aac"
+      "bahra": "Espera",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/espera.wav"
     },
     {
       "id": 36,
       "tagalog": "Teka lang",
       "english": "Wait",
-      "bahra": "Espera anay",
-      "file_path": "recordings/36.aac"
+      "bahra": "Espera lang",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/espera_lang.wav"
     },
     {
       "id": 37,
       "tagalog": "Marunong ka ba mag-Chavacano?",
       "english": "Do you know how to speak Chavacano?",
       "bahra": "Sabe tu platica Bahra?",
-      "file_path": "recordings/37.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/sabe_tu_platica_bahra.wav"
     },
     {
       "id": 38,
       "tagalog": "Kaunti lang",
       "english": "Just a little",
-      "bahra": "Um-poco lang",
-      "file_path": "recordings/38.aac"
+      "bahra": "Um-puding lang",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/um-puding_lang.wav"
     },
     {
       "id": 39,
       "tagalog": "Hindi ko alam",
       "english": "I don't know",
       "bahra": "No sabe iyo",
-      "file_path": "recordings/39.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no_sabe_iyo.wav"
     },
     {
       "id": 40,
       "tagalog": "Naiintindihan mo ba?",
       "english": "Do you understand?",
       "bahra": "Ta intindi tu?",
-      "file_path": "recordings/40.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ta_intindi_tu.wav"
     },
     {
       "id": 41,
       "tagalog": "Saan ang banyo?",
       "english": "Where is the bathroom?",
-      "bahra": "Donde el banyo?",
-      "file_path": "recordings/41.aac"
+      "bahra": "Donde kel banyo?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_kel_banyo.wav"
     },
     {
       "id": 42,
       "tagalog": "Malayo ba?",
       "english": "Is it far?",
-      "bahra": "Malayo ba aquel?",
-      "file_path": "recordings/42.aac"
+      "bahra": "liuehos ba aquel?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/liuehos_ba_aquel.wav"
     },
     {
       "id": 43,
       "tagalog": "Malapit lang",
       "english": "It's just near",
-      "bahra": "Cercani lang",
-      "file_path": "recordings/43.aac"
+      "bahra": "Cerca lang",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cerca_lang.wav"
     },
     {
       "id": 44,
       "tagalog": "Saan ang simbahan?",
       "english": "Where is the church?",
       "bahra": "Donde el iglesia?",
-      "file_path": "recordings/44.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_el_iglesia.wav"
     },
     {
       "id": 45,
       "tagalog": "Saan ang munisipyo?",
       "english": "Where is the municipal hall?",
       "bahra": "Donde el munisipyo?",
-      "file_path": "recordings/45.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_el_munisipyo.wav"
     },
     {
       "id": 46,
       "tagalog": "Kanan",
       "english": "Right",
       "bahra": "Derecha",
-      "file_path": "recordings/46.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/derecha.wav"
     },
     {
       "id": 47,
       "tagalog": "Kaliwa",
       "english": "Left",
       "bahra": "Izquierda",
-      "file_path": "recordings/47.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/izquierda.wav"
     },
     {
       "id": 48,
       "tagalog": "Diretso lang",
       "english": "Just go straight",
       "bahra": "Derechu lang",
-      "file_path": "recordings/48.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/derechu_lang.wav"
     },
     {
       "id": 49,
       "tagalog": "Sakay tayo",
       "english": "Let's ride",
-      "bahra": "Monta niso",
-      "file_path": "recordings/49.aac"
+      "bahra": "Prangka mutro",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/prangka_motru.wav"
     },
     {
       "id": 50,
       "tagalog": "Para po",
       "english": "Stop here",
       "bahra": "Para po",
-      "file_path": "recordings/50.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/para_po.wav"
     },
     {
       "id": 51,
       "tagalog": "Magkano ang pamasahe?",
       "english": "How much is the fare?",
       "bahra": "Cuanto el pasaje?",
-      "file_path": "recordings/51.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cuanto_el_pasaje.wav"
     },
     {
       "id": 52,
       "tagalog": "Saan ang palengke?",
       "english": "Where is the market?",
-      "bahra": "Donde el palengke?",
-      "file_path": "recordings/52.aac"
+      "bahra": "Donde el bahraca?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_el_bahraca.wav"
     },
     {
       "id": 53,
       "tagalog": "Saan ang sakayan?",
       "english": "Where is the terminal?",
       "bahra": "Donde el terminal / parada?",
-      "file_path": "recordings/53.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_el_terminal.wav"
     },
     {
       "id": 54,
       "tagalog": "Gusto ko pumunta sa dagat",
       "english": "I want to go to the sea",
-      "bahra": "Quieri iyo anda na mar",
-      "file_path": "recordings/54.aac"
+      "bahra": "Quieri iyo anda na lamar",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/quieri_iyo_anda_na_lamar.wav"
     },
     {
       "id": 55,
       "tagalog": "Anong oras na?",
       "english": "What time is it?",
       "bahra": "Cosa ya hora?",
-      "file_path": "recordings/55.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa_ya_hora.wav"
     },
     {
       "id": 56,
       "tagalog": "Tanghali na",
       "english": "It's already noon",
       "bahra": "Medio dia na",
-      "file_path": "recordings/56.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/medio_dia_na.wav"
     },
     {
       "id": 57,
       "tagalog": "Gabi na",
       "english": "It's already night",
-      "bahra": "Noche na",
-      "file_path": "recordings/57.aac"
+      "bahra": "De noche ya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/de_noche_ya.wav"
     },
     {
       "id": 58,
@@ -414,454 +414,454 @@
       "tagalog": "Kahapon",
       "english": "Yesterday",
       "bahra": "Ayer",
-      "file_path": "recordings/59.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ayer.wav"
     },
     {
       "id": 60,
       "tagalog": "Ngayon",
       "english": "Now/Today",
       "bahra": "Ahora / Este dia",
-      "file_path": "recordings/60.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ahora_este_dia.wav"
     },
     {
       "id": 61,
       "tagalog": "Maligo ka na",
       "english": "Take a bath now",
-      "bahra": "Man-banyo na tu",
-      "file_path": "recordings/61.aac"
+      "bahra": "Man-banya na bu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/man-banya_na_bu.wav"
     },
     {
       "id": 62,
       "tagalog": "Matulog na tayo",
       "english": "Let's sleep",
-      "bahra": "Durmi na niso",
-      "file_path": "recordings/62.aac"
+      "bahra": "Durmi ya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/durmi_ya.wav"
     },
     {
       "id": 63,
       "tagalog": "Gising na",
       "english": "Wake up",
       "bahra": "Disperta na",
-      "file_path": "recordings/63.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/disperta_na.wav"
     },
     {
       "id": 64,
       "tagalog": "Ano ang ulam?",
       "english": "What is the viand?",
-      "bahra": "Cosa el comida?",
-      "file_path": "recordings/64.aac"
+      "bahra": "Cosa bu ulang",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa_bu_ulang.wav"
     },
     {
       "id": 65,
       "tagalog": "Kain tayo",
       "english": "Let's eat",
-      "bahra": "Cumi niso",
-      "file_path": "recordings/65.aac"
+      "bahra": "Cumi ya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cumi_ya.wav"
     },
     {
       "id": 66,
       "tagalog": "Magluto ka",
       "english": "You cook",
-      "bahra": "Man-cocina tu",
-      "file_path": "recordings/66.aac"
+      "bahra": "Coseya bu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/coseya_bu.wav"
     },
     {
       "id": 67,
       "tagalog": "Hugas plato",
       "english": "Wash the dishes",
       "bahra": "Laba plato",
-      "file_path": "recordings/67.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/laba_plato.wav"
     },
     {
       "id": 68,
       "tagalog": "Saan ka pupunta?",
       "english": "Where are you going?",
-      "bahra": "Donde tu anda?",
-      "file_path": "recordings/68.aac"
+      "bahra": "Donde bu dinda",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_bu_dinda.wav"
     },
     {
       "id": 69,
       "tagalog": "Uuwi na ako",
       "english": "I'm going home",
-      "bahra": "Di anda na iyo na casa",
-      "file_path": "recordings/69.aac"
+      "bahra": "Di bolbe ya iyo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/di_bolbe_ya_iyo.wav"
     },
     {
       "id": 70,
       "tagalog": "Kasama ko sila",
       "english": "I am with them",
-      "bahra": "Junto iyo conila",
-      "file_path": "recordings/70.aac"
+      "bahra": "Magkumpanyero mo tru",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/magkumpanyero_motru.wav"
     },
     {
       "id": 71,
       "tagalog": "Hintayin mo ako",
       "english": "Wait for me",
       "bahra": "Espera conmigo",
-      "file_path": "recordings/71.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/espera_conmigo.wav"
     },
     {
       "id": 72,
       "tagalog": "Bilisan mo",
       "english": "Hurry up",
-      "bahra": "Dali-dali tu",
-      "file_path": "recordings/72.aac"
+      "bahra": "Presto",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/presto.wav"
     },
     {
       "id": 73,
       "tagalog": "Dahan-dahan lang",
       "english": "Slowly",
       "bahra": "Despacio lang",
-      "file_path": "recordings/73.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/despacio_lang.wav"
     },
     {
       "id": 74,
       "tagalog": "Mainit ngayon",
       "english": "It's hot today",
-      "bahra": "Calor ahora",
-      "file_path": "recordings/74.aac"
+      "bahra": "Pocu pocu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pocu_pocu.wav"
     },
     {
       "id": 75,
       "tagalog": "Maulan",
       "english": "It's rainy",
-      "bahra": "Ta lobi",
-      "file_path": "recordings/75.aac"
+      "bahra": "Ta yobi",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ta_yobi.wav"
     },
     {
       "id": 76,
       "tagalog": "Malakas ang hangin",
       "english": "The wind is strong",
-      "bahra": "Forte el biento",
-      "file_path": "recordings/76.aac"
+      "bahra": "Resyu biendo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/resyu_biendo.wav"
     },
     {
       "id": 77,
       "tagalog": "Pagod na ako",
       "english": "I am tired",
-      "bahra": "Cansao na iyo",
-      "file_path": "recordings/77.aac"
+      "bahra": "Cansao ya iyo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cansao_ya_iyo.wav"
     },
     {
       "id": 78,
       "tagalog": "Antok na ako",
       "english": "I am sleepy",
-      "bahra": "Tiene ya iyo sueño",
+      "bahra": "Ta sueño ya iyo / Tiene ya iyo sueño",
       "file_path": "recordings/78.aac"
     },
     {
       "id": 79,
       "tagalog": "Masaya ako",
       "english": "I am happy",
-      "bahra": "Alegre iyo",
-      "file_path": "recordings/79.aac"
+      "bahra": "Alegre iya yo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/alagre_ya_iyo.wav"
     },
     {
       "id": 80,
       "tagalog": "Malungkot ako",
       "english": "I am sad",
       "bahra": "Triste iyo",
-      "file_path": "recordings/80.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/triste_iyo.wav"
     },
     {
       "id": 81,
       "tagalog": "Magkano ito?",
       "english": "How much is this?",
-      "bahra": "Cuanto esti?",
-      "file_path": "recordings/81.aac"
+      "bahra": "Cuanto quell?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/quanto_quell.wav"
     },
     {
       "id": 82,
       "tagalog": "Ang mahal naman",
       "english": "That's too expensive",
-      "bahra": "Bien caro naman",
-      "file_path": "recordings/82.aac"
+      "bahra": "Bung caro naman",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bung_caro_naman.wav"
     },
     {
       "id": 83,
       "tagalog": "Pwedeng tawad?",
       "english": "Can I get a discount?",
-      "bahra": "Puede discount/tawad?",
-      "file_path": "recordings/83.aac"
+      "bahra": "Puede regatya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/puede_regatya.wav"
     },
     {
       "id": 84,
       "tagalog": "Mura lang",
       "english": "It's cheap",
       "bahra": "Barato lang",
-      "file_path": "recordings/84.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/barato_lang.wav"
     },
     {
       "id": 85,
       "tagalog": "Bibilhin ko ito",
       "english": "I will buy this",
       "bahra": "Di compra iyo esti",
-      "file_path": "recordings/85.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/di_compra_iyo_esti.wav"
     },
     {
       "id": 86,
       "tagalog": "Wala na bang iba?",
       "english": "Is there nothing else?",
       "bahra": "Nuay na ba otro?",
-      "file_path": "recordings/86.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/nuay_na_ba_otro.wav"
     },
     {
       "id": 87,
       "tagalog": "Pabili po",
       "english": "Can I buy...",
-      "bahra": "Pabili po / Compra pabor",
-      "file_path": "recordings/87.aac"
+      "bahra": "Pabili po / Bende iyo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bende_iyo.wav"
     },
     {
       "id": 88,
       "tagalog": "Sukli ko po",
       "english": "My change please",
       "bahra": "Di mio sencillo pabor",
-      "file_path": "recordings/88.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/di_mio_sencillo_pabor.wav"
     },
     {
       "id": 89,
       "tagalog": "Gusto ko nito",
       "english": "I like this",
       "bahra": "Quieri iyo esti",
-      "file_path": "recordings/89.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/quieri_iyo_esti.wav"
     },
     {
       "id": 90,
       "tagalog": "Ayaw ko niyan",
       "english": "I don't like that",
       "bahra": "No quieri iyo aquel",
-      "file_path": "recordings/90.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no_quieri_iyo_aquel.wav"
     },
     {
       "id": 91,
       "tagalog": "Sariwa ba ito?",
       "english": "Is this fresh?",
       "bahra": "Fresco ba esti?",
-      "file_path": "recordings/91.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/fresco_ba_esti.wav"
     },
     {
       "id": 92,
       "tagalog": "Isda",
       "english": "Fish",
       "bahra": "Pescao",
-      "file_path": "recordings/92.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pescao.wav"
     },
     {
       "id": 93,
       "tagalog": "Karne",
       "english": "Meat",
       "bahra": "Carne",
-      "file_path": "recordings/93.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/carne.wav"
     },
     {
       "id": 94,
       "tagalog": "Bigas",
       "english": "Rice (uncooked)",
       "bahra": "Arroz",
-      "file_path": "recordings/94.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/arroz.wav"
     },
     {
       "id": 95,
       "tagalog": "Kanin",
       "english": "Rice (cooked)",
-      "bahra": "Comida / Kanin",
-      "file_path": "recordings/95.aac"
+      "bahra": "Comida / Murasketa",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/comida_murasketa.wav"
     },
     {
       "id": 96,
       "tagalog": "Tubig",
       "english": "Water",
       "bahra": "Agua",
-      "file_path": "recordings/96.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/agua.wav"
     },
     {
       "id": 97,
       "tagalog": "Tinapay",
       "english": "Bread",
       "bahra": "Pan",
-      "file_path": "recordings/97.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pan.wav"
     },
     {
       "id": 98,
       "tagalog": "Itlog",
       "english": "Egg",
       "bahra": "Huevo",
-      "file_path": "recordings/98.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/huevo.wav"
     },
     {
       "id": 99,
       "tagalog": "Prutas",
       "english": "Fruit",
       "bahra": "Frutas",
-      "file_path": "recordings/99.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/frutas.wav"
     },
     {
       "id": 100,
       "tagalog": "Gulay",
       "english": "Vegetables",
       "bahra": "Gulay / Legumbres",
-      "file_path": "recordings/100.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/gulay_legumbres.wav"
     },
     {
       "id": 101,
       "tagalog": "Mayroon ba kayong...?",
       "english": "Do you have...?",
       "bahra": "Tiene ba ustedes...?",
-      "file_path": "recordings/101.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tiene_ba_ustedes.wav"
     },
     {
       "id": 102,
       "tagalog": "Wala po",
       "english": "None",
       "bahra": "Nuay po",
-      "file_path": "recordings/102.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/nuay_po.wav"
     },
     {
       "id": 103,
       "tagalog": "Meron po",
       "english": "We have",
       "bahra": "Tiene po",
-      "file_path": "recordings/103.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tiene_po.wav"
     },
     {
       "id": 104,
       "tagalog": "Ilan ang kailangan mo?",
       "english": "How many do you need?",
       "bahra": "Cuanto tu necita?",
-      "file_path": "recordings/104.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cuanto_tu_necita.wav"
     },
     {
       "id": 105,
       "tagalog": "Isa lang",
       "english": "Just one",
       "bahra": "Uno lang",
-      "file_path": "recordings/105.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/uno_lang.wav"
     },
     {
       "id": 106,
       "tagalog": "Dalawa",
       "english": "Two",
       "bahra": "Dos",
-      "file_path": "recordings/106.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/dos.wav"
     },
     {
       "id": 107,
       "tagalog": "Tatlo",
       "english": "Three",
       "bahra": "Tres",
-      "file_path": "recordings/107.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tres.wav"
     },
     {
       "id": 108,
       "tagalog": "Marami",
       "english": "Many",
       "bahra": "Mucho / Poco ese",
-      "file_path": "recordings/108.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/mucho_poco_ese.wav"
     },
     {
       "id": 109,
       "tagalog": "Kaunti",
       "english": "A few",
-      "bahra": "Diutay",
-      "file_path": "recordings/109.aac"
+      "bahra": "Puting",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/puting.wav"
     },
     {
       "id": 110,
       "tagalog": "Puno na",
       "english": "It's full",
-      "bahra": "Lleno na",
-      "file_path": "recordings/110.aac"
+      "bahra": "Lleno ya / leno ya",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ieno_ya.wav"
     },
     {
       "id": 111,
       "tagalog": "Ubos na",
       "english": "It's finished/gone",
       "bahra": "Acaba ya",
-      "file_path": "recordings/111.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/acaba_ya.wav"
     },
     {
       "id": 112,
       "tagalog": "Bukas ba kayo?",
       "english": "Are you open?",
       "bahra": "Abierto ba ustedes?",
-      "file_path": "recordings/112.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/abierto_ba_ustedes.wav"
     },
     {
       "id": 113,
       "tagalog": "Sarado na",
       "english": "Already closed",
       "bahra": "Cerrao na",
-      "file_path": "recordings/113.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cerrao_na.wav"
     },
     {
       "id": 114,
       "tagalog": "Saan ang bayaran?",
       "english": "Where is the payment area?",
-      "bahra": "Donde el pagahan?",
-      "file_path": "recordings/114.aac"
+      "bahra": "Donde tapaga?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/donde_tapaga.wav"
     },
     {
       "id": 115,
       "tagalog": "Pera",
       "english": "Money",
       "bahra": "Cualta",
-      "file_path": "recordings/115.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cualta.wav"
     },
     {
       "id": 116,
       "tagalog": "Utang",
       "english": "Debt",
-      "bahra": "Fiat",
-      "file_path": "recordings/116.aac"
+      "bahra": "Debi",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/debi.wav"
     },
     {
       "id": 117,
       "tagalog": "Bayad po",
       "english": "Here is the payment",
       "bahra": "Pagahan po",
-      "file_path": "recordings/117.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pagahan_po.wav"
     },
     {
       "id": 118,
       "tagalog": "Tulong!",
       "english": "Help!",
       "bahra": "Ayuda!",
-      "file_path": "recordings/118.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ayuda.wav"
     },
     {
       "id": 119,
       "tagalog": "Magnanakaw!",
       "english": "Thief!",
       "bahra": "Ladron!",
-      "file_path": "recordings/119.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ladron.wav"
     },
     {
       "id": 120,
       "tagalog": "Sunog!",
       "english": "Fire!",
       "bahra": "Quema!",
-      "file_path": "recordings/120.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/quema.wav"
     },
     {
       "id": 121,
       "tagalog": "Mahal kita",
       "english": "I love you",
-      "bahra": "Ta ama iyo contigo",
-      "file_path": "recordings/121.aac"
+      "bahra": "Caro ya kumbo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/caro_yo_kumbo.wav"
     },
     {
       "id": 122,
       "tagalog": "Miss na kita",
       "english": "I miss you",
       "bahra": "Ta falta iyo contigo",
-      "file_path": "recordings/122.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ta_falta_iyo_contigo.wav"
     },
     {
       "id": 123,
       "tagalog": "Sino ang kasama mo?",
       "english": "Who are you with?",
-      "bahra": "Quien di tuyu kasama?",
+      "bahra": "Quien bu kumpanyero?",
       "file_path": "recordings/123.aac"
     },
     {
@@ -869,266 +869,266 @@
       "tagalog": "Kaibigan ko siya",
       "english": "He/She is my friend",
       "bahra": "Di mio amigo/amiga ele",
-      "file_path": "recordings/124.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/di_mio_amigo_amiga_ele.wav"
     },
     {
       "id": 125,
       "tagalog": "Pamilya",
       "english": "Family",
       "bahra": "Familia",
-      "file_path": "recordings/125.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/familia.wav"
     },
     {
       "id": 126,
       "tagalog": "Nanay",
       "english": "Mother",
       "bahra": "Nanay / Mama",
-      "file_path": "recordings/126.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/nanay_mama.wav"
     },
     {
       "id": 127,
       "tagalog": "Tatay",
       "english": "Father",
       "bahra": "Tatay / Papa",
-      "file_path": "recordings/127.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tatay_papa.wav"
     },
     {
       "id": 128,
       "tagalog": "Kuya",
       "english": "Older brother",
       "bahra": "Manong",
-      "file_path": "recordings/128.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/manong.wav"
     },
     {
       "id": 129,
       "tagalog": "Ate",
       "english": "Older sister",
       "bahra": "Manang",
-      "file_path": "recordings/129.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/manang.wav"
     },
     {
       "id": 130,
       "tagalog": "Bunso",
       "english": "Youngest child",
       "bahra": "Bunso / Mas jutay",
-      "file_path": "recordings/130.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bunso_mas_jutay.wav"
     },
     {
       "id": 131,
       "tagalog": "Asawa",
       "english": "Spouse",
-      "bahra": "Asawa",
-      "file_path": "recordings/131.aac"
+      "bahra": "Mari do / Mimo her",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/marido_moher.wav"
     },
     {
       "id": 132,
       "tagalog": "Anak",
       "english": "Child",
-      "bahra": "Anak / Hijo",
-      "file_path": "recordings/132.aac"
+      "bahra": "Anak / Hijo / Hija",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/anak_hijo_hija.wav"
     },
     {
       "id": 133,
       "tagalog": "Lolo",
       "english": "Grandfather",
-      "bahra": "Abuelo",
-      "file_path": "recordings/133.aac"
+      "bahra": "Abuelo / Aguelo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/abuelo_aguelo.wav"
     },
     {
       "id": 134,
       "tagalog": "Lola",
       "english": "Grandmother",
-      "bahra": "Abuela",
-      "file_path": "recordings/134.aac"
+      "bahra": "Abuela / Aguela",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/abuela_aguela.wav"
     },
     {
       "id": 135,
       "tagalog": "Pinsan",
       "english": "Cousin",
       "bahra": "Primo / Prima",
-      "file_path": "recordings/135.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/primo_prima.wav"
     },
     {
       "id": 136,
       "tagalog": "Pamangkin",
       "english": "Nephew/Niece",
       "bahra": "Sobrino / Sobrina",
-      "file_path": "recordings/136.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/sobrino_sobrina.wav"
     },
     {
       "id": 137,
       "tagalog": "Ninong",
       "english": "Godfather",
       "bahra": "Padrino",
-      "file_path": "recordings/137.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/padrino.wav"
     },
     {
       "id": 138,
       "tagalog": "Ninang",
       "english": "Godmother",
       "bahra": "Madrina",
-      "file_path": "recordings/138.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/madrina.wav"
     },
     {
       "id": 139,
       "tagalog": "Binyag",
       "english": "Baptism",
       "bahra": "Bautismo",
-      "file_path": "recordings/139.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bautismo.wav"
     },
     {
       "id": 140,
       "tagalog": "Kasal",
       "english": "Wedding",
       "bahra": "Boda / Casamiento",
-      "file_path": "recordings/140.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/boda_casamiento.wav"
     },
     {
       "id": 141,
       "tagalog": "Kamag-anak",
       "english": "Relative",
       "bahra": "Pariente",
-      "file_path": "recordings/141.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pariente.wav"
     },
     {
       "id": 142,
       "tagalog": "Bisita",
       "english": "Visitor",
       "bahra": "Bisita",
-      "file_path": "recordings/142.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bisita.wav"
     },
     {
       "id": 143,
       "tagalog": "Bahay",
       "english": "House",
       "bahra": "Casa",
-      "file_path": "recordings/143.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/casa.wav"
     },
     {
       "id": 144,
       "tagalog": "Kapitbahay",
       "english": "Neighbor",
       "bahra": "Bisino",
-      "file_path": "recordings/144.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bisino.wav"
     },
     {
       "id": 145,
       "tagalog": "Usap tayo",
       "english": "Let's talk",
-      "bahra": "Conversa niso",
-      "file_path": "recordings/145.aac"
+      "bahra": "Xuga platika mo tru",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/xuga_platika_motru.wavc"
     },
     {
       "id": 146,
       "tagalog": "Anong balita?",
       "english": "What's the news?",
       "bahra": "Cosa balita?",
-      "file_path": "recordings/146.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa_balita.wav"
     },
     {
       "id": 147,
       "tagalog": "Wala naman",
       "english": "Nothing much",
       "bahra": "Nuay naman",
-      "file_path": "recordings/147.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/nuay_naman.wav"
     },
     {
       "id": 148,
       "tagalog": "Totoo ba?",
       "english": "Is it true?",
       "bahra": "Berdad ba?",
-      "file_path": "recordings/148.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/berdad_ba.wav"
     },
     {
       "id": 149,
       "tagalog": "Biyahe",
       "english": "Journey/Trip",
       "bahra": "Viaje",
-      "file_path": "recordings/149.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/viaje.wav"
     },
     {
       "id": 150,
       "tagalog": "Mag-ingat sa daan",
       "english": "Be careful on the road",
       "bahra": "Cuidao na camino",
-      "file_path": "recordings/150.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cuidao_na_camino.wav"
     },
     {
       "id": 151,
       "tagalog": "Nakakapagod",
       "english": "It's tiring",
-      "bahra": "Ta cansa",
-      "file_path": "recordings/151.aac"
+      "bahra": "Cansao",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cansao.wav"
     },
     {
       "id": 152,
       "tagalog": "Nakakatuwa",
       "english": "It's fun/funny",
       "bahra": "Ta alegre",
-      "file_path": "recordings/152.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ta_alegre.wav"
     },
     {
       "id": 153,
       "tagalog": "Huwag",
       "english": "Don't",
       "bahra": "No / Hinde",
-      "file_path": "recordings/153.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no_hinde.wav"
     },
     {
       "id": 154,
       "tagalog": "Huwag kang maingay",
       "english": "Don't be noisy",
-      "bahra": "No hace rudio",
-      "file_path": "recordings/154.aac"
+      "bahra": "No bu horido",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no_bu_horido.wav"
     },
     {
       "id": 155,
       "tagalog": "Tahimik lang",
       "english": "Just be quiet",
-      "bahra": "Silencio lang",
-      "file_path": "recordings/155.aac"
+      "bahra": "No bo rido",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no_bo_rido.wav"
     },
     {
       "id": 156,
       "tagalog": "Galit ka ba?",
       "english": "Are you angry?",
       "bahra": "Rabiao ba tu?",
-      "file_path": "recordings/156.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/rabiao_ba_tu.wav"
     },
     {
       "id": 157,
       "tagalog": "Hindi ako galit",
       "english": "I am not angry",
-      "bahra": "Hinde iyo rabiao",
-      "file_path": "recordings/157.aac"
+      "bahra": "No yo rigen yao",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/no%20yo%20rigen_yao.wav"
     },
     {
       "id": 158,
       "tagalog": "Ngumiti ka",
       "english": "Smile",
-      "bahra": "Man-risas tu",
-      "file_path": "recordings/158.aac"
+      "bahra": "Ri bo",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ri_bo.wav"
     },
     {
       "id": 159,
       "tagalog": "Tumawa tayo",
       "english": "Let's laugh",
       "bahra": "Man-risas niso",
-      "file_path": "recordings/159.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/man-risas_niso.wav"
     },
     {
       "id": 160,
       "tagalog": "Umiiyak siya",
       "english": "He/She is crying",
-      "bahra": "Ta llora ele",
-      "file_path": "recordings/160.aac"
+      "bahra": "Ta llora ele / Ayura eli",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/ta_llora_ele_ayura_eli.wav"
     },
     {
       "id": 161,
       "tagalog": "Pista ng Ternate",
       "english": "Ternate Festival",
       "bahra": "Fiesta di Ternate",
-      "file_path": "recordings/161.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/fiesta_de_ternate.wav"
     },
     {
       "id": 162,
@@ -1142,14 +1142,14 @@
       "tagalog": "Simbang Gabi",
       "english": "Midnight Mass",
       "bahra": "Misa di Gallo",
-      "file_path": "recordings/163.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/misa_di_gallo.wav"
     },
     {
       "id": 164,
       "tagalog": "Paskuhan",
       "english": "Christmas",
       "bahra": "Pascua",
-      "file_path": "recordings/164.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/pascua.wav"
     },
     {
       "id": 165,
@@ -1169,162 +1169,162 @@
       "id": 167,
       "tagalog": "Mano po",
       "english": "Blessing (respect gesture)",
-      "bahra": "Mano po",
-      "file_path": "recordings/167.aac"
+      "bahra": "Bisa mano",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bisa_mano.wav"
     },
     {
       "id": 168,
       "tagalog": "Kaibigan",
       "english": "Friend",
       "bahra": "Amigo",
-      "file_path": "recordings/168.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/amigo.wav"
     },
     {
       "id": 169,
       "tagalog": "Kaaway",
       "english": "Enemy",
       "bahra": "Enemigo",
-      "file_path": "recordings/169.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/enemigo.wav"
     },
     {
       "id": 170,
       "tagalog": "Mahirap",
       "english": "Difficult/Poor",
       "bahra": "Dificil / Pobre",
-      "file_path": "recordings/170.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/dificil_pobre.wav"
     },
     {
       "id": 171,
       "tagalog": "Mayaman",
       "english": "Rich",
       "bahra": "Rico",
-      "file_path": "recordings/171.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/rico.wav"
     },
     {
       "id": 172,
       "tagalog": "Matalino",
       "english": "Intelligent",
       "bahra": "Listo / Inteligente",
-      "file_path": "recordings/172.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/listo_inteligente.wav"
     },
     {
       "id": 173,
       "tagalog": "Maganda",
       "english": "Beautiful",
       "bahra": "Guapa / Bunita",
-      "file_path": "recordings/173.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/guapa_bunita.wav"
     },
     {
       "id": 174,
       "tagalog": "Gwapo",
       "english": "Handsome",
       "bahra": "Guapo",
-      "file_path": "recordings/174.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/guapo.wav"
     },
     {
       "id": 175,
       "tagalog": "Pangit",
       "english": "Ugly",
-      "bahra": "Malo cara / Feo",
-      "file_path": "recordings/175.aac"
+      "bahra": "Sarot",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/sarot.wav"
     },
     {
       "id": 176,
       "tagalog": "Mataba",
       "english": "Fat",
       "bahra": "Gordo",
-      "file_path": "recordings/176.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/gordo.wav"
     },
     {
       "id": 177,
       "tagalog": "Payat",
       "english": "Thin",
       "bahra": "Flaco",
-      "file_path": "recordings/177.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/flaco.wav"
     },
     {
       "id": 178,
       "tagalog": "Matangkad",
       "english": "Tall",
       "bahra": "Alto",
-      "file_path": "recordings/178.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/alto.wav"
     },
     {
       "id": 179,
       "tagalog": "Pandak",
       "english": "Short (person)",
-      "bahra": "Abajito / Jutay",
-      "file_path": "recordings/179.aac"
+      "bahra": "Unano / Chiquito",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/unano_chiquito.wav"
     },
     {
       "id": 180,
       "tagalog": "Malakas",
       "english": "Strong",
-      "bahra": "Forte",
-      "file_path": "recordings/180.aac"
+      "bahra": "Resyu",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/resyu.wav"
     },
     {
       "id": 181,
       "tagalog": "Mahina",
       "english": "Weak",
       "bahra": "Debil",
-      "file_path": "recordings/181.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/debil.wav"
     },
     {
       "id": 182,
       "tagalog": "Maaga",
       "english": "Early",
       "bahra": "Temprano",
-      "file_path": "recordings/182.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/temprano.wav"
     },
     {
       "id": 183,
       "tagalog": "Huli na",
       "english": "Late",
       "bahra": "Tarde na",
-      "file_path": "recordings/183.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/tarde_na.wav"
     },
     {
       "id": 184,
       "tagalog": "Mabilis",
       "english": "Fast",
       "bahra": "Presto / Dali",
-      "file_path": "recordings/184.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/presto_dali.wav"
     },
     {
       "id": 185,
       "tagalog": "Mabagal",
       "english": "Slow",
       "bahra": "Despacio",
-      "file_path": "recordings/185.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/despacio.wav"
     },
     {
       "id": 186,
       "tagalog": "Malinis",
       "english": "Clean",
       "bahra": "Limpio",
-      "file_path": "recordings/186.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/limpio.wav"
     },
     {
       "id": 187,
       "tagalog": "Marumi",
       "english": "Dirty",
       "bahra": "Sucio",
-      "file_path": "recordings/187.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/sucio.wav"
     },
     {
       "id": 188,
       "tagalog": "Mabango",
       "english": "Fragrant",
       "bahra": "Oloroso / Huele bueno",
-      "file_path": "recordings/188.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/oloroso_huele_bueno.wav"
     },
     {
       "id": 189,
       "tagalog": "Mabaho",
       "english": "Stinky",
-      "bahra": "Huele malo / Apesta",
-      "file_path": "recordings/189.aac"
+      "bahra": "Hiedi / Apesta",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/hiedi_apesta.wav"
     },
     {
       "id": 190,
@@ -1338,70 +1338,70 @@
       "tagalog": "Luma",
       "english": "Old (object)",
       "bahra": "Viejo",
-      "file_path": "recordings/191.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/viejo_object.wav"
     },
     {
       "id": 192,
       "tagalog": "Matanda",
       "english": "Old (person)",
       "bahra": "Viejo",
-      "file_path": "recordings/192.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/viejo_person.wav"
     },
     {
       "id": 193,
       "tagalog": "Bata",
       "english": "Young / Child",
-      "bahra": "Nuevo / Bata",
-      "file_path": "recordings/193.aac"
+      "bahra": "Muchacho / Muchacha",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/muchacho_muchacha.wav"
     },
     {
       "id": 194,
       "tagalog": "Ano ang gagawin natin?",
       "english": "What are we going to do?",
-      "bahra": "Cosa niso di hace?",
-      "file_path": "recordings/194.aac"
+      "bahra": "Cosa mo tru dise?",
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/cosa_motru_dise.wav"
     },
     {
       "id": 195,
       "tagalog": "Bahala na",
       "english": "Come what may",
       "bahra": "Bahala na",
-      "file_path": "recordings/195.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bahala_na.wav"
     },
     {
       "id": 196,
       "tagalog": "Sayaw tayo",
       "english": "Let's dance",
       "bahra": "Baila niso",
-      "file_path": "recordings/196.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/baila_niso.wav"
     },
     {
       "id": 197,
       "tagalog": "Kanta tayo",
       "english": "Let's sing",
       "bahra": "Canta niso",
-      "file_path": "recordings/197.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/canta_niso.wav"
     },
     {
       "id": 198,
       "tagalog": "Maglaro tayo",
       "english": "Let's play",
       "bahra": "Juga niso",
-      "file_path": "recordings/198.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/juga_niso.wav"
     },
     {
       "id": 199,
       "tagalog": "Pagpalain ka ng Diyos",
       "english": "God bless you",
       "bahra": "Bendici contigo el Dios",
-      "file_path": "recordings/199.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/bendici_contigo_el_dios.wav"
     },
     {
       "id": 200,
       "tagalog": "Maraming salamat sa inyong lahat",
       "english": "Thank you very much to you all",
       "bahra": "Muchas gracias con ustedes todo",
-      "file_path": "recordings/200.aac"
+      "file_path": "https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/CHAVACANO/muchas_gracias_con_ustedes_todo.wav"
     }
   ]
 }
