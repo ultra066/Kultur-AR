@@ -109,28 +109,6 @@ export default function LoginScreen() {
               <Text style={styles.optionsText}>Forgot password?</Text>
             </TouchableOpacity>
           </View>
-
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>Or sign in with</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <View style={styles.socialButtonsContainer}>
-            <TouchableOpacity style={styles.socialButton}>
-              <View style={styles.socialIconWrapper}>
-                 <Text style={styles.socialIconText}>G</Text>
-                 <Text style={styles.socialButtonText}>Google</Text>
-              </View>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.socialButton}>
-              <View style={styles.socialIconWrapper}>
-                 <Text style={[styles.socialIconText, styles.socialIconFacebook]}>f</Text>
-                 <Text style={styles.socialButtonText}>facebook</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
           
           <TouchableOpacity 
             style={styles.createAccountButton}

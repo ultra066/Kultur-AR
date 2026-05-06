@@ -47,13 +47,13 @@ const RegionProvinceSelector = () => {
             {/* Region Selector */}
             <Text style={styles.label}>Region</Text>
             <TouchableOpacity style={styles.input} onPress={() => setRegionModalVisible(true)}>
-                <Text>{selectedRegion || 'Select Region'}</Text>
+                <Text style={{ color: '#000' }}>{selectedRegion || 'Select Region'}</Text>
             </TouchableOpacity>
 
             {/* Province Selector */}
             <Text style={styles.label}>Province</Text>
             <TouchableOpacity style={styles.input} onPress={() => setProvinceModalVisible(true)} disabled={!selectedRegion}>
-                <Text>{selectedProvince || 'Select Province'}</Text>
+                <Text style={{ color: '#000' }}>{selectedProvince || 'Select Province'}</Text>
             </TouchableOpacity>
 
             {/* Region Modal */}
@@ -72,8 +72,14 @@ const RegionProvinceSelector = () => {
                             data={regions}
                             keyExtractor={(item) => item}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={styles.modalItem} onPress={() => handleSelectRegion(item)}>
-                                    <Text>{item}</Text>
+                                <TouchableOpacity
+                                    style={[
+                                        styles.modalItem,
+                                        selectedRegion === item && styles.modalItemSelected,
+                                    ]}
+                                    onPress={() => handleSelectRegion(item)}
+                                >
+                                    <Text style={[styles.modalItemText, selectedRegion === item && { fontWeight: '700' }]}>{item}</Text>
                                 </TouchableOpacity>
                             )}
                         />
@@ -97,8 +103,14 @@ const RegionProvinceSelector = () => {
                             data={provinces}
                             keyExtractor={(item) => item}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={styles.modalItem} onPress={() => handleSelectProvince(item)}>
-                                    <Text>{item}</Text>
+                                <TouchableOpacity
+                                    style={[
+                                        styles.modalItem,
+                                        selectedProvince === item && styles.modalItemSelected,
+                                    ]}
+                                    onPress={() => handleSelectProvince(item)}
+                                >
+                                    <Text style={[styles.modalItemText, selectedProvince === item && { fontWeight: '700' }]}>{item}</Text>
                                 </TouchableOpacity>
                             )}
                         />
@@ -116,14 +128,17 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         marginBottom: 8,
+        color: '#000',
+        fontWeight: '600',
     },
     input: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#000000',
         borderRadius: 5,
         padding: 12,
         marginBottom: 16,
         justifyContent: 'center',
+        color: '#000',
     },
     modalOverlay: {
         flex: 1,
@@ -144,11 +159,18 @@ const styles = StyleSheet.create({
     closeButtonText: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: '#000',
     },
     modalItem: {
         padding: 15,
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
+    },
+    modalItemText: {
+        color: '#000',
+    },
+    modalItemSelected: {
+        backgroundColor: 'rgba(109,160,71,0.18)',
     },
 });
 
