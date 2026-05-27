@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router'; 
 
@@ -60,7 +61,17 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer} bounces={false}>
         
-        <View style={styles.headerContainer} />
+        
+        <View style={styles.headerContainer}>
+          <Image
+            source={{
+              uri: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/LOGO/MONOCHROME%20&%20TEXT.png',
+            }}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+
 
         <View style={styles.cardContainer}>
           <IncorrectLoginAlertModal

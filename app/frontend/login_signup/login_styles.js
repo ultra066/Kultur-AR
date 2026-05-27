@@ -15,6 +15,12 @@ export const styles = StyleSheet.create({
   headerContainer: {
     height: height * 0.28, // Use calculated pixels
     backgroundColor: '#6da047',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: 400,
+    height: 170,
   },
   cardContainer: {
     flex: 1, 
