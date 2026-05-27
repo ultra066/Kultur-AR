@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, PermissionsAndroid, Platform } from 'react-native';
+import { View, StyleSheet, Text, PermissionsAndroid, Platform, TouchableOpacity } from 'react-native';
 import UnityView, { UnityModule } from '@azesmway/react-native-unity';
-import { useLocalSearchParams } from 'expo-router'; // To receive data from the previous screen
+import { useLocalSearchParams, useRouter } from 'expo-router'; // To receive data from the previous screen
 
 const ARMode = () => {
+  const router = useRouter();
   const [hasPermission, setHasPermission] = useState(false);
+  const [unityInstanceKey, setUnityInstanceKey] = useState(() => Date.now());
+
+  
   
   // Get parameters passed from the previous screen (e.g., from your Map or Gallery)
   // `mode` can be 'Artifacts', 'LocalCuisine', 'HistoricalSite', or 'Festival'
   // `modelAddress` is the specific Addressable path for a 3D model
   const { mode, modelAddress } = useLocalSearchParams(); 
 
-  // --- Define the fixed addresses for your ONNX models (from your screenshot) ---
-  const onnxForArtifacts = 'Assets/Model/Artifacts/artifacts_model.onnx';
-  const onnxForCuisine = 'Assets/Model/Local Cuisine/local_canine.onnx'; // I'm using the exact name from your image, even with the typo
-
   // --- Step 1: Request Camera Permission ---
+
   useEffect(() => {
     const checkAndRequestPermission = async () => {
       if (Platform.OS === 'android') {
@@ -54,20 +55,21 @@ const ARMode = () => {
         if (UnityModule) {
           console.log(`[React Native] Entering AR mode: ${mode}`);
 
-          // Always tell Unity to clear any previously loaded models first
-          UnityModule.postMessage('UnityMessageManager', 'UnloadAllArtifacts', '');
+
           
           // Use a switch to handle the different modes
           switch (mode) {
             case 'Artifacts':
-              console.log(`[React Native] Loading ONNX model: ${onnxForArtifacts}`);
-              UnityModule.postMessage('UnityMessageManager', 'LoadONNXModel', onnxForArtifacts);
+              // Test-only: skip LoadONNXModel; Unity will use its own startup/default model.
+              console.log(`[React Native] (Test) Skipping LoadONNXModel for: ${onnxForArtifacts}`);
               break;
 
+
             case 'LocalCuisine':
-              console.log(`[React Native] Loading ONNX model: ${onnxForCuisine}`);
-              UnityModule.postMessage('UnityMessageManager', 'LoadONNXModel', onnxForCuisine);
+              // Test-only: skip LoadONNXModel; Unity will use its own startup/default model.
+              console.log(`[React Native] (Test) Skipping LoadONNXModel for: ${onnxForCuisine}`);
               break;
+
 
             case 'HistoricalSite':
               if (modelAddress) {
@@ -103,12 +105,40 @@ const ARMode = () => {
     );
   }
 
+  const handleBack = () => {
+    // 1) Notify Unity to stop/unload BEFORE unmounting.
+    // If your Unity side has a real stop method, add it and call it here.
+    // Tell UnityMessageManager to shutdown the AR experience properly.
+    // (Unity side must implement this method.)
+    try {
+      if (UnityModule) {
+        UnityModule.postMessage('UnityMessageManager', 'ShutdownUnity', '');
+      }
+    } catch (e) {
+      console.warn('[React Native] Failed to notify Unity on back:', e);
+    }
+
+    // 2) Force UnityView to unmount/remount so AR loads from scratch next time.
+    setUnityInstanceKey((prev) => prev + 1);
+
+    // 3) Go back to the React screen.
+    router.replace('/frontend/homepage/home');
+  };
+
   return (
     <View style={styles.container}>
       <UnityView
+        key={unityInstanceKey}
         style={styles.unity}
         onUnityMessage={(e) => console.log(`[React Native] Message from Unity: ${e.nativeEvent.message}`)}
       />
+
+      {/* Back button overlay */}
+      <View style={styles.backButtonContainer} pointerEvents="box-none">
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} activeOpacity={0.85}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -124,6 +154,25 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  backButtonContainer: {
+    position: 'absolute',
+    top: 20,
+    left: 16,
+    right: 16,
+    zIndex: 10,
+    alignItems: 'flex-start',
+  },
+  backButton: {
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 12,
+  },
+  backButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
   },
   loadingText: {
     color: 'white',
