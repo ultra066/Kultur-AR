@@ -570,7 +570,8 @@ export default function MapScreen() {
       )}
 
       {activeTrail && (
-        <View style={styles.trailControlContainer}>
+      <View style={styles.trailControlContainer}>
+
           <TouchableOpacity style={styles.trailToggleBtn} onPress={() => setIsTrailCardExpanded(!isTrailCardExpanded)}>
             <MaterialIcons name="map" size={24} color="white" />
             <Text style={styles.trailToggleText}>{isTrailCardExpanded ? 'Hide Trail' : 'Show Trail'}</Text>
@@ -789,6 +790,7 @@ const styles = StyleSheet.create({
   },
 
   trailControlContainer: { position: 'absolute', top: 110, right: '5%', width: '60%', alignItems: 'flex-end', zIndex: 9 },
+
   trailToggleBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: PRIMARY_GREEN, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20, elevation: 5 },
   trailToggleText: { color: 'white', fontWeight: 'bold', marginLeft: 6, fontSize: 12 },
   trailCard: { backgroundColor: 'white', width: '100%', marginTop: 10, borderRadius: 15, padding: 15, elevation: 10 },

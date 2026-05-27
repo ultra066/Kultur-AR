@@ -88,10 +88,20 @@ export default function TrailDetailsScreen() {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       
-      {/* HEADER IMAGE */}
+      {/* HEADER (hardcoded image per trail title) */}
       <View style={styles.headerImageContainer}>
         <Image 
-          source={{ uri: trail.image_url || 'https://via.placeholder.com/400' }} 
+          source={{
+            uri: trail?.title === 'The Revolution Road'
+              ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Revolution%20Road.jpg'
+              : trail?.title === 'Heroes of Kawit'
+              ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Emilio%20of%20Kawit.jpg'
+              : trail?.title === 'Valor & Martyrs Trail'
+              ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Martyrs.jpg'
+              : trail?.title === 'The Old Churches Loop'
+              ? 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Church.jpg'
+              : trail?.image || trail?.image_url || 'https://via.placeholder.com/400',
+          }} 
           style={styles.headerImage} 
           resizeMode="cover" 
         />
@@ -189,6 +199,7 @@ export default function TrailDetailsScreen() {
             const trailData = {
               id: trail.id,
               name: trail.title,
+              image_url: trail.image_url,
               sites: stops
                 .sort((a, b) => a.stop_order - b.stop_order)
                 .map(s => s.sites)
