@@ -16,18 +16,22 @@ export const styles = StyleSheet.create({
   
   // === HEADER ===
   headerContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
     marginTop: Platform.OS === 'ios' ? 0 : 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   greetingTextContainer: {
-    flex: 1,
+    flex: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginLeft: -12,
   },
   profileIconButton: {
     width: 44,
     height: 44,
+    marginRight: 20,
     borderRadius: 22,
     borderWidth: 2,
     borderColor: '#6DA047',
@@ -35,16 +39,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#EFEFE5',
   },
-  greetingSub: {
-    fontSize: 16,
-    color: '#888',
-    fontWeight: '500',
-  },
-  greetingTitle: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#000',
-    marginTop: 2,
+  logoImage: {
+    width: 190,
+    height: 40,
   },
 
   // === SEARCH BAR ===

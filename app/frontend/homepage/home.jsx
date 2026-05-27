@@ -170,8 +170,13 @@ export default function HomeScreen() {
         {!isSearching && (
           <View style={styles.headerContainer}>
             <View style={styles.greetingTextContainer}>
-              <Text style={styles.greetingSub}>Mabuhay,</Text>
-              <Text style={styles.greetingTitle}>Ka-Kultura!</Text>
+              <Image
+                source={{
+                  uri: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/LOGO/LOGO%20&%20TEXT.png',
+                }}
+                style={styles.logoImage}
+                resizeMode="contain"
+              />
             </View>
 
             <TouchableOpacity
