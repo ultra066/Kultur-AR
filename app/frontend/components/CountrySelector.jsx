@@ -266,13 +266,14 @@ const countryData = [
     { "name": "Wales", "code": "WALES", "emoji": "🏴󠁧󠁢󠁷󠁬󠁳󠁿" }
 ];
 
-const CountrySelector = () => {
+const CountrySelector = ({ onChange }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
 
     const handleSelectCountry = (country) => {
         setSelectedCountry(country);
         setModalVisible(false);
+        onChange?.(country?.name ?? null);
     };
 
     return (

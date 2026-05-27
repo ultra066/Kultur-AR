@@ -169,8 +169,20 @@ export default function HomeScreen() {
         {/* 1. Header Greeting */}
         {!isSearching && (
           <View style={styles.headerContainer}>
-            <Text style={styles.greetingSub}>Mabuhay,</Text>
-            <Text style={styles.greetingTitle}>Ka-Kultura!</Text>
+            <View style={styles.greetingTextContainer}>
+              <Text style={styles.greetingSub}>Mabuhay,</Text>
+              <Text style={styles.greetingTitle}>Ka-Kultura!</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.profileIconButton}
+              onPress={() => router.push('/frontend/profile/profile')}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Open profile"
+            >
+              <Ionicons name="person" size={20} color="#6DA047" />
+            </TouchableOpacity>
           </View>
         )}
 

@@ -60,7 +60,7 @@ export default function SignupPasswordScreen() {
       // Success! Move to Location setup
       router.push({
         pathname: '/frontend/login_signup/signup_location',
-        params: { firstName, lastName } 
+        params: { firstName, middleName: params.middleName, lastName, suffix: params.suffix }
       });
     }
   };

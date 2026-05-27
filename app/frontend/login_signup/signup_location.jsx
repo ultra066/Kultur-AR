@@ -22,15 +22,19 @@ export default function SignupLocationScreen() {
   
   // 2. Get params passed from previous screens (Name)
   const params = useLocalSearchParams();
-  const { firstName, lastName } = params;
+  const { firstName, middleName, lastName, suffix } = params;
 
   // State for selection: 'filipino' | 'foreigner' | null
   const [userOrigin, setUserOrigin] = useState(null);
   const [loading, setLoading] = useState(false); // Add loading state
 
-  // These states would ideally be lifted up from the child components
-  // For now, we assume simple selection just for the profile 'type'
-  
+  // Location fields (lifted up from selectors)
+  const [region, setRegion] = useState(null);
+  const [province, setProvince] = useState(null);
+  const [country, setCountry] = useState(null);
+
+  const PHILIPPINES = 'Philippines';
+
   // --- 3. HANDLE FINISH (Save Profile) ---
   const handleFinish = async () => {
     if (!userOrigin) return;
@@ -50,9 +54,14 @@ export default function SignupLocationScreen() {
       const updates = {
         id: user.id,
         first_name: firstName || '',
+        middle_name: middleName || '',
         last_name: lastName || '',
+        suffix: suffix || '',
         origin_type: userOrigin,
-        // You can add region/country here if you pass it from the child components
+        region: region || '',
+        province: province || '',
+        // If Filipino, country should be Philippines automatically
+        country: userOrigin === 'filipino' ? PHILIPPINES : (country || ''),
         updated_at: new Date(),
       };
 
@@ -122,12 +131,17 @@ export default function SignupLocationScreen() {
           
           {/* IF FILIPINO: Show Region & Province */}
           {userOrigin === 'filipino' && (
-            <RegionProvinceSelector />
+            <RegionProvinceSelector onChange={({ region, province }) => {
+              setRegion(region);
+              setProvince(province);
+            }} />
           )}
 
           {/* IF FOREIGNER: Show Country */}
           {userOrigin === 'foreigner' && (
-            <CountrySelector />
+            <CountrySelector onChange={(selectedCountryName) => {
+              setCountry(selectedCountryName);
+            }} />
           )}
 
           {/* === DYNAMIC BUTTON === */}

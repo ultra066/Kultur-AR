@@ -8,13 +8,16 @@ import {
   Platform,
   ScrollView,
   Alert,
-  Modal 
+  Modal,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router'; // Added useLocalSearchParams
+
+import IncorrectLoginAlertModal from './IncorrectLoginAlertModal';
 
 // 1. Import Supabase Client
 import { supabase } from '../../../lib/database/supabase';
 import { styles } from './signup_styles';
+
 
 export default function SignupEmailScreen() {
   const router = useRouter();
@@ -30,6 +33,9 @@ export default function SignupEmailScreen() {
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(100);
   const [loading, setLoading] = useState(false); // Added loading state
+
+  // OTP invalid modal
+  const [showInvalidOtpModal, setShowInvalidOtpModal] = useState(false);
 
   // TIMER LOGIC
   useEffect(() => {
@@ -89,11 +95,12 @@ export default function SignupEmailScreen() {
   // --- VERIFY OTP LOGIC ---
   const handleVerifyOtp = async () => {
     if (otp.length !== 6) {
-      Alert.alert("Invalid OTP", "Code must be 6 digits.");
+      setShowInvalidOtpModal(true);
       return;
     }
     
     setLoading(true);
+
 
     // Check if the code matches
     const { data, error } = await supabase.auth.verifyOtp({
@@ -105,7 +112,7 @@ export default function SignupEmailScreen() {
     setLoading(false);
 
     if (error) {
-      Alert.alert("Verification Failed", "Invalid code or expired.");
+      setShowInvalidOtpModal(true);
     } else {
       setModalVisible(false);
       
@@ -113,7 +120,7 @@ export default function SignupEmailScreen() {
       // We pass the Name info forward so we can save the full profile later
       router.push({
         pathname: '/frontend/login_signup/signup_password',
-        params: { firstName, lastName } 
+        params: { firstName, middleName: params.middleName, lastName, suffix: params.suffix }
       });
     }
   };
@@ -171,6 +178,12 @@ export default function SignupEmailScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {/* === DESIGNED OTP INVALID MODAL === */}
+      <IncorrectLoginAlertModal
+        visible={showInvalidOtpModal}
+        onClose={() => setShowInvalidOtpModal(false)}
+      />
 
       {/* === THE OTP BOTTOM SHEET MODAL === */}
       <Modal

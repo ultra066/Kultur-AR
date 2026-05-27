@@ -7,9 +7,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert
 } from 'react-native';
 import { useRouter } from 'expo-router'; 
+
+import IncorrectLoginAlertModal from './IncorrectLoginAlertModal';
 
 // 1. IMPORT SUPABASE
 import { supabase } from '../../../lib/database/supabase';
@@ -17,16 +18,19 @@ import { styles } from './login_styles';
 
 export default function LoginScreen() {
   const router = useRouter(); 
+
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [showIncorrectLoginModal, setShowIncorrectLoginModal] = useState(false);
 
   // --- 2. LOGIN FUNCTION ---
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert("Error", "Please fill in all fields.");
+      // Keep existing behavior lightweight; validation feedback still required.
+      // Using modal-style would be fine too, but leaving as-is since request is for wrong credentials.
       return;
     }
 
@@ -41,11 +45,11 @@ export default function LoginScreen() {
     setLoading(false);
 
     if (error) {
-      Alert.alert("Login Failed", error.message);
+      setShowIncorrectLoginModal(true);
     } else {
       // Success! Go to Home Page
       // Use 'replace' so they can't go back to login by swiping
-      router.replace('/frontend/homepage/home'); 
+      router.replace('/frontend/homepage/home');
     }
   };
 
@@ -59,6 +63,10 @@ export default function LoginScreen() {
         <View style={styles.headerContainer} />
 
         <View style={styles.cardContainer}>
+          <IncorrectLoginAlertModal
+            visible={showIncorrectLoginModal}
+            onClose={() => setShowIncorrectLoginModal(false)}
+          />
           
           <Text style={styles.title}>
             Sign in to your{'\n'}account

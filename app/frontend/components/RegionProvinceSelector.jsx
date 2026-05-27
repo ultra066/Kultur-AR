@@ -22,7 +22,7 @@ const philippineData = {
 
 const regions = Object.values(philippineData).map(item => item.region_name);
 
-const RegionProvinceSelector = () => {
+const RegionProvinceSelector = ({ onChange }) => {
     const [regionModalVisible, setRegionModalVisible] = useState(false);
     const [provinceModalVisible, setProvinceModalVisible] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState(null);
@@ -35,11 +35,13 @@ const RegionProvinceSelector = () => {
         setProvinces(regionData ? regionData.province_list : []);
         setSelectedProvince(null);
         setRegionModalVisible(false);
+        onChange?.({ region, province: null });
     };
 
     const handleSelectProvince = (province) => {
         setSelectedProvince(province);
         setProvinceModalVisible(false);
+        onChange?.({ region: selectedRegion, province });
     };
 
     return (

@@ -18,6 +18,22 @@ export const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: 20,
     marginTop: Platform.OS === 'ios' ? 0 : 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  greetingTextContainer: {
+    flex: 1,
+  },
+  profileIconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    borderWidth: 2,
+    borderColor: '#6DA047',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EFEFE5',
   },
   greetingSub: {
     fontSize: 16,

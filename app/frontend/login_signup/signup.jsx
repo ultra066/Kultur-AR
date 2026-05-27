@@ -29,7 +29,10 @@ export default function SignupScreen() {
     
     // If valid, proceed to email signup
     console.log("Validation Passed!", firstName, lastName);
-    router.push('/frontend/login_signup/signup_email');
+    router.push({
+      pathname: '/frontend/login_signup/signup_email',
+      params: { firstName, middleName, lastName, suffix },
+    });
   };
 
   return (
