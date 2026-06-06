@@ -1,25 +1,25 @@
 {
   "expo": {
     "scheme": "KulturAR",
-    "name": "Kultur-AR",
+    "name": "KulturAR",
     "slug": "Kultur-AR",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app-logo-transparent.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/pp-logo-transparent.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f4f3e8"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/app-logo-transparent.png",
+        "backgroundColor": "#f4f3e8"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.ultra066.KulturAR",
