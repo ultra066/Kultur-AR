@@ -177,17 +177,21 @@ export default function ProfileScreen() {
         throw new Error('Upload succeeded but could not build public URL for the object.');
       }
 
-      // Persist URL in DB
+      // ADDED: Cache Busting logic
+      // We append a timestamp to the URL so React Native knows it is a brand new image
+      const timestampedUrl = `${publicUrl}?t=${new Date().getTime()}`;
+
+      // Persist the NEW timestamped URL in DB
       const { error: dbError } = await supabase
         .from('profiles')
-        .update({ image: publicUrl })
+        .update({ image: timestampedUrl })
         .eq('id', user.id);
 
       if (dbError) throw dbError;
 
-      // Update UI immediately
-      setProfile((prev) => (prev ? { ...prev, image: publicUrl } : prev));
-      setImageUrl(publicUrl);
+      // Update UI immediately with the new timestamped URL
+      setProfile((prev) => (prev ? { ...prev, image: timestampedUrl } : prev));
+      setImageUrl(timestampedUrl);
     } catch (e) {
       setUploadError(e?.message || 'Failed to upload image');
     } finally {
