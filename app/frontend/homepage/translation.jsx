@@ -65,12 +65,24 @@ export default function TranslationScreen() {
   // Handle Input Change and Filter Suggestions
   const handleTextChange = (text) => {
     setInputText(text);
-    
+
+    const trimmed = text.trim();
+
+    // If user cleared the input manually, also clear translated output
+    if (!trimmed) {
+      setTranslatedText('');
+      setSuggestions([]);
+      return;
+    }
+
+    // Clear old translation when user starts editing a new sentence
+    setTranslatedText((prev) => (prev ? '' : prev));
+
     // Only show suggestions if user typed more than 2 characters
-    if (text.trim().length > 2) {
+    if (trimmed.length > 2) {
       const normalizedQuery = text.toLowerCase();
       // Accessing the array inside your JSON structure
-      const matches = commonPhrasesData.common_phrases.filter(phrase => 
+      const matches = commonPhrasesData.common_phrases.filter((phrase) =>
         phrase.tagalog.toLowerCase().includes(normalizedQuery) ||
         phrase.english.toLowerCase().includes(normalizedQuery)
       );
@@ -218,7 +230,14 @@ export default function TranslationScreen() {
             onChangeText={handleTextChange}
             placeholder="Anong balita?"
             multiline
+            maxLength={120}
           />
+
+          <View style={styles.inputFooter}>
+            <Text style={styles.inputFooterText}>
+              {inputText.trim().length > 0 ? `${inputText.trim().split(/\s+/).length} word(s) / 120 max` : `0 word(s) / 120 max`}
+            </Text>
+          </View>
           
           {/* Autocomplete Suggestions */}
           {suggestions.length > 0 && (
@@ -337,6 +356,14 @@ const styles = StyleSheet.create({
   textInput: { fontSize: 18, color: '#333', minHeight: 60, textAlignVertical: 'top' },
   translatedText: { fontSize: 20, color: '#6DA047', fontWeight: '600', minHeight: 60 },
   placeholderText: { color: '#A8A8B0' },
+  inputFooter: {
+    marginTop: 8,
+  },
+  inputFooterText: {
+    color: '#6A6A70',
+    fontSize: 12,
+    fontWeight: '600',
+  },
   cardFooter: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 

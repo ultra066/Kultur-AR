@@ -463,8 +463,23 @@ export default function MapScreen() {
         console.log('Map fully loaded, mapReady=true');
         setMapReady(true);
       }}>
-        <Mapbox.UserLocation />
+        {/* Custom user marker (replaces default Mapbox.UserLocation pin) */}
+        {location?.latitude && location?.longitude && (
+          <Mapbox.PointAnnotation
+            id="user_location_marker"
+            title="Your location"
+            coordinate={[location.longitude, location.latitude]}
+          >
+            <View style={styles.userMarkerGlow}>
+              <View style={styles.userMarkerCircle}>
+                <Ionicons name="person" size={26} color="#FFFFFF" />
+              </View>
+            </View>
+          </Mapbox.PointAnnotation>
+        )}
+
         <Mapbox.Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [location?.longitude || 120.9842, location?.latitude || 14.5995], zoomLevel: 12 }} />
+
 
         {visibleSites.map((site) => {
           const isTrailSite = activeTrail?.sites.some(s => s.id === site.id);
@@ -658,7 +673,33 @@ const styles = StyleSheet.create({
   resultTitle: { fontSize: 14, fontWeight: '600', color: '#333' },
   markerCircle: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'white', borderWidth: 2, alignItems: 'center', justifyContent: 'center', elevation: 5 },
 
+  // Custom user marker
+  userMarkerGlow: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: PRIMARY_GREEN + '22',
+    shadowColor: PRIMARY_GREEN,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.55,
+    shadowRadius: 18,
+    elevation: 10,
+  },
+  userMarkerCircle: {
+    width: 35,
+    height: 35,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: PRIMARY_GREEN,
+    borderWidth: 3,
+    borderColor: PRIMARY_GREEN,
+  },
+
   // Category Filter Button
+
   categoryFilterBtn: {
     position: 'absolute',
     top: 110,
