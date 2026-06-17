@@ -78,6 +78,9 @@ export default function MapScreen() {
   const [filteredSites, setFilteredSites] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
+  // Proximity Tracking State
+  const [visitedSites, setVisitedSites] = useState(new Set());
+
   // Category Filter State
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showCategorySheet, setShowCategorySheet] = useState(false);
@@ -191,7 +194,7 @@ export default function MapScreen() {
     };
   }, [trailId, trailData]);
 
-  // Arrival Tracking Effect
+  // Arrival Tracking Effect for Trails
   useEffect(() => {
     if (!location || !activeTrail || trailProgress >= activeTrail.sites.length) return;
     const targetSite = activeTrail.sites[trailProgress];
@@ -201,6 +204,46 @@ export default function MapScreen() {
       setTrailProgress(prev => prev + 1);
     }
   }, [location, activeTrail, trailProgress]);
+
+  // --- GLOBAL PROXIMITY TRACKER ---
+  // Checks distance between user and all sites. Logs a visit if within 50 meters.
+  useEffect(() => {
+    if (!location || !sites.length) return;
+
+    sites.forEach(async (site) => {
+      // Skip if coordinates are missing or if we already logged this site in this session
+      if (!site.latitude || !site.longitude || visitedSites.has(site.id)) return;
+
+      const dist = getDistance(
+        location.latitude, 
+        location.longitude, 
+        site.latitude, 
+        site.longitude
+      );
+
+      // Threshold: 50 meters
+      if (dist < 50) {
+        // 1. Immediately mark as visited locally to prevent duplicate database calls
+        setVisitedSites(prev => new Set(prev).add(site.id));
+        console.log(`User is near ${site.name}. Logging visit...`);
+
+        // 2. Call the Supabase function to increment the tally
+        try {
+          const { error } = await supabase.rpc('increment_site_visit', {
+            p_site_id: site.id
+          });
+
+          if (error) {
+            console.error("Failed to log visit:", error);
+          } else {
+            console.log(`Successfully logged visit to ${site.name}`);
+          }
+        } catch (err) {
+          console.error("Supabase RPC error:", err);
+        }
+      }
+    });
+  }, [location, sites, visitedSites]);
 
   // Auto-center camera on destination coords - PRIORITY (sites button)
   useEffect(() => {
@@ -479,7 +522,6 @@ export default function MapScreen() {
         )}
 
         <Mapbox.Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [location?.longitude || 120.9842, location?.latitude || 14.5995], zoomLevel: 12 }} />
-
 
         {visibleSites.map((site) => {
           const isTrailSite = activeTrail?.sites.some(s => s.id === site.id);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
@@ -14,108 +15,107 @@ import SavedButton from '../components/savedButton/SavedButton';
 import { useRouter } from 'expo-router';
 import { useSavedItems } from '../components/SavedItemsContext';
 
+// Import Supabase Client
+import { supabase } from '../../../lib/database/supabase';
+
 // Import Styles
 import { styles } from './_trails_styles';
-
-// --- UPDATED DATA WITH ALL 6 TRAILS ---
-const trailsData = [
-  {
-    id: '1',
-    title: 'The Revolution Road',
-    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Revolution%20Road.jpg',
-    difficulty: 'Moderate',
-    duration: '5 Hours',
-    distance: '45 km',
-    description: 'Trace the rise and fall of the Katipunan, from the balcony of independence to the mountains of Maragondon.'
-  },
-  {
-    id: '2',
-    title: 'Heroes of Kawit',
-    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Emilio%20of%20Kawit.jpg',
-    difficulty: 'Easy',
-    duration: '2 Hours',
-    distance: '3.0 km',
-    description: 'A walking tour of the town that birthed the First Republic, focusing on Aguinaldo’s legacy.'
-  },
-  {
-    id: '4',
-    title: 'Valor & Martyrs Trail',
-    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Martyrs.jpg',
-    difficulty: 'Hard',
-    duration: '6 Hours',
-    distance: '30 km',
-    description: 'A WWII-focused journey visiting Corregidor Island, Sangley Point, and the 41st Division Shrine.'
-  },
-  {
-    id: '5',
-    title: 'The Old Churches Loop',
-    image: 'https://eifomocplfshvfrympiu.supabase.co/storage/v1/object/public/KulturAR-assets/TRAILS/Church.jpg',
-    difficulty: 'Easy',
-    duration: '3.5 Hours',
-    distance: '25 km',
-    description: 'A Visita Iglesia route featuring the centuries-old baroque churches of Silang, Maragondon, and Kawit.'
-  },
-];
 
 export default function CuratedTrailsScreen() {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const { handleSave, isSaved } = useSavedItems();
+  
+  // State for dynamic trails data
+  const [trails, setTrails] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch trails from Supabase on mount
+  useEffect(() => {
+    fetchTrails();
+  }, []);
+
+  const fetchTrails = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('trails')
+        .select('*')
+        .order('id', { ascending: true });
+
+      if (error) throw error;
+      setTrails(data);
+    } catch (error) {
+      console.log('Error fetching trails:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Render Single Card
-  const renderCard = ({ item }) => (
-    <TouchableOpacity 
-      style={styles.cardContainer} 
-      activeOpacity={0.9}
-      // You can link this to a specific trail details page later
-      onPress={() => router.push(`/frontend/curated_trails/${item.id}`)}
-    >
-      {/* Background Image */}
-      <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
-      
-      {/* Dark Gradient Overlay */}
-      <View style={styles.cardOverlay}>
-        
-        {/* Title */}
-        <Text style={styles.cardTitle}>{item.title}</Text>
-        
-        {/* Metadata Row */}
-        <View style={styles.metaRow}>
-          <View style={styles.metaItem}>
-            <FontAwesome5 name="mountain" size={12} color="#e0e0e0" />
-            <Text style={styles.metaText}>{item.difficulty}</Text>
-          </View>
-          
-          <View style={styles.metaItem}>
-            <Ionicons name="time-outline" size={14} color="#e0e0e0" />
-            <Text style={styles.metaText}>{item.duration}</Text>
-          </View>
+  const renderCard = ({ item }) => {
+    // 1. Clean the URL and provide a fallback if it's null/empty
+    const cleanImageUrl = item.image_url 
+      ? item.image_url.trim() 
+      : 'https://via.placeholder.com/400?text=No+Image';
 
-          <View style={styles.metaItem}>
-            <MaterialCommunityIcons name="shoe-print" size={14} color="#e0e0e0" />
-            <Text style={styles.metaText}>{item.distance}</Text>
-          </View>
-        </View>
-
-      </View>
-        <SavedButton
-          isSaved={isSaved(item.id, 'curated_trails')}
-          onToggleSave={() => handleSave({
-            id: item.id,
-            type: 'curated_trails',
-            name: item.title,
-            description: item.description,
-            image_url: item.image,
-          })}
+    return (
+      <TouchableOpacity 
+        style={styles.cardContainer} 
+        activeOpacity={0.9}
+        onPress={() => router.push(`/frontend/curated_trails/${item.id}`)}
+      >
+        {/* Background Image - Using the cleaned URL */}
+        <Image 
+          source={{ uri: cleanImageUrl }} 
+          style={styles.cardImage} 
+          resizeMode="cover" 
         />
-      {/* Circular Explore Button */}
-      <View style={styles.exploreButton}>
-        <Ionicons name="compass-outline" size={24} color="#333" />
-      </View>
-      <Text style={styles.exploreLabel}>Explore</Text>
+        
+        {/* Dark Gradient Overlay */}
+        <View style={styles.cardOverlay}>
+          
+          {/* Title */}
+          <Text style={styles.cardTitle}>{item.title}</Text>
+          
+          {/* Metadata Row */}
+          <View style={styles.metaRow}>
+            <View style={styles.metaItem}>
+              <FontAwesome5 name="mountain" size={12} color="#e0e0e0" />
+              <Text style={styles.metaText}>{item.difficulty}</Text>
+            </View>
+            
+            <View style={styles.metaItem}>
+              <Ionicons name="time-outline" size={14} color="#e0e0e0" />
+              <Text style={styles.metaText}>{item.duration}</Text>
+            </View>
 
-    </TouchableOpacity>
-  );
+            <View style={styles.metaItem}>
+              <MaterialCommunityIcons name="shoe-print" size={14} color="#e0e0e0" />
+              <Text style={styles.metaText}>{item.distance}</Text>
+            </View>
+          </View>
+
+        </View>
+          <SavedButton
+            isSaved={isSaved(item.id, 'curated_trails')}
+            onToggleSave={() => handleSave({
+              id: item.id,
+              type: 'curated_trails',
+              name: item.title,
+              description: item.description,
+              image_url: cleanImageUrl, // Save the cleaned URL here too
+            })}
+          />
+        {/* Circular Explore Button */}
+        <View style={styles.exploreButton}>
+          <Ionicons name="compass-outline" size={24} color="#333" />
+        </View>
+        <Text style={styles.exploreLabel}>Explore</Text>
+
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -153,14 +153,20 @@ export default function CuratedTrailsScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* 3. List of Trails */}
-        <FlatList
-          data={trailsData}
-          renderItem={renderCard}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
-        />
+        {/* 3. List of Trails or Loading State */}
+        {loading ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#6DA047" />
+          </View>
+        ) : (
+          <FlatList
+            data={trails.filter(t => t.title.toLowerCase().includes(search.toLowerCase()))}
+            renderItem={renderCard}
+            keyExtractor={item => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 100 }}
+          />
+        )}
 
       </View>
     </SafeAreaView>
