@@ -13,9 +13,11 @@ import { supabase } from '../../../lib/database/supabase';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
-// --- COLORS ---
+  // --- COLORS ---
 const PRIMARY_GREEN = "#6DA047";
 const LIGHT_GREEN = "#A5C68A";
+const USER_PIN_RED = "#E53935";
+
 
 // --- MAPBOX CONFIGURATION ---
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2FudGlsbGFuamIwMzMiLCJhIjoiY21oMHAyeXBwMDF6OTJrcXpyZ3B6MXo3byJ9.HyebjVUxFqknP0lGm6arvg";
@@ -514,10 +516,11 @@ export default function MapScreen() {
             coordinate={[location.longitude, location.latitude]}
           >
             <View style={styles.userMarkerGlow}>
-              <View style={styles.userMarkerCircle}>
+              <View style={[styles.userMarkerCircle, { backgroundColor: USER_PIN_RED, borderColor: USER_PIN_RED }]}>
                 <Ionicons name="person" size={26} color="#FFFFFF" />
               </View>
             </View>
+
           </Mapbox.PointAnnotation>
         )}
 
@@ -722,8 +725,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: PRIMARY_GREEN + '22',
-    shadowColor: PRIMARY_GREEN,
+    backgroundColor: USER_PIN_RED + '22',
+    shadowColor: USER_PIN_RED,
+
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.55,
     shadowRadius: 18,

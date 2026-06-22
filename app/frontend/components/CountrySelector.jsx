@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -261,14 +260,21 @@ const countryData = [
     { "name": "South Africa", "code": "ZA", "emoji": "🇿🇦" },
     { "name": "Zambia", "code": "ZM", "emoji": "🇿🇲" },
     { "name": "Zimbabwe", "code": "ZW", "emoji": "🇿🇼" },
-    { "name": "England", "code": "ENGLAND", "emoji": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-    { "name": "Scotland", "code": "SCOTLAND", "emoji": "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
-    { "name": "Wales", "code": "WALES", "emoji": "🏴󠁧󠁢󠁷󠁬󠁳󠁿" }
+    { "name": "England", "code": "ENGLAND", "emoji": "🏴" },
+    { "name": "Scotland", "code": "SCOTLAND", "emoji": "🏴" },
+    { "name": "Wales", "code": "WALES", "emoji": "🏴" }
 ];
 
 const CountrySelector = ({ onChange }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
+
+    const sortedCountries = useMemo(() => {
+        // A-Z by country name; keep it stable for identical names.
+        return [...countryData].sort((a, b) =>
+            (a?.name ?? '').localeCompare(b?.name ?? '', undefined, { sensitivity: 'base' })
+        );
+    }, []);
 
     const handleSelectCountry = (country) => {
         setSelectedCountry(country);
@@ -300,7 +306,7 @@ const CountrySelector = ({ onChange }) => {
                             <Text style={styles.closeButtonText}>X</Text>
                         </TouchableOpacity>
                         <FlatList
-                            data={countryData}
+                            data={sortedCountries}
                             keyExtractor={(item) => item.code}
                             renderItem={({ item }) => (
                                 <TouchableOpacity style={styles.modalItem} onPress={() => handleSelectCountry(item)}>
@@ -376,3 +382,4 @@ const styles = StyleSheet.create({
 });
 
 export default CountrySelector;
+
